@@ -29,7 +29,7 @@ import SignupForm from './components/signupView';
 const App: () => React$Node = () => {
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="dark-content" backgroundColor="white"/>
       <SafeAreaView>
         <SignupForm/>
       </SafeAreaView>
