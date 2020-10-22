@@ -230,6 +230,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#B6B7BA',
     borderRadius: 10,
     color: '#fff',
+    width: '70%',
+    height: 40,
   },
 
   ContainerOfButtonSignUpGoogle: {
@@ -237,8 +239,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     color: '#fff',
     flexDirection:'row',
+    width: '70%',
+    height: 40,
+    marginTop:20,
   },
-  
+
 });
 
 export default SignupForm;
