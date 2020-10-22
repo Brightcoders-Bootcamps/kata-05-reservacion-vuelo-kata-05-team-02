@@ -11,7 +11,7 @@ import {
 import CheckBox from '@react-native-community/checkbox';
 
 function Form() {
-  const [isSeePassword, setSeePassword] = useState(false);
+  const [isSeePassword, setSeePassword] = useState(true);
   const [formData, setFormData] = useState(defaultValue());
   const [formEmpty, setFormEmpty] = useState({});
 
@@ -86,7 +86,6 @@ function Terms() {
           I agree to the Terms and Privacy Policy *
         </Text>
       </View>
-      <Text>Is terms selected: {isTermsSelected ? '👍' : '👎'}</Text>
       <View style={styles.checkboxContainer}>
         <CheckBox
           value={isSubscribeSelected}
@@ -98,28 +97,29 @@ function Terms() {
           Subscribe for select products and updates
         </Text>
       </View>
-      <Text>Is subscribe selected: {isSubscribeSelected ? '👍' : '👎'}</Text>
     </View>
   );
 }
 
 function SignUpButton() {
   return (
-    <View>
-      <View style={styles.ContainerOfButtonSignUp}>
-        <Pressable>
-          <Text>Sign Up</Text>
-        </Pressable>
-      </View>
-      <View>
-        <Pressable>
-          <Text>Sign Up with Google</Text>
-          <Image
-            style={styles.ContainerOfButtonSignUpGoogle}
-            source={require('../img/ojo-grey.png')}
-          />
-        </Pressable>
-      </View>
+    <View style={styles.containerForm}>
+        <View style={styles.containerButtonsSignUp}>
+            <View style={styles.ContainerOfButtonSignUp}>
+                <Pressable>
+                    <Text style={styles.textButtons}>Sign Up</Text>
+                </Pressable>
+            </View>            
+        </View>
+        <View style={styles.ContainerOfButtonSignUpGoogle}>        
+            <View style={styles.viewIconGoogle}>
+                <Image
+                    style={styles.iconGoogle}
+                    source={require('../img/google.png')}
+                />
+            </View>              
+            <Text style={styles.textButtons}>Sign Up with Google</Text>                       
+        </View>     
     </View>
   );
 }
@@ -130,6 +130,7 @@ function SignupForm() {
       <Text style={styles.header}>Sign Up</Text>
       <Form />
       <Terms />
+      <SignUpButton />
     </View>
   );
 }
@@ -221,28 +222,46 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
   },
+  iconGoogle: {
+    height: 30,
+    width: 30,
+  },
   changeBorderInput: {
     borderWidth: 1,
     borderColor: '#940C0C',
   },
-
   ContainerOfButtonSignUp: {
     backgroundColor: '#B6B7BA',
     borderRadius: 10,
-    color: '#fff',
-    width: '70%',
-    height: 40,
+    width: '90%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
   },
-
+  textButtons: {
+      color: "#fff",
+      fontSize: 18,
+      fontWeight: 'bold',
+      width : '80%'
+  },
   ContainerOfButtonSignUpGoogle: {
     backgroundColor: '#B6B7BA',
     borderRadius: 10,
-    color: '#fff',
-    flexDirection:'row',
-    width: '70%',
-    height: 40,
-    marginTop:20,
+    flexDirection: 'row',
+    width: '90%',
+    marginHorizontal: 20,
+    height: 50,
+    marginTop:10,    
+    alignItems: 'center'
   },
+  containerButtonsSignUp:{
+      alignItems: 'center',
+  },
+  viewIconGoogle:{
+      width: '20%',
+      alignItems: 'center',
+  }
 
 });
 
