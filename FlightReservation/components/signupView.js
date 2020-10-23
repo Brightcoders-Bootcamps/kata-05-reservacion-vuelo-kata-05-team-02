@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -7,51 +7,31 @@ import {
   TextInput,
   Pressable,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 
-function Form() {
+function Form(props) {
+  const { changeForm } = props;
   const [isSeePassword, setSeePassword] = useState(true);
-  const [formData, setFormData] = useState(defaultValue());
-  const [formEmpty, setFormEmpty] = useState({});
-
-  function defaultValue() {
-    return {
-      name: '',
-      email: '',
-      password: '',
-    };
-  }
-
   const changeSeePassword = () => {
     setSeePassword(!isSeePassword);
   };
-
-  const changeInputName = (e) => {
-    setFormData({...formData, name: e.nativeEvent.text});
-
-    if (!formData.name) {
-      formEmpty.name = true;
-      setFormEmpty(formEmpty);
-    } else {
-      formEmpty.name = false;
-      setFormEmpty(formEmpty);
-    }
-  };
-
   return (
     <View style={styles.containerForm}>
       <Text style={styles.inputHeader}>First Name</Text>
       <TextInput
-        style={[styles.inputStyle, formEmpty.name && styles.changeBorderInput]}
-        onChange={(e) => changeInputName(e)}></TextInput>
+        style={styles.inputStyle}
+        onChange={(e) => changeForm('name', e.nativeEvent.text)}></TextInput>
       <Text style={styles.inputHeader}>Email *</Text>
-      <TextInput style={styles.inputStyle}></TextInput>
+      <TextInput style={styles.inputStyle}
+        onChange={(e) => changeForm('email', e.nativeEvent.text)}></TextInput>
       <Text style={styles.inputHeader}>Password *</Text>
       <View style={styles.containerPassword}>
         <TextInput
           style={styles.inputPassword}
           secureTextEntry={isSeePassword}
+          onChange={(e) => changeForm('password', e.nativeEvent.text)}
         />
         <View style={styles.containerIconPassword}>
           <Pressable onPress={changeSeePassword}>
@@ -69,18 +49,17 @@ function Form() {
   );
 }
 
-function Terms() {
-  const [isTermsSelected, setTermsSelection] = useState(false);
-  const [isSubscribeSelected, setSubscribeSelection] = useState(false);
+function Terms(props) {
 
+  const { changeForm, objValues } = props;
   return (
     <View style={styles.containerForm}>
       <View style={styles.checkboxContainer}>
         <CheckBox
-          value={isTermsSelected}
-          onValueChange={setTermsSelection}
+          value={objValues.agreed}
+          onValueChange={(value) => changeForm('agreed', value)}
           style={styles.checkbox}
-          tintColors={{true: '#3E59F7', false: 'black'}}
+          tintColors={{ true: '#3E59F7', false: 'black' }}
         />
         <Text style={styles.labelCheckBox}>
           I agree to the Terms and Privacy Policy *
@@ -88,10 +67,10 @@ function Terms() {
       </View>
       <View style={styles.checkboxContainer}>
         <CheckBox
-          value={isSubscribeSelected}
-          onValueChange={setSubscribeSelection}
+          value={objValues.subscribed}
+          onValueChange={(value) => changeForm('subscribed', value)}
           style={styles.checkbox}
-          tintColors={{true: '#3E59F7', false: 'black'}}
+          tintColors={{ true: '#3E59F7', false: 'black' }}
         />
         <Text style={styles.labelCheckBox}>
           Subscribe for select products and updates
@@ -101,36 +80,69 @@ function Terms() {
   );
 }
 
-function SignUpButton() {
+function SignUpButton(props) {
+  const [classColor, setClassColor] = useState("#B6B7BA")
+  const { objValues } = props;
+  React.useEffect(() => {
+    checkNulls();
+  })
+  const checkNulls = () => {
+    (!objValues.name || !objValues.email || !objValues.password || !objValues.agreed) ? setClassColor("#B6B7BA") : setClassColor("#5B6EF8")
+  }
   return (
     <View style={styles.containerForm}>
-        <View style={styles.containerButtonsSignUp}>
-            <View style={styles.ContainerOfButtonSignUp}>
-                <Pressable>
-                    <Text style={styles.textButtons}>Sign Up</Text>
-                </Pressable>
-            </View>            
+      <TouchableOpacity onPress={checkNulls} style={[styles.ContainerOfButtonSignUp, styles.containerForm, { backgroundColor: classColor }]}>
+        <View >
+          <Text style={styles.textButtons}>Sign Up</Text>
         </View>
-        <View style={styles.ContainerOfButtonSignUpGoogle}>        
-            <View style={styles.viewIconGoogle}>
-                <Image
-                    style={styles.iconGoogle}
-                    source={require('../img/google.png')}
-                />
-            </View>              
-            <Text style={styles.textButtons}>Sign Up with Google</Text>                       
-        </View>     
+      </TouchableOpacity>
+      <View style={{ alignItems: "center", margin: 10 }}>
+        <Text style={{ color: '#818181', fontSize: 20 }}>or</Text>
+      </View>
+      <TouchableOpacity onPress={props.prueba}>
+        <View style={[styles.ContainerOfButtonSignUpGoogle, { backgroundColor: classColor }]}>
+          <View style={styles.viewIconGoogle}>
+            <Image
+              style={styles.iconGoogle}
+              source={require('../img/google.png')}
+            />
+          </View>
+          <Text style={[styles.textButtons, { paddingLeft: 25 }]}>Sign Up with Google</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }
 
+
 function SignupForm() {
+  const formObject = {
+    name: '',
+    email: '',
+    password: '',
+    agreed: false,
+    subscribed: false,
+  }
+  const [formObjectState, setFormObjectState] = useState(formObject);
+
+
+  const addFill = (propierty, value) => {
+    setFormObjectState({
+      ...formObjectState,
+      [propierty]: value,
+    })
+  }
+
+  const showObj = () => {
+    console.log(formObjectState);
+  }
+
   return (
     <View>
       <Text style={styles.header}>Sign Up</Text>
-      <Form />
-      <Terms />
-      <SignUpButton />
+      <Form changeForm={addFill} />
+      <Terms changeForm={addFill} objValues={formObjectState} />
+      <SignUpButton prueba={showObj} objValues={formObjectState} />
     </View>
   );
 }
@@ -231,7 +243,7 @@ const styles = StyleSheet.create({
     borderColor: '#940C0C',
   },
   ContainerOfButtonSignUp: {
-    backgroundColor: '#B6B7BA',
+    //backgroundColor: '#B6B7BA',
     borderRadius: 10,
     width: '90%',
     height: 50,
@@ -240,10 +252,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   textButtons: {
-      color: "#fff",
-      fontSize: 18,
-      fontWeight: 'bold',
-      width : '80%'
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: 'bold',
+    width: '80%',
   },
   ContainerOfButtonSignUpGoogle: {
     backgroundColor: '#B6B7BA',
@@ -252,15 +264,16 @@ const styles = StyleSheet.create({
     width: '90%',
     marginHorizontal: 20,
     height: 50,
-    marginTop:10,    
-    alignItems: 'center'
+    marginTop: 10,
+    alignItems: 'center',
+    justifyContent: "space-around",
   },
-  containerButtonsSignUp:{
-      alignItems: 'center',
+  containerButtonsSignUp: {
+    alignItems: 'center',
   },
-  viewIconGoogle:{
-      width: '20%',
-      alignItems: 'center',
+  viewIconGoogle: {
+    width: '20%',
+    alignItems: 'center',
   }
 
 });
