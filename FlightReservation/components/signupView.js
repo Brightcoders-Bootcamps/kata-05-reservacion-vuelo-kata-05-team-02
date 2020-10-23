@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -12,7 +12,7 @@ import {
 import CheckBox from '@react-native-community/checkbox';
 
 function Form(props) {
-  const { changeForm } = props;
+  const {changeForm} = props;
   const [isSeePassword, setSeePassword] = useState(true);
   const changeSeePassword = () => {
     setSeePassword(!isSeePassword);
@@ -24,7 +24,8 @@ function Form(props) {
         style={styles.inputStyle}
         onChange={(e) => changeForm('name', e.nativeEvent.text)}></TextInput>
       <Text style={styles.inputHeader}>Email *</Text>
-      <TextInput style={styles.inputStyle}
+      <TextInput
+        style={styles.inputStyle}
         onChange={(e) => changeForm('email', e.nativeEvent.text)}></TextInput>
       <Text style={styles.inputHeader}>Password *</Text>
       <View style={styles.containerPassword}>
@@ -50,8 +51,7 @@ function Form(props) {
 }
 
 function Terms(props) {
-
-  const { changeForm, objValues } = props;
+  const {changeForm, objValues} = props;
   return (
     <View style={styles.containerForm}>
       <View style={styles.checkboxContainer}>
@@ -59,7 +59,7 @@ function Terms(props) {
           value={objValues.agreed}
           onValueChange={(value) => changeForm('agreed', value)}
           style={styles.checkbox}
-          tintColors={{ true: '#3E59F7', false: 'black' }}
+          tintColors={{true: '#3E59F7', false: 'black'}}
         />
         <Text style={styles.labelCheckBox}>
           I agree to the Terms and Privacy Policy *
@@ -70,7 +70,7 @@ function Terms(props) {
           value={objValues.subscribed}
           onValueChange={(value) => changeForm('subscribed', value)}
           style={styles.checkbox}
-          tintColors={{ true: '#3E59F7', false: 'black' }}
+          tintColors={{true: '#3E59F7', false: 'black'}}
         />
         <Text style={styles.labelCheckBox}>
           Subscribe for select products and updates
@@ -81,39 +81,67 @@ function Terms(props) {
 }
 
 function SignUpButton(props) {
-  const [classColor, setClassColor] = useState("#B6B7BA")
-  const { objValues } = props;
+  const [classColor, setClassColor] = useState('#B6B7BA');
+  const {objValues} = props;
+  const [buttonDisable, setButtonDisable] = useState(true);
   React.useEffect(() => {
     checkNulls();
-  })
+  });
   const checkNulls = () => {
-    (!objValues.name || !objValues.email || !objValues.password || !objValues.agreed) ? setClassColor("#B6B7BA") : setClassColor("#5B6EF8")
-  }
+    if (
+      !objValues.name ||
+      !objValues.email ||
+      !objValues.password ||
+      !objValues.agreed
+    ) {
+      setClassColor('#B6B7BA');
+      setButtonDisable(true);
+    } else {
+      setClassColor('#5B6EF8');
+      setButtonDisable(false);
+    }
+  };
   return (
     <View style={styles.containerForm}>
-      <TouchableOpacity onPress={checkNulls} style={[styles.ContainerOfButtonSignUp, styles.containerForm, { backgroundColor: classColor }]}>
-        <View >
+      <TouchableOpacity
+        disabled={buttonDisable}
+        onPress={checkNulls}
+        style={[
+          styles.ContainerOfButtonSignUp,
+          styles.containerForm,
+          {backgroundColor: classColor},
+        ]}>
+        <View>
           <Text style={styles.textButtons}>Sign Up</Text>
         </View>
       </TouchableOpacity>
-      <View style={{ alignItems: "center", margin: 10 }}>
-        <Text style={{ color: '#818181', fontSize: 20 }}>or</Text>
+      <View style={{alignItems: 'center', margin: 10}}>
+        <Text style={{color: '#818181', fontSize: 20}}>or</Text>
       </View>
-      <TouchableOpacity onPress={props.prueba}>
-        <View style={[styles.ContainerOfButtonSignUpGoogle, { backgroundColor: classColor }]}>
+      <TouchableOpacity disabled={buttonDisable} onPress={props.prueba}>
+        <View
+          style={[
+            styles.ContainerOfButtonSignUpGoogle,
+            {backgroundColor: classColor},
+          ]}>
           <View style={styles.viewIconGoogle}>
             <Image
               style={styles.iconGoogle}
               source={require('../img/google.png')}
             />
           </View>
-          <Text style={[styles.textButtons, { paddingLeft: 25 }]}>Sign Up with Google</Text>
+          <Text style={[styles.textButtons, {paddingLeft: 25}]}>
+            Sign Up with Google
+          </Text>
         </View>
       </TouchableOpacity>
+      <View style={[styles.containerForm,{flexDirection: 'row', marginTop:10, justifyContent:'center'}]}>
+        <Text style={{color:'#B6B7BA'}}>Already have an account?  </Text>
+        <Text style={{color: 'blue'}} onPress={() => console.log('HELLOOOOOOOOOOOOOOOOOOOOO')}>Log In</Text>
+      </View>
     </View>
   );
 }
-
 
 function SignupForm() {
   const formObject = {
@@ -122,20 +150,19 @@ function SignupForm() {
     password: '',
     agreed: false,
     subscribed: false,
-  }
+  };
   const [formObjectState, setFormObjectState] = useState(formObject);
-
 
   const addFill = (propierty, value) => {
     setFormObjectState({
       ...formObjectState,
       [propierty]: value,
-    })
-  }
+    });
+  };
 
   const showObj = () => {
     console.log(formObjectState);
-  }
+  };
 
   return (
     <View>
@@ -252,7 +279,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   textButtons: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
     width: '80%',
@@ -266,7 +293,7 @@ const styles = StyleSheet.create({
     height: 50,
     marginTop: 10,
     alignItems: 'center',
-    justifyContent: "space-around",
+    justifyContent: 'space-around',
   },
   containerButtonsSignUp: {
     alignItems: 'center',
@@ -274,8 +301,7 @@ const styles = StyleSheet.create({
   viewIconGoogle: {
     width: '20%',
     alignItems: 'center',
-  }
-
+  },
 });
 
 export default SignupForm;
