@@ -18,51 +18,70 @@ function Form(props) {
     setSeePassword(!isSeePassword);
   };
   const inputBorderColor = {
-    borderColorName : 'black',
-    borderColorEmail : 'black',
-    borderColorPassword : 'black',
-  }
+    borderColorName: 'black',
+    borderColorEmail: 'black',
+    borderColorPassword: 'black',
+  };
   const [borderColor, setBorderColor] = useState(inputBorderColor);
 
   const checkInputsIsNull = (e, property, propertyBorder) => {
     const textInput = e.nativeEvent.text;
-    console.log(textInput,property, propertyBorder)
+    console.log(textInput, property, propertyBorder);
     changeForm(property, textInput);
-    const color = !textInput ? 'black': '#5B6EF8';
-    console.log(color)
+    const color = !textInput ? 'black' : '#5B6EF8';
+    console.log(color);
     setBorderColor({
       ...borderColor,
-        [propertyBorder]: color,
-    });     
-  }
-
+      [propertyBorder]: color,
+    });
+  };
 
   return (
     <View style={styles.containerForm}>
       <Text style={styles.inputHeader}>First Name</Text>
       <TextInput
-        style={[styles.inputStyle, 
-          {borderColor: borderColor.borderColorName},]}
-        onChange={(e) => checkInputsIsNull(e, 'name', 'borderColorName' )}></TextInput>
+        style={[styles.inputStyle, {borderColor: borderColor.borderColorName}]}
+        onChange={(e) =>
+          checkInputsIsNull(e, 'name', 'borderColorName')
+        }></TextInput>
       <Text style={styles.inputHeader}>Email *</Text>
       <TextInput
-        style={[styles.inputStyle, 
-          {borderColor: borderColor.borderColorEmail},]}
-        onChange={(e) => checkInputsIsNull(e, 'email', 'borderColorEmail' )}></TextInput>
+        style={[styles.inputStyle, {borderColor: borderColor.borderColorEmail}]}
+        onChange={(e) =>
+          checkInputsIsNull(e, 'email', 'borderColorEmail')
+        }></TextInput>
       <Text style={styles.inputHeader}>Password *</Text>
       <View style={styles.containerPassword}>
         <TextInput
-          style={[styles.inputPassword,
-            {borderTopColor: borderColor.borderColorPassword,
-            borderBottomColor: borderColor.borderColorPassword,
-            borderLeftColor: borderColor.borderColorPassword}]}
+          style={[
+            styles.inputPassword,
+            {
+              borderTopColor: borderColor.borderColorPassword,
+              borderBottomColor: borderColor.borderColorPassword,
+              borderLeftColor: borderColor.borderColorPassword,
+            },
+          ]}
           secureTextEntry={isSeePassword}
-          onChange={(e) => checkInputsIsNull(e, 'password', 'borderColorPassword' )}
+          onChange={(e) =>
+            checkInputsIsNull(e, 'password', 'borderColorPassword')
+          }
         />
-        <View style={styles.containerIconPassword}>
+
+        <View
+          style={[
+            styles.containerIconPassword,
+            {
+              borderRightColor: borderColor.borderColorPassword,
+              borderTopColor: borderColor.borderColorPassword,
+              borderBottomColor: borderColor.borderColorPassword,
+            },
+          ]}>
           <Pressable onPress={changeSeePassword}>
             <Image
-              style={styles.iconSeePassword}
+              style={[
+                styles.iconSeePassword,
+                {tintColor: borderColor.borderColorPassword},
+              ]}
               source={require('../img/ojo-grey.png')}
             />
           </Pressable>
@@ -107,7 +126,7 @@ function Terms(props) {
 
 function SignUpButton(props) {
   const {objValues} = props;
-  const [classColor, setClassColor] = useState('#B6B7BA');  
+  const [classColor, setClassColor] = useState('#B6B7BA');
   const [buttonDisable, setButtonDisable] = useState(true);
 
   React.useEffect(() => {
@@ -161,9 +180,17 @@ function SignUpButton(props) {
           </Text>
         </View>
       </TouchableOpacity>
-      <View style={[styles.containerForm,{flexDirection: 'row', marginTop:10, justifyContent:'center'}]}>
-        <Text style={{color:'#B6B7BA'}}>Already have an account?  </Text>
-        <Text style={{color: 'blue'}} onPress={() => console.log('HELLOOOOOOOOOOOOOOOOOOOOO')}>Log In</Text>
+      <View
+        style={[
+          styles.containerForm,
+          {flexDirection: 'row', marginTop: 10, justifyContent: 'center'},
+        ]}>
+        <Text style={{color: '#B6B7BA'}}>Already have an account? </Text>
+        <Text
+          style={{color: 'blue'}}
+          onPress={() => console.log('HELLOOOOOOOOOOOOOOOOOOOOO')}>
+          Log In
+        </Text>
       </View>
     </View>
   );
@@ -194,7 +221,7 @@ function SignupForm() {
   return (
     <View>
       <Text style={styles.header}>Sign Up</Text>
-      <Form changeForm={addFill} objValues={formObjectState}/>
+      <Form changeForm={addFill} objValues={formObjectState} />
       <Terms changeForm={addFill} objValues={formObjectState} />
       <SignUpButton prueba={showObj} objValues={formObjectState} />
     </View>
