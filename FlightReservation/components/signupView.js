@@ -12,27 +12,52 @@ import {
 import CheckBox from '@react-native-community/checkbox';
 
 function Form(props) {
-  const {changeForm} = props;
+  const {changeForm, objValues} = props;
   const [isSeePassword, setSeePassword] = useState(true);
   const changeSeePassword = () => {
     setSeePassword(!isSeePassword);
   };
+  const inputBorderColor = {
+    borderColorName : 'black',
+    borderColorEmail : 'black',
+    borderColorPassword : 'black',
+  }
+  const [borderColor, setBorderColor] = useState(inputBorderColor);
+
+  const checkInputsIsNull = (e, property, propertyBorder) => {
+    const textInput = e.nativeEvent.text;
+    console.log(textInput,property, propertyBorder)
+    changeForm(property, textInput);
+    const color = !textInput ? 'black': '#5B6EF8';
+    console.log(color)
+    setBorderColor({
+      ...borderColor,
+        [propertyBorder]: color,
+    });     
+  }
+
+
   return (
     <View style={styles.containerForm}>
       <Text style={styles.inputHeader}>First Name</Text>
       <TextInput
-        style={styles.inputStyle}
-        onChange={(e) => changeForm('name', e.nativeEvent.text)}></TextInput>
+        style={[styles.inputStyle, 
+          {borderColor: borderColor.borderColorName},]}
+        onChange={(e) => checkInputsIsNull(e, 'name', 'borderColorName' )}></TextInput>
       <Text style={styles.inputHeader}>Email *</Text>
       <TextInput
-        style={styles.inputStyle}
-        onChange={(e) => changeForm('email', e.nativeEvent.text)}></TextInput>
+        style={[styles.inputStyle, 
+          {borderColor: borderColor.borderColorEmail},]}
+        onChange={(e) => checkInputsIsNull(e, 'email', 'borderColorEmail' )}></TextInput>
       <Text style={styles.inputHeader}>Password *</Text>
       <View style={styles.containerPassword}>
         <TextInput
-          style={styles.inputPassword}
+          style={[styles.inputPassword,
+            {borderTopColor: borderColor.borderColorPassword,
+            borderBottomColor: borderColor.borderColorPassword,
+            borderLeftColor: borderColor.borderColorPassword}]}
           secureTextEntry={isSeePassword}
-          onChange={(e) => changeForm('password', e.nativeEvent.text)}
+          onChange={(e) => checkInputsIsNull(e, 'password', 'borderColorPassword' )}
         />
         <View style={styles.containerIconPassword}>
           <Pressable onPress={changeSeePassword}>
@@ -81,9 +106,10 @@ function Terms(props) {
 }
 
 function SignUpButton(props) {
-  const [classColor, setClassColor] = useState('#B6B7BA');
   const {objValues} = props;
+  const [classColor, setClassColor] = useState('#B6B7BA');  
   const [buttonDisable, setButtonDisable] = useState(true);
+
   React.useEffect(() => {
     checkNulls();
   });
@@ -158,6 +184,7 @@ function SignupForm() {
       ...formObjectState,
       [propierty]: value,
     });
+    showObj();
   };
 
   const showObj = () => {
@@ -167,7 +194,7 @@ function SignupForm() {
   return (
     <View>
       <Text style={styles.header}>Sign Up</Text>
-      <Form changeForm={addFill} />
+      <Form changeForm={addFill} objValues={formObjectState}/>
       <Terms changeForm={addFill} objValues={formObjectState} />
       <SignUpButton prueba={showObj} objValues={formObjectState} />
     </View>
