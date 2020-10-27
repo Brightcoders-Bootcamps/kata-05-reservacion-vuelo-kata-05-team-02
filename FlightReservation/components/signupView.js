@@ -18,9 +18,9 @@ function Form(props) {
     setSeePassword(!isSeePassword);
   };
   const inputBorderColor = {
-    borderColorName: 'black',
-    borderColorEmail: 'black',
-    borderColorPassword: 'black',
+    borderColorName: '#818181',
+    borderColorEmail: '#818181',
+    borderColorPassword: '#818181',
   };
   const [borderColor, setBorderColor] = useState(inputBorderColor);
 
@@ -28,7 +28,7 @@ function Form(props) {
     const textInput = e.nativeEvent.text;
     console.log(textInput, property, propertyBorder);
     changeForm(property, textInput);
-    const color = !textInput ? 'black' : '#5B6EF8';
+    const color = !textInput ? '#818181' : '#5B6EF8';
     console.log(color);
     setBorderColor({
       ...borderColor,
@@ -44,13 +44,21 @@ function Form(props) {
         onChange={(e) =>
           checkInputsIsNull(e, 'name', 'borderColorName')
         }></TextInput>
-      <Text style={styles.inputHeader}>Email *</Text>
+      <View style={{flexDirection:'row'}}>
+        <Text style={styles.inputHeader}>Email</Text>
+        <Text style={styles.errorText}>*</Text>
+        <Text style={styles.errorText}>Email in use. Use a different email</Text>
+      </View>
       <TextInput
         style={[styles.inputStyle, {borderColor: borderColor.borderColorEmail}]}
         onChange={(e) =>
           checkInputsIsNull(e, 'email', 'borderColorEmail')
         }></TextInput>
-      <Text style={styles.inputHeader}>Password *</Text>
+      <View style={{flexDirection:'row'}}>
+        <Text style={styles.inputHeader}>Password</Text>
+        <Text style={styles.errorText}>*</Text>
+        <Text style={styles.errorText}>Incorrect email and/or password</Text>
+      </View>
       <View style={styles.containerPassword}>
         <TextInput
           style={[
@@ -97,7 +105,7 @@ function Form(props) {
 function Terms(props) {
   const {changeForm, objValues} = props;
   return (
-    <View style={styles.containerForm}>
+    <View style={[styles.containerForm, {marginTop:30}]}>
       <View style={styles.checkboxContainer}>
         <CheckBox
           value={objValues.agreed}
@@ -106,7 +114,7 @@ function Terms(props) {
           tintColors={{true: '#3E59F7', false: 'black'}}
         />
         <Text style={styles.labelCheckBox}>
-          I agree to the Terms and Privacy Policy *
+          I agree to the <Text style={{textDecorationLine: 'underline'}}>Terms</Text> and <Text style={{textDecorationLine: 'underline'}}>Privacy Policy.</Text>*
         </Text>
       </View>
       <View style={styles.checkboxContainer}>
@@ -147,21 +155,21 @@ function SignUpButton(props) {
     }
   };
   return (
-    <View style={styles.containerForm}>
+    <View style={[styles.containerForm,{marginTop:20}]}>
       <TouchableOpacity
         disabled={buttonDisable}
         onPress={checkNulls}
         style={[
           styles.ContainerOfButtonSignUp,
           styles.containerForm,
-          {backgroundColor: classColor},
+          {backgroundColor: classColor, borderWidth:0},
         ]}>
         <View>
           <Text style={styles.textButtons}>Sign Up</Text>
         </View>
       </TouchableOpacity>
       <View style={{alignItems: 'center', margin: 10}}>
-        <Text style={{color: '#818181', fontSize: 20}}>or</Text>
+        <Text style={{color: '#C9CED6', fontSize: 15}}>or</Text>
       </View>
       <TouchableOpacity disabled={buttonDisable} onPress={props.prueba}>
         <View
@@ -185,9 +193,9 @@ function SignUpButton(props) {
           styles.containerForm,
           {flexDirection: 'row', marginTop: 10, justifyContent: 'center'},
         ]}>
-        <Text style={{color: '#B6B7BA'}}>Already have an account? </Text>
+        <Text style={{color: '#B6B7BA', fontSize: 15}}>Already have an account? </Text>
         <Text
-          style={{color: 'blue'}}
+          style={{color: 'blue', textDecorationLine: 'underline'}}
           onPress={() => console.log('HELLOOOOOOOOOOOOOOOOOOOOO')}>
           Log In
         </Text>
@@ -230,21 +238,20 @@ function SignupForm() {
 
 const styles = StyleSheet.create({
   header: {
-    fontSize: 30,
+    fontSize: 25,
     color: '#3E59F7',
     fontWeight: 'bold',
     marginHorizontal: 15,
     marginBottom: 30,
-    marginTop: 10,
+    marginTop: 35,
   },
   inputHeader: {
-    fontSize: 20,
+    fontSize: 16,
     color: '#818181',
     marginBottom: 10,
-    width: '100%',
   },
   instruccionsPassword: {
-    fontSize: 15,
+    fontSize: 13,
     color: '#818181',
     marginBottom: 10,
     width: '100%',
@@ -253,24 +260,24 @@ const styles = StyleSheet.create({
   inputStyle: {
     color: 'black',
     fontWeight: 'bold',
-    height: 60,
+    height: 50,
     width: '100%',
-    marginBottom: 25,
+    marginBottom: 20,
     backgroundColor: '#fff',
     paddingHorizontal: 10,
-    fontSize: 18,
+    fontSize: 16,
     borderWidth: 1,
-    borderColor: 'black',
+    borderRadius: 3
   },
   inputPassword: {
     color: 'black',
     fontWeight: 'bold',
-    height: 60,
+    height: 52,
     width: '85%',
     marginBottom: 2,
     backgroundColor: '#fff',
     paddingHorizontal: 10,
-    fontSize: 18,
+    fontSize: 16,
     borderLeftWidth: 1,
     borderLeftColor: 'black',
     borderTopColor: 'black',
@@ -283,16 +290,16 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     flexDirection: 'row',
-    marginBottom: 20,
+    marginBottom: 10,
     width: '100%',
   },
   labelCheckBox: {
-    margin: 8,
-    fontSize: 16,
+    fontSize: 15,
     color: '#818181',
   },
   checkbox: {
     alignSelf: 'center',
+    // marginBottom: 20
   },
   containerPassword: {
     flexDirection: 'row',
@@ -302,7 +309,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 8,
     width: '15%',
-    height: 60,
+    height: 52,
     borderRightWidth: 1,
     borderRightColor: 'black',
     borderTopColor: 'black',
@@ -312,8 +319,8 @@ const styles = StyleSheet.create({
   },
   iconSeePassword: {
     tintColor: 'gray',
-    height: 30,
-    width: 30,
+    height: 20,
+    // width: 30,
   },
   iconGoogle: {
     height: 30,
@@ -334,7 +341,7 @@ const styles = StyleSheet.create({
   },
   textButtons: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: 'bold',
     width: '80%',
   },
@@ -356,6 +363,11 @@ const styles = StyleSheet.create({
     width: '20%',
     alignItems: 'center',
   },
+  errorText: {
+    color:'#FF80A0',
+    fontSize: 16,
+    marginLeft:4
+  }
 });
 
 export default SignupForm;
