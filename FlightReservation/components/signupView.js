@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -8,12 +8,19 @@ import {
   Pressable,
   Image,
   TouchableOpacity,
+  Modal,
+  ActivityIndicator,
 } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+
 function Form(props) {
-  const {changeForm, objValues} = props;
+  const { changeForm, objValues } = props;
   const [isSeePassword, setSeePassword] = useState(true);
+
+  const [validEmail, setValidEmail] = useState(true);
+  const [validPassword, setValidPassword] = useState(true);
   const changeSeePassword = () => {
     setSeePassword(!isSeePassword);
   };
@@ -40,24 +47,24 @@ function Form(props) {
     <View style={styles.containerForm}>
       <Text style={styles.inputHeader}>First Name</Text>
       <TextInput
-        style={[styles.inputStyle, {borderColor: borderColor.borderColorName}]}
+        style={[styles.inputStyle, { borderColor: borderColor.borderColorName }]}
         onChange={(e) =>
           checkInputsIsNull(e, 'name', 'borderColorName')
         }></TextInput>
-      <View style={{flexDirection:'row'}}>
+      <View style={{ flexDirection: 'row' }}>
         <Text style={styles.inputHeader}>Email</Text>
-        <Text style={styles.errorText}>*</Text>
-        <Text style={styles.errorText}>Email in use. Use a different email</Text>
+        <Text style={validEmail ? { color: "gray" } : styles.errorText}>*</Text>
+        {!validEmail && <Text style={styles.errorText}>Email in use. Use a different email</Text>}
       </View>
       <TextInput
-        style={[styles.inputStyle, {borderColor: borderColor.borderColorEmail}]}
+        style={[styles.inputStyle, { borderColor: borderColor.borderColorEmail }]}
         onChange={(e) =>
           checkInputsIsNull(e, 'email', 'borderColorEmail')
         }></TextInput>
-      <View style={{flexDirection:'row'}}>
+      <View style={{ flexDirection: 'row' }}>
         <Text style={styles.inputHeader}>Password</Text>
-        <Text style={styles.errorText}>*</Text>
-        <Text style={styles.errorText}>Incorrect email and/or password</Text>
+        <Text style={validPassword ? { color: "gray" } : styles.errorText}>*</Text>
+        {!validPassword && <Text style={styles.errorText}>Incorrect email and/or password</Text>}
       </View>
       <View style={styles.containerPassword}>
         <TextInput
@@ -88,7 +95,7 @@ function Form(props) {
             <Image
               style={[
                 styles.iconSeePassword,
-                {tintColor: borderColor.borderColorPassword},
+                { tintColor: borderColor.borderColorPassword },
               ]}
               source={require('../img/ojo-grey.png')}
             />
@@ -103,18 +110,18 @@ function Form(props) {
 }
 
 function Terms(props) {
-  const {changeForm, objValues} = props;
+  const { changeForm, objValues } = props;
   return (
-    <View style={[styles.containerForm, {marginTop:30}]}>
+    <View style={[styles.containerForm, { marginTop: 30 }]}>
       <View style={styles.checkboxContainer}>
         <CheckBox
           value={objValues.agreed}
           onValueChange={(value) => changeForm('agreed', value)}
           style={styles.checkbox}
-          tintColors={{true: '#3E59F7', false: 'black'}}
+          tintColors={{ true: '#3E59F7', false: 'black' }}
         />
         <Text style={styles.labelCheckBox}>
-          I agree to the <Text style={{textDecorationLine: 'underline'}}>Terms</Text> and <Text style={{textDecorationLine: 'underline'}}>Privacy Policy.</Text>*
+          I agree to the <Text style={{ textDecorationLine: 'underline' }}>Terms</Text> and <Text style={{ textDecorationLine: 'underline' }}>Privacy Policy.</Text>*
         </Text>
       </View>
       <View style={styles.checkboxContainer}>
@@ -122,7 +129,7 @@ function Terms(props) {
           value={objValues.subscribed}
           onValueChange={(value) => changeForm('subscribed', value)}
           style={styles.checkbox}
-          tintColors={{true: '#3E59F7', false: 'black'}}
+          tintColors={{ true: '#3E59F7', false: 'black' }}
         />
         <Text style={styles.labelCheckBox}>
           Subscribe for select products and updates
@@ -132,10 +139,41 @@ function Terms(props) {
   );
 }
 
+function ModalCustom(props) {
+  const { modalVisible, text } = props;
+  return (
+    <View style={styles.centeredView}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+      >
+        <View style={styles.centeredView}>
+          <View style={[styles.modalView, { backgroundColor: "black" }]}>
+            <AnimatedCircularProgress
+              size={120}
+              width={15}
+              fill={100}
+              tintColor="#00e0ff"
+              // onAnimationComplete={() => console.log('onAnimationComplete')}
+              backgroundColor="#3d5875" 
+              duration={2500}
+              />
+            <Text style={styles.modalText}>{text}</Text>
+          </View>
+        </View>
+      </Modal>
+    </View>
+  );
+}
+
 function SignUpButton(props) {
-  const {objValues} = props;
+  const { objValues } = props;
   const [classColor, setClassColor] = useState('#B6B7BA');
   const [buttonDisable, setButtonDisable] = useState(true);
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [singedText, setSignetText] = useState("Singing up...")
 
   React.useEffect(() => {
     checkNulls();
@@ -145,7 +183,8 @@ function SignUpButton(props) {
       !objValues.name ||
       !objValues.email ||
       !objValues.password ||
-      !objValues.agreed
+      !objValues.agreed ||
+      !objValues.subscribed
     ) {
       setClassColor('#B6B7BA');
       setButtonDisable(true);
@@ -154,53 +193,73 @@ function SignUpButton(props) {
       setButtonDisable(false);
     }
   };
+
+  const showModal = () => {
+    setModalVisible(true);
+
+    setTimeout(function () {
+      setSignetText("Signed UP");
+      setTimeout(function () {
+        setModalVisible(false);
+        setSignetText("Singing up...");
+      }, 1000);
+    },
+      3000);
+  }
+
+
   return (
-    <View style={[styles.containerForm,{marginTop:20}]}>
-      <TouchableOpacity
-        disabled={buttonDisable}
-        onPress={checkNulls}
-        style={[
-          styles.ContainerOfButtonSignUp,
-          styles.containerForm,
-          {backgroundColor: classColor, borderWidth:0},
-        ]}>
-        <View>
-          <Text style={styles.textButtons}>Sign Up</Text>
-        </View>
-      </TouchableOpacity>
-      <View style={{alignItems: 'center', margin: 10}}>
-        <Text style={{color: '#C9CED6', fontSize: 15}}>or</Text>
+    <>
+      <View>
+        <ModalCustom modalVisible={modalVisible} text={singedText} />
       </View>
-      <TouchableOpacity disabled={buttonDisable} onPress={props.prueba}>
+      <View style={[styles.containerForm, { marginTop: 20 }]}>
+        <TouchableOpacity
+          disabled={buttonDisable}
+          onPress={showModal}
+          style={[
+            styles.ContainerOfButtonSignUp,
+            styles.containerForm,
+            { backgroundColor: classColor, borderWidth: 0 },
+          ]}>
+          <View>
+            <Text style={styles.textButtons}>Sign Up</Text>
+          </View>
+        </TouchableOpacity>
+        <View style={{ alignItems: 'center', margin: 10 }}>
+          <Text style={{ color: '#C9CED6', fontSize: 15 }}>or</Text>
+        </View>
+        <TouchableOpacity disabled={buttonDisable} onPress={props.prueba}>
+          <View
+            style={[
+              styles.ContainerOfButtonSignUpGoogle,
+              { backgroundColor: classColor },
+            ]}>
+            <View style={styles.viewIconGoogle}>
+              <Image
+                style={styles.iconGoogle}
+                source={require('../img/google.png')}
+              />
+            </View>
+            <Text style={[styles.textButtons, { paddingLeft: 25 }]}>
+              Sign Up with Google
+          </Text>
+          </View>
+        </TouchableOpacity>
         <View
           style={[
-            styles.ContainerOfButtonSignUpGoogle,
-            {backgroundColor: classColor},
+            styles.containerForm,
+            { flexDirection: 'row', marginTop: 10, justifyContent: 'center' },
           ]}>
-          <View style={styles.viewIconGoogle}>
-            <Image
-              style={styles.iconGoogle}
-              source={require('../img/google.png')}
-            />
-          </View>
-          <Text style={[styles.textButtons, {paddingLeft: 25}]}>
-            Sign Up with Google
-          </Text>
-        </View>
-      </TouchableOpacity>
-      <View
-        style={[
-          styles.containerForm,
-          {flexDirection: 'row', marginTop: 10, justifyContent: 'center'},
-        ]}>
-        <Text style={{color: '#B6B7BA', fontSize: 15}}>Already have an account? </Text>
-        <Text
-          style={{color: 'blue', textDecorationLine: 'underline'}}
-          onPress={() => console.log('HELLOOOOOOOOOOOOOOOOOOOOO')}>
-          Log In
+          <Text style={{ color: '#B6B7BA', fontSize: 15 }}>Already have an account? </Text>
+          <Text
+            style={{ color: 'blue', textDecorationLine: 'underline' }}
+            onPress={() => console.log('HELLOOOOOOOOOOOOOOOOOOOOO')}>
+            Log In
         </Text>
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
@@ -291,15 +350,16 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     flexDirection: 'row',
     marginBottom: 10,
+    margin: 8,
     width: '100%',
   },
   labelCheckBox: {
     fontSize: 15,
+    margin: 8,
     color: '#818181',
   },
   checkbox: {
     alignSelf: 'center',
-    // marginBottom: 20
   },
   containerPassword: {
     flexDirection: 'row',
@@ -364,9 +424,48 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   errorText: {
-    color:'#FF80A0',
+    color: '#FF80A0',
     fontSize: 16,
-    marginLeft:4
+    marginLeft: 4
+  },
+
+  //Estilos de modal
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  openButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    color: "#5B6EF8",
+    textAlign: "center"
   }
 });
 
