@@ -140,25 +140,33 @@ function Terms(props) {
 }
 
 function ModalCustom(props) {
-  const { modalVisible, text } = props;
+  const { modalVisible, text, isIconCheck } = props;
   return (
     <View style={styles.centeredView}>
       <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
+        hasBackdrop={true}
+        backdropColor='black'
+        backdropOpacity={0.70}
       >
         <View style={styles.centeredView}>
           <View style={[styles.modalView, { backgroundColor: "black" }]}>
-            <AnimatedCircularProgress
-              size={120}
-              width={15}
-              fill={100}
-              tintColor="#00e0ff"
-              // onAnimationComplete={() => console.log('onAnimationComplete')}
-              backgroundColor="#3d5875" 
-              duration={2500}
-              />
+            {isIconCheck 
+              ? <AnimatedCircularProgress
+                size={80}
+                width={8}
+                fill={100}
+                tintColor="#5362D8"
+                backgroundColor="#3d5875" 
+                duration={2500}
+                />
+              : <Image
+                  style={styles.iconCheck}
+                  source={require('../img/check.png')}
+                />
+            }            
             <Text style={styles.modalText}>{text}</Text>
           </View>
         </View>
@@ -174,6 +182,7 @@ function SignUpButton(props) {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [singedText, setSignetText] = useState("Singing up...")
+  const [isIconCheck, setIsIconCheck] = useState(true);
 
   React.useEffect(() => {
     checkNulls();
@@ -199,9 +208,11 @@ function SignUpButton(props) {
 
     setTimeout(function () {
       setSignetText("Signed UP");
+      setIsIconCheck(false);
       setTimeout(function () {
         setModalVisible(false);
-        setSignetText("Singing up...");
+        setSignetText("Signing up...");
+        setIsIconCheck(true);
       }, 1000);
     },
       3000);
@@ -211,7 +222,7 @@ function SignUpButton(props) {
   return (
     <>
       <View>
-        <ModalCustom modalVisible={modalVisible} text={singedText} />
+        <ModalCustom modalVisible={modalVisible} text={singedText} isIconCheck={isIconCheck} />
       </View>
       <View style={[styles.containerForm, { marginTop: 20 }]}>
         <TouchableOpacity
@@ -382,6 +393,11 @@ const styles = StyleSheet.create({
     height: 20,
     // width: 30,
   },
+  iconCheck: {
+    tintColor: '#5362D8',
+    height: 80,
+    width: 80,
+  },
   iconGoogle: {
     height: 30,
     width: 30,
@@ -437,10 +453,11 @@ const styles = StyleSheet.create({
     marginTop: 22
   },
   modalView: {
-    margin: 20,
+    margin: 10,
     backgroundColor: "white",
-    borderRadius: 20,
+    borderRadius: 10,
     padding: 35,
+    paddingBottom: 10,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -463,6 +480,7 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   modalText: {
+    marginTop: 15,
     marginBottom: 15,
     color: "#5B6EF8",
     textAlign: "center"
