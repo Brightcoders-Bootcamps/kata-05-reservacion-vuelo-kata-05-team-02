@@ -8,7 +8,7 @@ import {
 import ModalCustom from './modalComponent';
 import SignUpButton from './signUpButtons';
 import Form from './formComponent';
-import Terms from './termsComponent';
+import Terms from './termsComponents';
 
 
 
