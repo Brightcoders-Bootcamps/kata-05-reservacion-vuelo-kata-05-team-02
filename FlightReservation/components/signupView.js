@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
-  Text,
- 
+  Text, 
 } from 'react-native';
 import ModalCustom from './modalComponent';
 import SignUpButton from './signUpButtons';
@@ -12,7 +11,8 @@ import Terms from './termsComponents';
 
 
 
-function SignupForm() {
+function SignupForm(props) {
+  const {setIsLoginFormActive} = props;
   const formObject = {
     name: '',
     email: '',
@@ -56,7 +56,10 @@ function SignupForm() {
       <Text style={styles.header}>Sign Up</Text>
       <Form  changeForm={addFill} objValues={formObjectState} />
       <Terms changeForm={addFill} objValues={formObjectState} />
-      <SignUpButton prueba={showObj} objValues={formObjectState} showModal={showModal}/>
+      <SignUpButton prueba={showObj} 
+        objValues={formObjectState} 
+        showModal={showModal}
+        setIsLoginFormActive={setIsLoginFormActive}/>
       <View>
         <ModalCustom modalVisible={modalVisible} text={singedText} isIconCheck={isIconCheck} />
       </View>

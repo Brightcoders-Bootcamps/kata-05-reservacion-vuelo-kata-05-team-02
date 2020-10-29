@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -25,13 +25,18 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import SignupForm from './components/signupView';
+import LoginView from './components/loginView';
 
 const App: () => React$Node = () => {
+  const [isLoginFormActive, setIsLoginFormActive ] = useState(false);
   return (
     <>
       <StatusBar barStyle="dark-content" backgroundColor="white"/>
       <SafeAreaView>
-        <SignupForm/>
+        {isLoginFormActive 
+          ? <LoginView isLoginFormActive={isLoginFormActive}  setIsLoginFormActive={setIsLoginFormActive} />
+          : <SignupForm setIsLoginFormActive={setIsLoginFormActive} />
+        }
       </SafeAreaView>
     </>
   );

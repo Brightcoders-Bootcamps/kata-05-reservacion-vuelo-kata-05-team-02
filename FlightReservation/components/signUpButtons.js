@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 function SignUpButton(props) {
-    const { objValues, showModal } = props;
+    const { objValues, showModal,setIsLoginFormActive } = props;
     const [classColor, setClassColor] = useState('#B6B7BA');
     const [buttonDisable, setButtonDisable] = useState(true);
 
@@ -74,7 +74,7 @@ function SignUpButton(props) {
                 <Text style={{ color: '#B6B7BA', fontSize: 15 }}>Already have an account? </Text>
                 <Text
                     style={{ color: 'blue', textDecorationLine: 'underline' }}
-                    onPress={() => console.log('HELLOOOOOOOOOOOOOOOOOOOOO')}>
+                    onPress={() => setIsLoginFormActive(true)}>
                     Log In
           </Text>
             </View>
