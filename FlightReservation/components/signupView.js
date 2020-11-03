@@ -17,7 +17,7 @@ function SignupForm(props) {
   return (
     <View>
       <Text style={styles.header}>Sign Up</Text>
-      <Form  changeForm={addFill} objValues={formObjectState} />
+      <Form  changeForm={addFill} objValues={formObjectState} isLoginFormActive={isLoginFormActive}/>
       <Terms changeForm={addFill} objValues={formObjectState} />
       <SignUpButton prueba={showObj} 
         objValues={formObjectState} 

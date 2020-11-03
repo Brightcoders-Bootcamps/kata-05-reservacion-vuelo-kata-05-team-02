@@ -14,7 +14,7 @@ function LoginView(props) {
   return (
     <View>
       <Text style={styles.header}>Log In</Text>
-      <Form changeForm={addFill} objValues={formObjectState} />
+      <Form changeForm={addFill} objValues={formObjectState} isLoginFormActive={isLoginFormActive} />
       <SignUpButton prueba={showObj} 
         objValues={formObjectState} 
         showModal={showModal}

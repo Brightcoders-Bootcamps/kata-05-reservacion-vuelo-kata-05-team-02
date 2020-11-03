@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 function Form(props) {
-    const { changeForm, objValues } = props;
+    const { changeForm, objValues, isLoginFormActive } = props;
     const [isSeePassword, setSeePassword] = useState(true);
 
     const [validEmail, setValidEmail] = useState(true);
@@ -36,12 +36,16 @@ function Form(props) {
 
     return (
         <View style={styles.containerForm}>
-            <Text style={styles.inputHeader}>First Name</Text>
-            <TextInput
-                style={[styles.inputStyle, { borderColor: borderColor.borderColorName }]}
-                onChange={(e) =>
-                    checkInputsIsNull(e, 'name', 'borderColorName')
-                }></TextInput>
+            {!isLoginFormActive &&
+                <View>                    
+                <Text style={styles.inputHeader}>First Name</Text>
+                <TextInput
+                    style={[styles.inputStyle, { borderColor: borderColor.borderColorName }]}
+                    onChange={(e) =>
+                        checkInputsIsNull(e, 'name', 'borderColorName')
+                    }></TextInput>
+                </View>
+            }
             <View style={{ flexDirection: 'row' }}>
                 <Text style={styles.inputHeader}>Email</Text>
                 <Text style={validEmail ? { color: "gray" } : styles.errorText}>*</Text>

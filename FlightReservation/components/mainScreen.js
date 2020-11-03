@@ -18,13 +18,10 @@ const MainScreen = () => {
     agreed: false,
     subscribed: false,
   };
-
-
   const [isLoginFormActive, setIsLoginFormActive] = useState(false);
   const [formObjectState, setFormObjectState] = useState(formObject);
-
   const [modalVisible, setModalVisible] = useState(false);
-  const [singedText, setSignetText] = useState("Singing up...")
+  const [singedText, setSignetText] = useState("")
   const [isIconCheck, setIsIconCheck] = useState(true);
 
   const addFill = (propierty, value) => {
@@ -35,12 +32,14 @@ const MainScreen = () => {
   };
   React.useEffect(() => {
     if (isLoginFormActive) {
-      formObject.agreed= true;
-      formObject.subscribed= true;
+      formObject.agreed = true;
+      formObject.subscribed = true;
+      formObject.name = '-';
       setFormObjectState(formObject);
     } else {
       formObject.agreed= false;
       formObject.subscribed= false;
+      formObject.name = '-'
       setFormObjectState(formObject);
     }
   },[isLoginFormActive])
@@ -48,18 +47,30 @@ const MainScreen = () => {
   const showObj = () => {
     console.log(formObjectState);
   };
+  
   const showModal = () => {
     setModalVisible(true);
+    let textModal = isLoginFormActive ? "Logging In..." : "Signing Up...";
+    setSignetText(textModal);
     setTimeout(function () {
-      setSignetText("Signed Up");
       setIsIconCheck(false);
+      SignUpOrLoginAction();      
+      textModal = isLoginFormActive ? "Logged In" : "Signed Up";
+      setSignetText(textModal);
       setTimeout(function () {
         setModalVisible(false);
-        setSignetText("Signing up...");
         setIsIconCheck(true);
       }, 1000);
-    },
-      3000);
+    }, 3000);
+  }
+
+  const SignUpOrLoginAction = () =>{
+    if(isLoginFormActive){
+      //accion para login
+      console.log("logeado")
+    }else {
+      console.log("registrado")
+    }
   }
 
   return (

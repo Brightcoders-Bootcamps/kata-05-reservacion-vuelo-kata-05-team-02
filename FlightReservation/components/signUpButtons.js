@@ -43,7 +43,9 @@ function SignUpButton(props) {
                     { backgroundColor: classColor, borderWidth: 0 },
                 ]}>
                 <View>
-                    <Text style={styles.textButtons}>Sign Up</Text>
+                    <Text style={styles.textButtons}>
+                        {isLoginFormActive ? "Log In": "Sign Up"}
+                    </Text>
                 </View>
             </TouchableOpacity>
             <View style={{ alignItems: 'center', margin: 10 }}>
@@ -62,8 +64,8 @@ function SignUpButton(props) {
                         />
                     </View>
                     <Text style={[styles.textButtons, { paddingLeft: 25 }]}>
-                        Sign Up with Google
-            </Text>
+                         {isLoginFormActive ? "Log In": "Sign Up"} with Google
+                    </Text>
                 </View>
             </TouchableOpacity>
             <View
