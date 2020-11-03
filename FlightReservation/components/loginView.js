@@ -4,14 +4,23 @@ import {
   View,
   Text,
 } from 'react-native';
-import FormComponent from './formComponent';
+import SignUpButton from './signUpButtons';
+import Form from './formComponent';
+import ModalCustom from './modalComponent';
+
 function LoginView(props) {
-  const {isLoginFormActive} = props;
+  const {setIsLoginFormActive, isLoginFormActive, showObj, showModal, addFill, formObjectState, modalVisible, singedText, isIconCheck} = props;
   
   return (
     <View>
       <Text style={styles.header}>Log In</Text>
-      <FormComponent />
+      <Form changeForm={addFill} objValues={formObjectState} />
+      <SignUpButton prueba={showObj} 
+        objValues={formObjectState} 
+        showModal={showModal}
+        setIsLoginFormActive={setIsLoginFormActive}
+        isLoginFormActive={isLoginFormActive}/>
+      <ModalCustom modalVisible={modalVisible} text={singedText} isIconCheck={isIconCheck} />
     </View>
   );
 }

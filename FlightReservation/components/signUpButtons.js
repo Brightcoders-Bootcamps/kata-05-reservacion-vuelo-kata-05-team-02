@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 function SignUpButton(props) {
-    const { objValues, showModal,setIsLoginFormActive } = props;
+    const { objValues, showModal, setIsLoginFormActive,isLoginFormActive } = props;
     const [classColor, setClassColor] = useState('#B6B7BA');
     const [buttonDisable, setButtonDisable] = useState(true);
 
@@ -71,12 +71,10 @@ function SignUpButton(props) {
                     styles.containerForm,
                     { flexDirection: 'row', marginTop: 10, justifyContent: 'center' },
                 ]}>
-                <Text style={{ color: '#B6B7BA', fontSize: 15 }}>Already have an account? </Text>
-                <Text
-                    style={{ color: 'blue', textDecorationLine: 'underline' }}
-                    onPress={() => setIsLoginFormActive(true)}>
-                    Log In
-          </Text>
+                    <Text style={{ color: '#B6B7BA', fontSize: 15 }}> {isLoginFormActive? "Do not have an account?" : "Already have an account"} </Text>
+
+                    <Text style={{ color: 'blue', textDecorationLine: 'underline' }} onPress={() => setIsLoginFormActive(!isLoginFormActive)}> {isLoginFormActive? "Sign Up" : "Log in"} </Text>
+
             </View>
         </View>
     );
@@ -84,7 +82,7 @@ function SignUpButton(props) {
 const styles = StyleSheet.create({
     containerForm: {
         marginHorizontal: 15,
-      },
+    },
     iconGoogle: {
         height: 30,
         width: 30,

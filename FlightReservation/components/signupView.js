@@ -12,44 +12,7 @@ import Terms from './termsComponents';
 
 
 function SignupForm(props) {
-  const {setIsLoginFormActive} = props;
-  const formObject = {
-    name: '',
-    email: '',
-    password: '',
-    agreed: false,
-    subscribed: false,
-  };
-  const [formObjectState, setFormObjectState] = useState(formObject);
-
-  const [modalVisible, setModalVisible] = useState(false);
-  const [singedText, setSignetText] = useState("Singing up...")
-  const [isIconCheck, setIsIconCheck] = useState(true);
-
-  const addFill = (propierty, value) => {
-    setFormObjectState({
-      ...formObjectState,
-      [propierty]: value,
-    });
-    //showObj();
-  };
-
-  const showObj = () => {
-    console.log(formObjectState);
-  };
-  const showModal = () => {
-    setModalVisible(true);
-    setTimeout(function () {
-      setSignetText("Signed Up");
-      setIsIconCheck(false);
-      setTimeout(function () {
-        setModalVisible(false);
-        setSignetText("Signing up...");
-        setIsIconCheck(true);
-      }, 1000);
-    },
-      3000);
-  }
+  const {setIsLoginFormActive,isLoginFormActive,showObj, showModal, addFill, formObjectState, modalVisible, singedText, isIconCheck} = props;
 
   return (
     <View>
@@ -59,10 +22,9 @@ function SignupForm(props) {
       <SignUpButton prueba={showObj} 
         objValues={formObjectState} 
         showModal={showModal}
-        setIsLoginFormActive={setIsLoginFormActive}/>
-      <View>
-        <ModalCustom modalVisible={modalVisible} text={singedText} isIconCheck={isIconCheck} />
-      </View>
+        setIsLoginFormActive={setIsLoginFormActive}
+        isLoginFormActive={isLoginFormActive}/>
+      <ModalCustom modalVisible={modalVisible} text={singedText} isIconCheck={isIconCheck} />
     </View>
   );
 }
