@@ -3,10 +3,16 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
+  LogBox,
+  Settings
 } from 'react-native';
 
 import SignupForm from './signupView';
 import LoginView from './loginView';
+import { firebase } from '../bdd/configFirebase';
+firebase.firestore().settings({experimentalForceLongPolling: true}) 
+const db = firebase.firestore(firebase);
+LogBox.ignoreLogs(['Setting a timer'])
 
 
 const MainScreen = () => {
@@ -23,6 +29,7 @@ const MainScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [singedText, setSignetText] = useState("")
   const [isIconCheck, setIsIconCheck] = useState(true);
+  
 
   const addFill = (propierty, value) => {
     setFormObjectState({
@@ -66,10 +73,48 @@ const MainScreen = () => {
 
   const SignUpOrLoginAction = () =>{
     if(isLoginFormActive){
-      //accion para login
+      // Accion para login
       console.log("logeado")
-    }else {
-      console.log("registrado")
+    } else {
+      let userEmailIsRegister = false;
+
+      db.collection('usuario')
+      db.collection("usuario").where("email", "==", formObjectState.email)
+      .get()
+      .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            userEmailIsRegister = true;
+            console.log(doc.id, " => ", doc.data());
+          });
+      })
+      .catch(function(error) {
+          console.log('no hay datos');
+      });
+
+      if(!userEmailIsRegister){
+        const data = {
+          firstName: formObjectState.name,
+          email: formObjectState.email,
+          password: formObjectState.password
+        }
+  
+        // Crea un store en Firebase
+        db.collection('usuario')
+        .add(data) 
+        .then(() => {  }) 
+        .catch( ()=>{ console.log( 'Error: ' + e ) })
+  
+        // Crea un usuario en Authentication
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(formObjectState.email, formObjectState.password)
+          .then(() =>{ 
+            console.log('Usuario registrado correctamente.');
+          }) 
+          .catch((e) =>{ console.log( 'Error: ' + e ) })
+      } else {
+        userEmailIsRegister = false;
+      }
     }
   }
 
