@@ -9,12 +9,12 @@ import Form from './formComponent';
 import ModalCustom from './modalComponent';
 
 function LoginView(props) {
-  const {setIsLoginFormActive, isLoginFormActive, showObj, showModal, addFill, formObjectState, modalVisible, singedText, isIconCheck} = props;
+  const {validEmail,setValidEmail,setIsLoginFormActive, isLoginFormActive, showObj, showModal, addFill, formObjectState, modalVisible, singedText, isIconCheck} = props;
   
   return (
     <View>
       <Text style={styles.header}>Log In</Text>
-      <Form changeForm={addFill} objValues={formObjectState} isLoginFormActive={isLoginFormActive} />
+      <Form validEmail={validEmail} setValidEmail={setValidEmail} changeForm={addFill} objValues={formObjectState} isLoginFormActive={isLoginFormActive} />
       <SignUpButton prueba={showObj} 
         objValues={formObjectState} 
         showModal={showModal}

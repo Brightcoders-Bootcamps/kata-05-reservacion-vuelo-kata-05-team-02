@@ -29,6 +29,7 @@ const MainScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [singedText, setSignetText] = useState("")
   const [isIconCheck, setIsIconCheck] = useState(true);
+  const [validEmail, setValidEmail] = useState(true);
   
 
   const addFill = (propierty, value) => {
@@ -105,13 +106,19 @@ const MainScreen = () => {
         .catch( ()=>{ console.log( 'Error: ' + e ) })
   
         // Crea un usuario en Authentication
+        // Crea un usuario en Authentication
         firebase
           .auth()
           .createUserWithEmailAndPassword(formObjectState.email, formObjectState.password)
           .then(() =>{ 
             console.log('Usuario registrado correctamente.');
+            setValidEmail(true);
           }) 
-          .catch((e) =>{ console.log( 'Error: ' + e ) })
+          .catch((e) =>{ 
+            console.log( 'Error: ' + e )
+            setValidEmail(false); 
+            
+          })
       } else {
         userEmailIsRegister = false;
       }
@@ -121,14 +128,14 @@ const MainScreen = () => {
   return (
 
     <>
-      {isLoginFormActive
-        ? <LoginView isLoginFormActive={isLoginFormActive} setIsLoginFormActive={setIsLoginFormActive} showObj={showObj}
+    {isLoginFormActive
+        ? <LoginView validEmail={validEmail} setValidEmail={setValidEmail} isLoginFormActive={isLoginFormActive} setIsLoginFormActive={setIsLoginFormActive} showObj={showObj}
           showModal={showModal} addFill={addFill} formObjectState={formObjectState} modalVisible={modalVisible} singedText={singedText} isIconCheck={isIconCheck} />
 
-        : <SignupForm setIsLoginFormActive={setIsLoginFormActive} isLoginFormActive={isLoginFormActive} setIsLoginFormActive={setIsLoginFormActive} showObj={showObj}
+        : <SignupForm validEmail={validEmail} setValidEmail={setValidEmail} setIsLoginFormActive={setIsLoginFormActive} isLoginFormActive={isLoginFormActive} setIsLoginFormActive={setIsLoginFormActive} showObj={showObj}
           showModal={showModal} addFill={addFill} formObjectState={formObjectState} modalVisible={modalVisible} singedText={singedText} isIconCheck={isIconCheck} />
       }
-
+      
     </>
   );
 }

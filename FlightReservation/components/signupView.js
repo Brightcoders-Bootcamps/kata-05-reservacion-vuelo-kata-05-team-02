@@ -9,15 +9,13 @@ import SignUpButton from './signUpButtons';
 import Form from './formComponent';
 import Terms from './termsComponents';
 
-
-
 function SignupForm(props) {
-  const {setIsLoginFormActive,isLoginFormActive,showObj, showModal, addFill, formObjectState, modalVisible, singedText, isIconCheck} = props;
+  const {validEmail,setValidEmail,setIsLoginFormActive,isLoginFormActive,showObj, showModal, addFill, formObjectState, modalVisible, singedText, isIconCheck} = props;
     
   return (
     <View>
       <Text style={styles.header}>Sign Up</Text>
-      <Form  changeForm={addFill} objValues={formObjectState} isLoginFormActive={isLoginFormActive}/>
+      <Form  validEmail={validEmail} setValidEmail={setValidEmail} changeForm={addFill} objValues={formObjectState} isLoginFormActive={isLoginFormActive}/>
       <Terms changeForm={addFill} objValues={formObjectState} />
       <SignUpButton prueba={showObj} 
         objValues={formObjectState} 
