@@ -30,6 +30,8 @@ const MainScreen = () => {
   const [validEmail, setValidEmail] = useState(true);
   const [loggedIn, setloggedIn] = useState(false);
   const [userInfo, setuserInfo] = useState([]);
+  const [validPassword, setValidPassword] = useState(true);
+
 
   const addFill = (propierty, value) => {
     setFormObjectState({
@@ -72,60 +74,46 @@ const MainScreen = () => {
   };
 
   const SignUpOrLoginAction = () => {
+    setValidEmail(true);
+    setValidPassword(true);
     if (isLoginFormActive) {
       // Accion para login
       console.log('logeado');
     } else {
-      let userEmailIsRegister = false;
-
-      db.collection('usuario');
-      db.collection('usuario')
-        .where('email', '==', formObjectState.email)
-        .get()
-        .then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            userEmailIsRegister = true;
-            console.log(doc.id, ' => ', doc.data());
-          });
-        })
-        .catch(function (error) {
-          console.log('no hay datos');
-        });
-
-      if (!userEmailIsRegister) {
-        const data = {
-          firstName: formObjectState.name,
-          email: formObjectState.email,
-          password: formObjectState.password,
-        };
-
-        // Crea un store en Firebase
-        db.collection('usuario')
-          .add(data)
-          .then(() => {})
-          .catch(() => {
-            console.log('Error: ' + e);
-          });
-
-        // Crea un usuario en Authentication
-        // Crea un usuario en Authentication
-        firebase
-          .auth()
-          .createUserWithEmailAndPassword(
-            formObjectState.email,
-            formObjectState.password,
-          )
-          .then(() => {
-            console.log('Usuario registrado correctamente.');
-            setValidEmail(true);
-          })
-          .catch((e) => {
-            console.log('Error: ' + e);
-            setValidEmail(false);
-          });
-      } else {
-        userEmailIsRegister = false;
+      const data = {
+        firstName: formObjectState.name,
+        email: formObjectState.email,
+        password: formObjectState.password
       }
+      // Crea un usuario en Authentication
+      // Crea un usuario en Authentication
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(formObjectState.email, formObjectState.password)
+        .then(() => {
+          console.log('Usuario registrado correctamente.');
+          setValidEmail(true);
+          setValidPassword(true);
+          // Crea un store en Firebase
+          db.collection('usuario')
+            .add(data)
+            .then(() => { })
+            .catch(() => { console.log('Error: ' + e) })
+        })
+        .catch((e) => {
+          //console.log('Error: ' + e)
+          switch (e.code) {
+            case "auth/invalid-email":
+              setValidEmail(false);
+              break;
+            case "auth/email-already-in-use":
+              setValidEmail(false);
+              break;
+            case "auth/weak-password":
+              setValidPassword(false);
+              break;
+          }
+        })
     }
   };
 
@@ -136,38 +124,14 @@ const MainScreen = () => {
 
  return (
     <>
-      {isLoginFormActive ? (
-        <LoginView
-          validEmail={validEmail}
-          setValidEmail={setValidEmail}
-          isLoginFormActive={isLoginFormActive}
-          setIsLoginFormActive={setIsLoginFormActive}
-          showObj={showObj}
-          showModal={showModal}
-          addFill={addFill}
-          formObjectState={formObjectState}
-          modalVisible={modalVisible}
-          singedText={singedText}
-          isIconCheck={isIconCheck}
-          signUpGoogle={SignUpGoogle}
-        />
-      ) : (
-        <SignupForm
-          validEmail={validEmail}
-          setValidEmail={setValidEmail}
-          setIsLoginFormActive={setIsLoginFormActive}
-          isLoginFormActive={isLoginFormActive}
-          setIsLoginFormActive={setIsLoginFormActive}
-          showObj={showObj}
-          showModal={showModal}
-          addFill={addFill}
-          formObjectState={formObjectState}
-          modalVisible={modalVisible}
-          singedText={singedText}
-          isIconCheck={isIconCheck}
-          signUpGoogle={SignUpGoogle}
-        />
-      )}
+      {isLoginFormActive
+        ? <LoginView validEmail={validEmail} setValidEmail={setValidEmail} validPassword={validPassword} setValidPassword={setValidPassword} isLoginFormActive={isLoginFormActive} setIsLoginFormActive={setIsLoginFormActive} showObj={showObj}
+          showModal={showModal} addFill={addFill} formObjectState={formObjectState} modalVisible={modalVisible} singedText={singedText} isIconCheck={isIconCheck}  signUpGoogle={SignUpGoogle} />
+
+        : <SignupForm validEmail={validEmail} setValidEmail={setValidEmail} validPassword={validPassword} setValidPassword={setValidPassword} setIsLoginFormActive={setIsLoginFormActive} isLoginFormActive={isLoginFormActive} setIsLoginFormActive={setIsLoginFormActive} showObj={showObj}
+          showModal={showModal} addFill={addFill} formObjectState={formObjectState} modalVisible={modalVisible} singedText={singedText} isIconCheck={isIconCheck}  signUpGoogle={SignUpGoogle}/>
+      }
+
     </>
   );
 };

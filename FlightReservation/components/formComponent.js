@@ -9,11 +9,11 @@ import {
 } from 'react-native';
 
 function Form(props) {
-    const {validEmail,setValidEmail,changeForm, objValues, isLoginFormActive } = props;
+    const {validEmail,setValidEmail, validPassword, setValidPassword, changeForm, objValues, isLoginFormActive } = props;
     const [isSeePassword, setSeePassword] = useState(true);
 
-    const [validEmail, setValidEmail] = useState(true);
-    const [validPassword, setValidPassword] = useState(true);
+    //const [validEmail, setValidEmail] = useState(true);
+    //const [validPassword, setValidPassword] = useState(true);
 
     const changeSeePassword = () => {
         setSeePassword(!isSeePassword);
