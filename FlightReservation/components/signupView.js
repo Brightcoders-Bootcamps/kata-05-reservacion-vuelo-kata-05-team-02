@@ -10,7 +10,7 @@ import Form from './formComponent';
 import Terms from './termsComponents';
 
 function SignupForm(props) {
-  const {validEmail,setValidEmail,setIsLoginFormActive,isLoginFormActive,showObj, showModal, addFill, formObjectState, modalVisible, singedText, isIconCheck} = props;
+  const {signUpGoogle,validEmail,setValidEmail,setIsLoginFormActive,isLoginFormActive,showObj, showModal, addFill, formObjectState, modalVisible, singedText, isIconCheck} = props;
     
   return (
     <View>
@@ -20,6 +20,7 @@ function SignupForm(props) {
       <SignUpButton prueba={showObj} 
         objValues={formObjectState} 
         showModal={showModal}
+        signUpGoogle={signUpGoogle}
         setIsLoginFormActive={setIsLoginFormActive}
         isLoginFormActive={isLoginFormActive}/>
       <ModalCustom modalVisible={modalVisible} text={singedText} isIconCheck={isIconCheck} />

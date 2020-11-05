@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 function SignUpButton(props) {
-    const { objValues, showModal, setIsLoginFormActive,isLoginFormActive } = props;
+    const { objValues,showModal, setIsLoginFormActive,isLoginFormActive,signUpGoogle} = props;
     const [classColor, setClassColor] = useState('#B6B7BA');
     const [buttonDisable, setButtonDisable] = useState(true);
 
@@ -51,7 +51,7 @@ function SignUpButton(props) {
             <View style={{ alignItems: 'center', margin: 10 }}>
                 <Text style={{ color: '#C9CED6', fontSize: 15 }}>or</Text>
             </View>
-            <TouchableOpacity disabled={buttonDisable} onPress={props.prueba}>
+            <TouchableOpacity disabled={buttonDisable} onPress={signUpGoogle}>
                 <View
                     style={[
                         styles.ContainerOfButtonSignUpGoogle,
