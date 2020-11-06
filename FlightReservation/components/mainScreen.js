@@ -3,11 +3,11 @@ import {View, Text, LogBox, Settings} from 'react-native';
 
 import SignupForm from './signupView';
 import LoginView from './loginView';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  statusCodes,
-} from 'react-native-google-signin';
+// import {
+//   GoogleSignin,
+//   GoogleSigninButton,
+//   statusCodes,
+// } from 'react-native-google-signin';
 
 import {firebase} from '../bdd/configFirebase';
 firebase.firestore().settings({experimentalForceLongPolling: true});

@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "461524927651",
+    "firebase_url": "https://ba-reservacionvuelos.firebaseio.com",
+    "project_id": "ba-reservacionvuelos",
+    "storage_bucket": "ba-reservacionvuelos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461524927651:android:ed4fc7aea028000d88ab16",
+        "android_client_info": {
+          "package_name": "com.flightreservation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461524927651-mfth0d5gl8on228vjtk8pelp4gd3sp94.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.flightreservation",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "461524927651-kr6p5l2toffdi6sqgs8tktcj8v01nvjj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJbn0evkX8_Q7jMSUHeMTOg6pV37vqfj4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461524927651-kr6p5l2toffdi6sqgs8tktcj8v01nvjj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "461524927651-hqe7e2iekjsvicalhgt953dted68tevs.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.team02.flightreservation"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461524927651:android:ca7e8ed3d4dddf9f88ab16",
+        "android_client_info": {
+          "package_name": "com.team02.flightreservation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461524927651-sc35ugpl4dc5t3j8edechvi2uniqo9mt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.team02.flightreservation",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "461524927651-kr6p5l2toffdi6sqgs8tktcj8v01nvjj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJbn0evkX8_Q7jMSUHeMTOg6pV37vqfj4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461524927651-kr6p5l2toffdi6sqgs8tktcj8v01nvjj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "461524927651-hqe7e2iekjsvicalhgt953dted68tevs.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.team02.flightreservation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
