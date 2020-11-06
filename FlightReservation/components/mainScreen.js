@@ -8,6 +8,7 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from 'react-native-google-signin';
+
 import {firebase} from '../bdd/configFirebase';
 firebase.firestore().settings({experimentalForceLongPolling: true});
 const db = firebase.firestore(firebase);
@@ -118,6 +119,13 @@ const MainScreen = () => {
   };
 
   const SignUpGoogle =() =>  {
+    if (isLoginFormActive) {
+      // Accion para login
+      console.log('logeado');
+    }else{
+      
+    }
+
     console.log('Entrada a la funcion');
   }
 
