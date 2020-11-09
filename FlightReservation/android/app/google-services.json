@@ -40,10 +40,10 @@
               "client_type": 3
             },
             {
-              "client_id": "461524927651-hqe7e2iekjsvicalhgt953dted68tevs.apps.googleusercontent.com",
+              "client_id": "461524927651-9o2tfqk0upefv7leboftq8du1fatifbe.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.team02.flightreservation"
+                "bundle_id": "com.flightreservation"
               }
             }
           ]
@@ -84,10 +84,10 @@
               "client_type": 3
             },
             {
-              "client_id": "461524927651-hqe7e2iekjsvicalhgt953dted68tevs.apps.googleusercontent.com",
+              "client_id": "461524927651-9o2tfqk0upefv7leboftq8du1fatifbe.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.team02.flightreservation"
+                "bundle_id": "com.flightreservation"
               }
             }
           ]

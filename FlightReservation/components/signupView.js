@@ -11,6 +11,7 @@ import Terms from './termsComponents';
 
 function SignupForm(props) {
   const {signUpGoogle,validEmail,setValidEmail, validPassword, setValidPassword, setIsLoginFormActive,isLoginFormActive,showObj, showModal, addFill, formObjectState, modalVisible, singedText, isIconCheck} = props;
+   
     
   return (
     <View>

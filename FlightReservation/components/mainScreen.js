@@ -9,6 +9,15 @@ import LoginView from './loginView';
 //   statusCodes,
 // } from 'react-native-google-signin';
 
+import fir from '@react-native-firebase/app';
+import auth from '@react-native-firebase/auth';
+import { GoogleSignin } from '@react-native-community/google-signin';
+
+GoogleSignin.configure({
+  webClientId: '461524927651-kr6p5l2toffdi6sqgs8tktcj8v01nvjj.apps.googleusercontent.com',
+});
+
+
 import {firebase} from '../bdd/configFirebase';
 firebase.firestore().settings({experimentalForceLongPolling: true});
 const db = firebase.firestore(firebase);
@@ -118,15 +127,21 @@ const MainScreen = () => {
     }
   };
 
-  const SignUpGoogle =() =>  {
+  async function SignUpGoogle() {
     if (isLoginFormActive) {
       // Accion para login
       console.log('logeado');
     }else{
-      
-    }
+        console.log("here")
+        // Get the users ID token
+        const { idToken } = await GoogleSignin.signIn();
 
-    console.log('Entrada a la funcion');
+        // Create a Google credential with the token
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+        // Sign-in the user with the credential
+        return auth().signInWithCredential(googleCredential);
+    }
   }
 
 

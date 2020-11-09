@@ -51,7 +51,9 @@ function SignUpButton(props) {
             <View style={{ alignItems: 'center', margin: 10 }}>
                 <Text style={{ color: '#C9CED6', fontSize: 15 }}>or</Text>
             </View>
-            <TouchableOpacity disabled={buttonDisable} onPress={signUpGoogle}>
+            <TouchableOpacity disabled={buttonDisable} onPress={() => signUpGoogle()
+                .then(() => console.log('Signed in with Google!'))
+                .catch((e) => console.log(e))}>
                 <View
                     style={[
                         styles.ContainerOfButtonSignUpGoogle,
