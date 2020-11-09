@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>461524927651-hqe7e2iekjsvicalhgt953dted68tevs.apps.googleusercontent.com</string>
+	<string>461524927651-9o2tfqk0upefv7leboftq8du1fatifbe.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.461524927651-hqe7e2iekjsvicalhgt953dted68tevs</string>
+	<string>com.googleusercontent.apps.461524927651-9o2tfqk0upefv7leboftq8du1fatifbe</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>461524927651-mfth0d5gl8on228vjtk8pelp4gd3sp94.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyAmZehdCLAGRtRJjYCYgXAoV5ygtlTASto</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.team02.flightreservation</string>
+	<string>com.flightreservation</string>
 	<key>PROJECT_ID</key>
 	<string>ba-reservacionvuelos</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:461524927651:ios:eaec0086ce7d191488ab16</string>
+	<string>1:461524927651:ios:217ef0ce51b1a51e88ab16</string>
 	<key>DATABASE_URL</key>
 	<string>https://ba-reservacionvuelos.firebaseio.com</string>
 </dict>
