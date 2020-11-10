@@ -9,12 +9,17 @@ import {
 } from 'react-native';
 
 function SignUpButton(props) {
-    const { objValues,showModal, setIsLoginFormActive,isLoginFormActive,signUpGoogle} = props;
+    const { objValues, showModal, setIsLoginFormActive, isLoginFormActive, signUpGoogle } = props;
+    //sign in/log in button styles
     const [classColor, setClassColor] = useState('#B6B7BA');
     const [buttonDisable, setButtonDisable] = useState(true);
+    //sign in/log in with google button styles
+    const [classColorGoogle, setClassColorGoogle] = useState('#B6B7BA');
+    const [buttonDisableGoogle, setButtonDisableGoogle] = useState(true);
 
     React.useEffect(() => {
         checkNulls();
+        checkNullsGoogle();
     });
     const checkNulls = () => {
         if (
@@ -31,8 +36,17 @@ function SignUpButton(props) {
             setButtonDisable(false);
         }
     };
-    return (
 
+    const checkNullsGoogle = () => {
+        if (!objValues.agreed || !objValues.subscribed) {
+            setClassColorGoogle('#B6B7BA');
+            setButtonDisableGoogle(true);
+        }else{
+            setClassColorGoogle('#5B6EF8');
+            setButtonDisableGoogle(false);
+        }
+    }
+    return (
         <View style={[styles.containerForm, { marginTop: 20 }]}>
             <TouchableOpacity
                 disabled={buttonDisable}
@@ -44,20 +58,18 @@ function SignUpButton(props) {
                 ]}>
                 <View>
                     <Text style={styles.textButtons}>
-                        {isLoginFormActive ? "Log In": "Sign Up"}
+                        {isLoginFormActive ? "Log In" : "Sign Up"}
                     </Text>
                 </View>
             </TouchableOpacity>
             <View style={{ alignItems: 'center', margin: 10 }}>
                 <Text style={{ color: '#C9CED6', fontSize: 15 }}>or</Text>
             </View>
-            <TouchableOpacity disabled={buttonDisable} onPress={() => signUpGoogle()
-                .then(() => console.log('Signed in with Google!'))
-                .catch((e) => console.log(e))}>
+            <TouchableOpacity disabled={buttonDisableGoogle} onPress={() => signUpGoogle()}>
                 <View
                     style={[
                         styles.ContainerOfButtonSignUpGoogle,
-                        { backgroundColor: classColor },
+                        { backgroundColor: classColorGoogle },
                     ]}>
                     <View style={styles.viewIconGoogle}>
                         <Image
@@ -66,7 +78,7 @@ function SignUpButton(props) {
                         />
                     </View>
                     <Text style={[styles.textButtons, { paddingLeft: 25 }]}>
-                         {isLoginFormActive ? "Log In": "Sign Up"} with Google
+                        {isLoginFormActive ? "Log In" : "Sign Up"} with Google
                     </Text>
                 </View>
             </TouchableOpacity>
@@ -75,9 +87,9 @@ function SignUpButton(props) {
                     styles.containerForm,
                     { flexDirection: 'row', marginTop: 10, justifyContent: 'center' },
                 ]}>
-                    <Text style={{ color: '#B6B7BA', fontSize: 15 }}> {isLoginFormActive? "Do not have an account?" : "Already have an account"} </Text>
+                <Text style={{ color: '#B6B7BA', fontSize: 15 }}> {isLoginFormActive ? "Do not have an account?" : "Already have an account"} </Text>
 
-                    <Text style={{ color: 'blue', textDecorationLine: 'underline' }} onPress={() => setIsLoginFormActive(!isLoginFormActive)}> {isLoginFormActive? "Sign Up" : "Log in"} </Text>
+                <Text style={{ color: 'blue', textDecorationLine: 'underline' }} onPress={() => setIsLoginFormActive(!isLoginFormActive)}> {isLoginFormActive ? "Sign Up" : "Log in"} </Text>
 
             </View>
         </View>

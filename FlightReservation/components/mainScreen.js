@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {View, Text, LogBox, Settings} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, LogBox, Settings } from 'react-native';
 
 import SignupForm from './signupView';
 import LoginView from './loginView';
@@ -18,13 +18,13 @@ GoogleSignin.configure({
 });
 
 
-import {firebase} from '../bdd/configFirebase';
-firebase.firestore().settings({experimentalForceLongPolling: true});
+import { firebase } from '../bdd/configFirebase';
+firebase.firestore().settings({ experimentalForceLongPolling: true });
 const db = firebase.firestore(firebase);
 LogBox.ignoreLogs(['Setting a timer']);
 
 const MainScreen = () => {
-  
+
   const formObject = {
     name: '',
     email: '',
@@ -95,64 +95,78 @@ const MainScreen = () => {
         email: formObjectState.email,
         password: formObjectState.password
       }
-      // Crea un usuario en Authentication
-      // Crea un usuario en Authentication
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(formObjectState.email, formObjectState.password)
-        .then(() => {
-          console.log('Usuario registrado correctamente.');
-          setValidEmail(true);
-          setValidPassword(true);
-          // Crea un store en Firebase
-          db.collection('usuario')
-            .add(data)
-            .then(() => { })
-            .catch(() => { console.log('Error: ' + e) })
-        })
-        .catch((e) => {
-          //console.log('Error: ' + e)
-          switch (e.code) {
-            case "auth/invalid-email":
-              setValidEmail(false);
-              break;
-            case "auth/email-already-in-use":
-              setValidEmail(false);
-              break;
-            case "auth/weak-password":
-              setValidPassword(false);
-              break;
-          }
-        })
+      firebaseAuthSignUp(data);
     }
   };
 
   async function SignUpGoogle() {
-    if (isLoginFormActive) {
-      // Accion para login
-      console.log('logeado');
-    }else{
+    setModalVisible(true);
+    let textModal = isLoginFormActive ? 'Logging In...' : 'Signing Up...';
+    setSignetText(textModal);
+    try {
+      if (isLoginFormActive) {
+        // Accion para login
+        console.log('logeado');
+      } else {
         console.log("here")
+        const data = {
+          firstName: '',
+          email: '',
+          password: ''
+        }
         // Get the users ID token
-        const { idToken } = await GoogleSignin.signIn();
-
-        // Create a Google credential with the token
-        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-        // Sign-in the user with the credential
-        return auth().signInWithCredential(googleCredential);
+        //const { idToken } = await GoogleSignin.signIn();
+        const  userData = await GoogleSignin.signIn();//userData contains all the user information
+        console.log(userData.user);
+        data.firstName=userData.user.name;//+" "+userData.user.familyName;
+        data.email=userData.user.email;
+        data.password=userData.user.id;
+        firebaseAuthSignUp(data);
+      }
+    } catch (e) {
     }
   }
 
+  function firebaseAuthSignUp(data){
+    // Crea un usuario en Authentication
+    firebase
+    .auth()
+    .createUserWithEmailAndPassword(data.email, data.password)
+    .then(() => {
+      console.log('Usuario registrado correctamente.');
+      setValidEmail(true);
+      setValidPassword(true);
+      // Crea un store en Firebase
+      db.collection('usuario')
+        .add(data)
+        .then(() => { })
+        .catch(() => { console.log('Error: ' + e) })
+        setModalVisible(false);
+    })
+    .catch((e) => {
+      //console.log('Error: ' + e)
+      switch (e.code) {
+        case "auth/invalid-email":
+          setValidEmail(false);
+          break;
+        case "auth/email-already-in-use":
+          setValidEmail(false);
+          break;
+        case "auth/weak-password":
+          setValidPassword(false);
+          break;
+      }
+    })
+  }  
 
- return (
+  return (
     <>
       {isLoginFormActive
         ? <LoginView validEmail={validEmail} setValidEmail={setValidEmail} validPassword={validPassword} setValidPassword={setValidPassword} isLoginFormActive={isLoginFormActive} setIsLoginFormActive={setIsLoginFormActive} showObj={showObj}
-          showModal={showModal} addFill={addFill} formObjectState={formObjectState} modalVisible={modalVisible} singedText={singedText} isIconCheck={isIconCheck}  signUpGoogle={SignUpGoogle} />
+          showModal={showModal} addFill={addFill} formObjectState={formObjectState} modalVisible={modalVisible} singedText={singedText} isIconCheck={isIconCheck} signUpGoogle={SignUpGoogle} />
 
         : <SignupForm validEmail={validEmail} setValidEmail={setValidEmail} validPassword={validPassword} setValidPassword={setValidPassword} setIsLoginFormActive={setIsLoginFormActive} isLoginFormActive={isLoginFormActive} setIsLoginFormActive={setIsLoginFormActive} showObj={showObj}
-          showModal={showModal} addFill={addFill} formObjectState={formObjectState} modalVisible={modalVisible} singedText={singedText} isIconCheck={isIconCheck}  signUpGoogle={SignUpGoogle}/>
+          showModal={showModal} addFill={addFill} formObjectState={formObjectState} modalVisible={modalVisible} singedText={singedText} isIconCheck={isIconCheck} signUpGoogle={SignUpGoogle} />
       }
 
     </>
