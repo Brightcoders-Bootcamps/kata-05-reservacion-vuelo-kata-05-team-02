@@ -76,10 +76,6 @@ const MainScreen = () => {
       SignUpOrLoginAction();
       textModal = isLoginFormActive ? 'Logged In' : 'Signed Up';
       setSignetText(textModal);
-      setTimeout(function () {
-        setModalVisible(false);
-        setIsIconCheck(true);
-      }, 1000);
     }, 3000);
   };
 
@@ -93,7 +89,9 @@ const MainScreen = () => {
       const data = {
         firstName: formObjectState.name,
         email: formObjectState.email,
-        password: formObjectState.password
+        password: formObjectState.password,
+        agreed: formObjectState.agreed,
+        subscribed: formObjectState.subscribed,
       }
       firebaseAuthSignUp(data);
     }
@@ -103,61 +101,73 @@ const MainScreen = () => {
     setModalVisible(true);
     let textModal = isLoginFormActive ? 'Logging In...' : 'Signing Up...';
     setSignetText(textModal);
-    try {
-      if (isLoginFormActive) {
-        // Accion para login
-        console.log('logeado');
-      } else {
-        console.log("here")
-        const data = {
-          firstName: '',
-          email: '',
-          password: ''
-        }
-        // Get the users ID token
-        //const { idToken } = await GoogleSignin.signIn();
-        const  userData = await GoogleSignin.signIn();//userData contains all the user information
-        console.log(userData.user);
-        data.firstName=userData.user.name;//+" "+userData.user.familyName;
-        data.email=userData.user.email;
-        data.password=userData.user.id;
-        firebaseAuthSignUp(data);
+    if (isLoginFormActive) {
+      // Accion para login
+      console.log('logeado');
+    } else {
+      console.log("here")
+      const data = {
+        firstName: '',
+        email: '',
+        password: '',
+        agreed: formObjectState.agreed,
+        subscribed: formObjectState.subscribed,
       }
-    } catch (e) {
+      // Get the users ID token
+      //const { idToken } = await GoogleSignin.signIn();
+      const userData = await GoogleSignin.signIn();//userData contains all the user information
+      console.log(userData.user);
+      data.firstName = userData.user.name;//+" "+userData.user.familyName;
+      data.email = userData.user.email;
+      data.password = userData.user.id;
+      firebaseAuthSignUp(data);
     }
   }
 
-  function firebaseAuthSignUp(data){
+  function firebaseAuthSignUp(data) {
     // Crea un usuario en Authentication
     firebase
-    .auth()
-    .createUserWithEmailAndPassword(data.email, data.password)
-    .then(() => {
-      console.log('Usuario registrado correctamente.');
-      setValidEmail(true);
-      setValidPassword(true);
-      // Crea un store en Firebase
-      db.collection('usuario')
-        .add(data)
-        .then(() => { })
-        .catch(() => { console.log('Error: ' + e) })
-        setModalVisible(false);
-    })
-    .catch((e) => {
-      //console.log('Error: ' + e)
-      switch (e.code) {
-        case "auth/invalid-email":
-          setValidEmail(false);
-          break;
-        case "auth/email-already-in-use":
-          setValidEmail(false);
-          break;
-        case "auth/weak-password":
-          setValidPassword(false);
-          break;
-      }
-    })
-  }  
+      .auth()
+      .createUserWithEmailAndPassword(data.email, data.password)
+      .then(() => {
+        setIsIconCheck(false);
+        let textModal = isLoginFormActive ? 'Logged In...' : 'Signed Up...';
+        setSignetText(textModal);
+        setValidEmail(true);
+        setValidPassword(true);
+        // Crea un store en Firebase
+        db.collection('usuario')
+          .add(data)
+          .then(() => { })
+          .catch(() => { console.log('Error: ' + e) })
+
+        setTimeout(function () {
+          setModalVisible(false);
+          setIsIconCheck(true);
+        }, 1000);
+        setFormObjectState(formObject);
+      })
+      .catch((e) => {
+        let textModal = isLoginFormActive ? 'Error Loggin In...' : 'Error Signing Up...';
+        setSignetText(textModal);
+        setTimeout(function () {
+          setModalVisible(false);
+          setIsIconCheck(true);
+        }, 1000);
+        //console.log('Error: ' + e)
+        switch (e.code) {
+          case "auth/invalid-email":
+            setValidEmail(false);
+            break;
+          case "auth/email-already-in-use":
+            setValidEmail(false);
+            break;
+          case "auth/weak-password":
+            setValidPassword(false);
+            break;
+        }
+      })
+  }
 
   return (
     <>

@@ -41,6 +41,7 @@ function Form(props) {
                 <Text style={styles.inputHeader}>First Name</Text>
                 <TextInput
                     style={[styles.inputStyle, { borderColor: borderColor.borderColorName }]}
+                    value={objValues.name}
                     onChange={(e) =>
                         checkInputsIsNull(e, 'name', 'borderColorName')
                     }></TextInput>
@@ -53,6 +54,7 @@ function Form(props) {
             </View>
             <TextInput
                 style={[styles.inputStyle, { borderColor: borderColor.borderColorEmail }]}
+                value={objValues.email}
                 onChange={(e) =>
                     checkInputsIsNull(e, 'email', 'borderColorEmail')
                 }></TextInput>
@@ -72,6 +74,7 @@ function Form(props) {
                         },
                     ]}
                     secureTextEntry={isSeePassword}
+                    value={objValues.password}
                     onChange={(e) =>
                         checkInputsIsNull(e, 'password', 'borderColorPassword')
                     }
