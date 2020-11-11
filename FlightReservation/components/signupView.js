@@ -1,30 +1,42 @@
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text, 
-} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View, Text} from 'react-native';
 import ModalCustom from './modalComponent';
 import SignUpButton from './signUpButtons';
 import Form from './formComponent';
 import Terms from './termsComponents';
 
-
-
 function SignupForm(props) {
-  const {setIsLoginFormActive,isLoginFormActive,showObj, showModal, addFill, formObjectState, modalVisible, singedText, isIconCheck} = props;
+  const {
+    setIsLoginFormActive,
+    isLoginFormActive,
+    showModal,
+    addFill,
+    formObjectState,
+    modalVisible,
+    singedText,
+    isIconCheck,
+  } = props;
 
   return (
     <View>
       <Text style={styles.header}>Sign Up</Text>
-      <Form  changeForm={addFill} objValues={formObjectState} isLoginFormActive={isLoginFormActive}/>
+      <Form
+        changeForm={addFill}
+        objValues={formObjectState}
+        isLoginFormActive={isLoginFormActive}
+      />
       <Terms changeForm={addFill} objValues={formObjectState} />
-      <SignUpButton prueba={showObj} 
-        objValues={formObjectState} 
+      <SignUpButton
+        objValues={formObjectState}
         showModal={showModal}
         setIsLoginFormActive={setIsLoginFormActive}
-        isLoginFormActive={isLoginFormActive}/>
-      <ModalCustom modalVisible={modalVisible} text={singedText} isIconCheck={isIconCheck} />
+        isLoginFormActive={isLoginFormActive}
+      />
+      <ModalCustom
+        modalVisible={modalVisible}
+        text={singedText}
+        isIconCheck={isIconCheck}
+      />
     </View>
   );
 }
@@ -41,7 +53,6 @@ const styles = StyleSheet.create({
   containerForm: {
     marginHorizontal: 15,
   },
-
 });
 
 export default SignupForm;

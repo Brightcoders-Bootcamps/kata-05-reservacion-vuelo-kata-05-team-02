@@ -1,16 +1,10 @@
-
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text} from 'react-native';
 
 import SignupForm from './signupView';
 import LoginView from './loginView';
 
-
 const MainScreen = () => {
-
   const formObject = {
     name: '',
     email: '',
@@ -21,7 +15,7 @@ const MainScreen = () => {
   const [isLoginFormActive, setIsLoginFormActive] = useState(false);
   const [formObjectState, setFormObjectState] = useState(formObject);
   const [modalVisible, setModalVisible] = useState(false);
-  const [singedText, setSignetText] = useState("")
+  const [singedText, setSignetText] = useState('');
   const [isIconCheck, setIsIconCheck] = useState(true);
 
   const addFill = (propierty, value) => {
@@ -37,57 +31,66 @@ const MainScreen = () => {
       formObject.name = '-';
       setFormObjectState(formObject);
     } else {
-      formObject.agreed= false;
-      formObject.subscribed= false;
-      formObject.name = '-'
+      formObject.agreed = false;
+      formObject.subscribed = false;
+      formObject.name = '-';
       setFormObjectState(formObject);
     }
-  },[isLoginFormActive])
+  }, [isLoginFormActive]);
 
-  const showObj = () => {
-    console.log(formObjectState);
-  };
-  
   const showModal = () => {
     setModalVisible(true);
-    let textModal = isLoginFormActive ? "Logging In..." : "Signing Up...";
+    let textModal = isLoginFormActive ? 'Logging In...' : 'Signing Up...';
     setSignetText(textModal);
     setTimeout(function () {
       setIsIconCheck(false);
-      SignUpOrLoginAction();      
-      textModal = isLoginFormActive ? "Logged In" : "Signed Up";
+      SignUpOrLoginAction();
+      textModal = isLoginFormActive ? 'Logged In' : 'Signed Up';
       setSignetText(textModal);
       setTimeout(function () {
         setModalVisible(false);
         setIsIconCheck(true);
       }, 1000);
     }, 3000);
-  }
+  };
 
-  const SignUpOrLoginAction = () =>{
-    if(isLoginFormActive){
+  const SignUpOrLoginAction = () => {
+    if (isLoginFormActive) {
       //accion para login
-      console.log("logeado")
-    }else {
-      console.log("registrado")
+      console.log('logeado');
+    } else {
+      console.log('registrado');
     }
-  }
+  };
 
   return (
-
     <>
-      {isLoginFormActive
-        ? <LoginView isLoginFormActive={isLoginFormActive} setIsLoginFormActive={setIsLoginFormActive} showObj={showObj}
-          showModal={showModal} addFill={addFill} formObjectState={formObjectState} modalVisible={modalVisible} singedText={singedText} isIconCheck={isIconCheck} />
-
-        : <SignupForm setIsLoginFormActive={setIsLoginFormActive} isLoginFormActive={isLoginFormActive} setIsLoginFormActive={setIsLoginFormActive} showObj={showObj}
-          showModal={showModal} addFill={addFill} formObjectState={formObjectState} modalVisible={modalVisible} singedText={singedText} isIconCheck={isIconCheck} />
-      }
-
+      {isLoginFormActive ? (
+        <LoginView
+          isLoginFormActive={isLoginFormActive}
+          setIsLoginFormActive={setIsLoginFormActive}
+          showModal={showModal}
+          addFill={addFill}
+          formObjectState={formObjectState}
+          modalVisible={modalVisible}
+          singedText={singedText}
+          isIconCheck={isIconCheck}
+        />
+      ) : (
+        <SignupForm
+          setIsLoginFormActive={setIsLoginFormActive}
+          isLoginFormActive={isLoginFormActive}
+          setIsLoginFormActive={setIsLoginFormActive}
+          showModal={showModal}
+          addFill={addFill}
+          formObjectState={formObjectState}
+          modalVisible={modalVisible}
+          singedText={singedText}
+          isIconCheck={isIconCheck}
+        />
+      )}
     </>
   );
-}
-
-
+};
 
 export default MainScreen;
