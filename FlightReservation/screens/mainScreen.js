@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
-import {View, Text} from 'react-native';
-
-import SignupForm from './signupView';
-import LoginView from './loginView';
+import SignupForm from '../components/signupView';
+import LoginView from '../components/loginView';
 
 const MainScreen = () => {
   const formObject = {

@@ -12,7 +12,7 @@ import {
   StatusBar,
 } from 'react-native';
 
-import MainScreen from './components/mainScreen';
+import MainScreen from './screens/mainScreen';
 
 const App: () => React$Node = () => {
   

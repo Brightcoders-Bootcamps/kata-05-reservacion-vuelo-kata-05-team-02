@@ -78,7 +78,6 @@ function SignUpButton(props) {
             ? 'Do not have an account?'
             : 'Already have an account'}{' '}
         </Text>
-
         <Text
           style={{color: 'blue', textDecorationLine: 'underline'}}
           onPress={() => setIsLoginFormActive(!isLoginFormActive)}>
