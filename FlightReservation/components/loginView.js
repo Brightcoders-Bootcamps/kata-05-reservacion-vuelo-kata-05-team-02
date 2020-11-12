@@ -3,6 +3,7 @@ import {StyleSheet, View, Text} from 'react-native';
 import SignUpButton from './signUpButtons';
 import Form from './formComponent';
 import ModalCustom from './modalComponent';
+import colors from '../src/colors';
 
 function LoginView(props) {
   const {
@@ -54,7 +55,7 @@ function LoginView(props) {
 const styles = StyleSheet.create({
   header: {
     fontSize: 25,
-    color: '#3E59F7',
+    color: colors.bluePrimary,
     fontWeight: 'bold',
     marginHorizontal: 15,
     marginBottom: 30,

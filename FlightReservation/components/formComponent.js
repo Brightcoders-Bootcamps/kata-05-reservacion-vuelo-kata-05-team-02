@@ -7,13 +7,13 @@ import {
   TextInput,
   Pressable,
 } from 'react-native';
+import eyeImage from '../img/ojo-grey.png';
+import colors from '../src/colors';
 
 function Form(props) {
   const {
     validEmail,
-    setValidEmail,
     validPassword,
-    setValidPassword,
     changeForm,
     objValues,
     isLoginFormActive,
@@ -23,15 +23,15 @@ function Form(props) {
     setSeePassword(!isSeePassword);
   };
   const inputBorderColor = {
-    borderColorName: '#818181',
-    borderColorEmail: '#818181',
-    borderColorPassword: '#818181',
+    borderColorName: colors.gray,
+    borderColorEmail: colors.gray,
+    borderColorPassword: colors.gray,
   };
   const [borderColor, setBorderColor] = useState(inputBorderColor);
   const checkInputsIsNull = (e, property, propertyBorder) => {
     const textInput = e.nativeEvent.text;
     changeForm(property, textInput);
-    const color = !textInput ? '#818181' : '#5B6EF8';
+    const color = !textInput ? colors.gray : colors.blue;
     setBorderColor({
       ...borderColor,
       [propertyBorder]: color,
@@ -116,7 +116,7 @@ function Form(props) {
                   styles.iconSeePassword,
                   {tintColor: borderColor.borderColorPassword},
                 ]}
-                source={require('../img/ojo-grey.png')}
+                source={eyeImage}
               />
             </Pressable>
           </View>
@@ -131,12 +131,12 @@ function Form(props) {
 const styles = StyleSheet.create({
   inputHeader: {
     fontSize: 16,
-    color: '#818181',
+    color: colors.gray,
     marginBottom: 10,
   },
   instruccionsPassword: {
     fontSize: 13,
-    color: '#818181',
+    color: colors.gray,
     marginBottom: 10,
     width: '100%',
     textAlign: 'justify',
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: '100%',
     marginBottom: 20,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     paddingHorizontal: 10,
     fontSize: 16,
     borderWidth: 1,
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     height: 52,
     width: '85%',
     marginBottom: 2,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     paddingHorizontal: 10,
     fontSize: 16,
     borderLeftWidth: 1,
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   },
   containerIconPassword: {
     justifyContent: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     paddingHorizontal: 8,
     width: '15%',
     height: 52,
@@ -189,11 +189,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   iconSeePassword: {
-    tintColor: 'gray',
+    tintColor: colors.gray,
     height: 20,
   },
   errorText: {
-    color: '#FF80A0',
+    color: colors.red,
     fontSize: 16,
     marginLeft: 4,
   },

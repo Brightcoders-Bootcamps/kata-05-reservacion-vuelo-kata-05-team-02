@@ -1,15 +1,7 @@
-import React, {useState} from 'react';
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  TextInput,
-  Pressable,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import React from 'react';
+import {StyleSheet, View, Text} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
+import colors from '../src/colors';
 
 function Terms(props) {
   const {changeForm, objValues} = props;
@@ -20,7 +12,7 @@ function Terms(props) {
           value={objValues.agreed}
           onValueChange={(value) => changeForm('agreed', value)}
           style={styles.checkbox}
-          tintColors={{true: '#3E59F7', false: 'black'}}
+          tintColors={{true: colors.bluePrimary, false: 'black'}}
         />
         <Text style={styles.labelCheckBox}>
           I agree to the{' '}
@@ -34,7 +26,7 @@ function Terms(props) {
           value={objValues.subscribed}
           onValueChange={(value) => changeForm('subscribed', value)}
           style={styles.checkbox}
-          tintColors={{true: '#3E59F7', false: 'black'}}
+          tintColors={{true: colors.bluePrimary, false: 'black'}}
         />
         <Text style={styles.labelCheckBox}>
           Subscribe for select products and updates
@@ -57,7 +49,7 @@ const styles = StyleSheet.create({
   labelCheckBox: {
     fontSize: 15,
     margin: 8,
-    color: '#818181',
+    color: colors.gray,
   },
   checkbox: {
     alignSelf: 'center',

@@ -1,12 +1,6 @@
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  Modal,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
+import colors from '../src/colors';
 
 function SignUpButton(props) {
   const {
@@ -16,11 +10,9 @@ function SignUpButton(props) {
     isLoginFormActive,
     signUpGoogle,
   } = props;
-  //sign in/log in button styles
-  const [classColor, setClassColor] = useState('#B6B7BA');
+  const [classColor, setClassColor] = useState(colors.gray);
   const [buttonDisable, setButtonDisable] = useState(true);
-  //sign in/log in with google button styles
-  const [classColorGoogle, setClassColorGoogle] = useState('#B6B7BA');
+  const [classColorGoogle, setClassColorGoogle] = useState(colors.gray);
   const [buttonDisableGoogle, setButtonDisableGoogle] = useState(true);
 
   React.useEffect(() => {
@@ -35,20 +27,20 @@ function SignUpButton(props) {
       !objValues.agreed ||
       !objValues.subscribed
     ) {
-      setClassColor('#B6B7BA');
+      setClassColor(colors.grayLight);
       setButtonDisable(true);
     } else {
-      setClassColor('#5B6EF8');
+      setClassColor(colors.blue);
       setButtonDisable(false);
     }
   };
 
   const checkNullsGoogle = () => {
     if (!objValues.agreed || !objValues.subscribed) {
-      setClassColorGoogle('#B6B7BA');
+      setClassColorGoogle(colors.grayLight);
       setButtonDisableGoogle(true);
     } else {
-      setClassColorGoogle('#5B6EF8');
+      setClassColorGoogle(colors.blue);
       setButtonDisableGoogle(false);
     }
   };
@@ -69,7 +61,7 @@ function SignUpButton(props) {
         </View>
       </TouchableOpacity>
       <View style={{alignItems: 'center', margin: 10}}>
-        <Text style={{color: '#C9CED6', fontSize: 15}}>or</Text>
+        <Text style={{color: colors.grayLight, fontSize: 15}}>or</Text>
       </View>
       <TouchableOpacity
         disabled={buttonDisableGoogle}
@@ -95,7 +87,7 @@ function SignUpButton(props) {
           styles.containerForm,
           {flexDirection: 'row', marginTop: 10, justifyContent: 'center'},
         ]}>
-        <Text style={{color: '#B6B7BA', fontSize: 15}}>
+        <Text style={{color: colors.grayLight, fontSize: 15}}>
           {' '}
           {isLoginFormActive
             ? 'Do not have an account?'
@@ -103,7 +95,7 @@ function SignUpButton(props) {
         </Text>
 
         <Text
-          style={{color: 'blue', textDecorationLine: 'underline'}}
+          style={{color: colors.blue, textDecorationLine: 'underline'}}
           onPress={() => setIsLoginFormActive(!isLoginFormActive)}>
           {' '}
           {isLoginFormActive ? 'Sign Up' : 'Log in'}{' '}
@@ -130,7 +122,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   textButtons: {
-    color: '#fff',
+    color: 'white',
     fontSize: 17,
     fontWeight: 'bold',
     width: '80%',
@@ -140,7 +132,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   ContainerOfButtonSignUpGoogle: {
-    backgroundColor: '#B6B7BA',
+    backgroundColor: colors.grayLight,
     borderRadius: 10,
     flexDirection: 'row',
     width: '90%',

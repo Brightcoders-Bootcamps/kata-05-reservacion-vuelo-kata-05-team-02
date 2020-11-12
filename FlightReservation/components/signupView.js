@@ -4,6 +4,7 @@ import ModalCustom from './modalComponent';
 import SignUpButton from './signUpButtons';
 import Form from './formComponent';
 import Terms from './termsComponents';
+import colors from '../src/colors';
 
 function SignupForm(props) {
   const {
@@ -22,10 +23,6 @@ function SignupForm(props) {
     isIconCheck,
   } = props;
 
-  // function seepass(){
-  //   alert(validEmail);
-  //   //console.log(props)
-  // }
   return (
     
     <View>
@@ -60,7 +57,7 @@ function SignupForm(props) {
 const styles = StyleSheet.create({
   header: {
     fontSize: 25,
-    color: '#3E59F7',
+    color: colors.bluePrimary,
     fontWeight: 'bold',
     marginHorizontal: 15,
     marginBottom: 30,

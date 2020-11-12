@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, View, Text, Image, Modal} from 'react-native';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
+import checkImg from '../img/check.png';
+import colors from '../src/colors';
 
 function IconCheck(props) {
   if (props.isIconCheck) {
@@ -9,14 +11,14 @@ function IconCheck(props) {
         size={80}
         width={8}
         fill={100}
-        tintColor="#5362D8"
-        backgroundColor="#3d5875"
+        tintColor={colors.bluePrimary}
+        backgroundColor="black"
         duration={2500}
       />
     );
   } else {
     return (
-      <Image style={styles.iconCheck} source={require('../img/check.png')} />
+      <Image style={styles.iconCheck} source={checkImg} />
     );
   }
 }
@@ -33,10 +35,10 @@ function ModalCustom(props) {
         <View
           style={[
             styles.centeredView,
-            {backgroundColor: 'rgba(0, 0, 0, 0.4)'},
+            {backgroundColor: colors.blackLight},
           ]}>
           <View style={[styles.modalView, {backgroundColor: 'black'}]}>
-            <IconCheck isIconCheck={isIconCheck}/>
+            <IconCheck isIconCheck={isIconCheck} />
             <Text style={styles.modalText}>{text}</Text>
           </View>
         </View>
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
     padding: 35,
     paddingBottom: 10,
     alignItems: 'center',
-    shadowColor: '#000',
+    shadowColor: 'black',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -67,12 +69,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-  },
-  openButton: {
-    backgroundColor: '#F194FF',
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
   },
   textStyle: {
     color: 'white',
@@ -82,11 +78,11 @@ const styles = StyleSheet.create({
   modalText: {
     marginTop: 15,
     marginBottom: 15,
-    color: '#5B6EF8',
+    color: colors.bluePrimary,
     textAlign: 'center',
   },
   iconCheck: {
-    tintColor: '#5362D8',
+    tintColor: colors.bluePrimary,
     height: 80,
     width: 80,
   },

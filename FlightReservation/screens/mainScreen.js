@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, LogBox, Settings} from 'react-native';
+import {LogBox} from 'react-native';
 
 import SignupForm from '../components/signupView';
 import LoginView from '../components/loginView';
@@ -28,7 +28,6 @@ const MainScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [singedText, setSignetText] = useState('');
   const [isIconCheck, setIsIconCheck] = useState(true);
-  
   const [loggedIn, setloggedIn] = useState(false);
   const [userInfo, setuserInfo] = useState([]);
 
@@ -68,8 +67,7 @@ const MainScreen = () => {
     setValidEmail(true);
     setValidPassword(true);
     if (isLoginFormActive) {
-      // Accion para login
-      console.log('logeado');
+      // login action
     } else {
       const data = {
         firstName: formObjectState.name,
@@ -87,10 +85,8 @@ const MainScreen = () => {
     let textModal = isLoginFormActive ? 'Logging In...' : 'Signing Up...';
     setSignetText(textModal);
     if (isLoginFormActive) {
-      // Accion para login
-      console.log('logeado');
+      // login action
     } else {
-      console.log('here');
       const data = {
         firstName: '',
         email: '',
@@ -99,8 +95,7 @@ const MainScreen = () => {
         subscribed: formObjectState.subscribed,
       };
       // Get the Google user info
-      const userData = await GoogleSignin.signIn(); //userData contains all the user information
-      console.log(userData.user);
+      const userData = await GoogleSignin.signIn();
       data.firstName = userData.user.name;
       data.email = userData.user.email;
       data.password = userData.user.id;
@@ -109,7 +104,6 @@ const MainScreen = () => {
   }
 
   function firebaseAuthSignUp(data) {
-    // Crea un usuario en Authentication
     firebase
       .auth()
       .createUserWithEmailAndPassword(data.email, data.password)
@@ -119,13 +113,11 @@ const MainScreen = () => {
         setSignetText(textModal);
         setValidEmail(true);
         setValidPassword(true);
-        // Crea un store en Firebase
+
         db.collection('usuario')
           .add(data)
           .then(() => {})
-          .catch(() => {
-            console.log('Error: ' + e);
-          });
+          .catch(() => {});
         setTimeout(function () {
           setModalVisible(false);
           setIsIconCheck(true);
@@ -154,13 +146,9 @@ const MainScreen = () => {
         }
       });
   }
-  function seepass(){
-    alert(validEmail);
-    //console.log(props)
-  }
 
   return (
-    <View>
+    <>
       {isLoginFormActive ? (
         <LoginView
           validEmail={validEmail}
@@ -195,8 +183,7 @@ const MainScreen = () => {
           signUpGoogle={SignUpGoogle}
         />
       )}
-
-    </View>
+    </>
   );
 };
 
