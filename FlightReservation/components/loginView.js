@@ -6,8 +6,14 @@ import ModalCustom from './modalComponent';
 
 function LoginView(props) {
   const {
+    signUpGoogle,
+    validEmail,
+    setValidEmail,
+    validPassword,
+    setValidPassword,
     setIsLoginFormActive,
     isLoginFormActive,
+    showObj,
     showModal,
     addFill,
     formObjectState,
@@ -20,13 +26,19 @@ function LoginView(props) {
     <View>
       <Text style={styles.header}>Log In</Text>
       <Form
+        validEmail={validEmail}
+        setValidEmail={setValidEmail}
+        validPassword={validPassword}
+        setValidPassword={setValidPassword}
         changeForm={addFill}
         objValues={formObjectState}
         isLoginFormActive={isLoginFormActive}
       />
       <SignUpButton
+        prueba={showObj}
         objValues={formObjectState}
         showModal={showModal}
+        signUpGoogle={signUpGoogle}
         setIsLoginFormActive={setIsLoginFormActive}
         isLoginFormActive={isLoginFormActive}
       />

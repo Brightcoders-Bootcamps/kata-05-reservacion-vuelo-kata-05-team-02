@@ -9,12 +9,23 @@ import {
 } from 'react-native';
 
 function SignUpButton(props) {
-  const {objValues, showModal, setIsLoginFormActive, isLoginFormActive} = props;
+  const {
+    objValues,
+    showModal,
+    setIsLoginFormActive,
+    isLoginFormActive,
+    signUpGoogle,
+  } = props;
+  //sign in/log in button styles
   const [classColor, setClassColor] = useState('#B6B7BA');
   const [buttonDisable, setButtonDisable] = useState(true);
+  //sign in/log in with google button styles
+  const [classColorGoogle, setClassColorGoogle] = useState('#B6B7BA');
+  const [buttonDisableGoogle, setButtonDisableGoogle] = useState(true);
 
   React.useEffect(() => {
     checkNulls();
+    checkNullsGoogle();
   });
   const checkNulls = () => {
     if (
@@ -29,6 +40,16 @@ function SignUpButton(props) {
     } else {
       setClassColor('#5B6EF8');
       setButtonDisable(false);
+    }
+  };
+
+  const checkNullsGoogle = () => {
+    if (!objValues.agreed || !objValues.subscribed) {
+      setClassColorGoogle('#B6B7BA');
+      setButtonDisableGoogle(true);
+    } else {
+      setClassColorGoogle('#5B6EF8');
+      setButtonDisableGoogle(false);
     }
   };
   return (
@@ -50,11 +71,13 @@ function SignUpButton(props) {
       <View style={{alignItems: 'center', margin: 10}}>
         <Text style={{color: '#C9CED6', fontSize: 15}}>or</Text>
       </View>
-      <TouchableOpacity disabled={buttonDisable}>
+      <TouchableOpacity
+        disabled={buttonDisableGoogle}
+        onPress={() => signUpGoogle()}>
         <View
           style={[
             styles.ContainerOfButtonSignUpGoogle,
-            {backgroundColor: classColor},
+            {backgroundColor: classColorGoogle},
           ]}>
           <View style={styles.viewIconGoogle}>
             <Image
@@ -78,6 +101,7 @@ function SignUpButton(props) {
             ? 'Do not have an account?'
             : 'Already have an account'}{' '}
         </Text>
+
         <Text
           style={{color: 'blue', textDecorationLine: 'underline'}}
           onPress={() => setIsLoginFormActive(!isLoginFormActive)}>
@@ -88,6 +112,7 @@ function SignUpButton(props) {
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   containerForm: {
     marginHorizontal: 15,

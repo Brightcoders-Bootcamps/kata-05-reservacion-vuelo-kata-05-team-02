@@ -9,12 +9,16 @@ import {
 } from 'react-native';
 
 function Form(props) {
-  const {changeForm, objValues, isLoginFormActive} = props;
+  const {
+    validEmail,
+    setValidEmail,
+    validPassword,
+    setValidPassword,
+    changeForm,
+    objValues,
+    isLoginFormActive,
+  } = props;
   const [isSeePassword, setSeePassword] = useState(true);
-
-  const [validEmail, setValidEmail] = useState(true);
-  const [validPassword, setValidPassword] = useState(true);
-
   const changeSeePassword = () => {
     setSeePassword(!isSeePassword);
   };
@@ -35,82 +39,92 @@ function Form(props) {
   };
 
   return (
-    <View style={styles.containerForm}>
-      {!isLoginFormActive && (
-        <View>
-          <Text style={styles.inputHeader}>First Name</Text>
-          <TextInput
-            style={[
-              styles.inputStyle,
-              {borderColor: borderColor.borderColorName},
-            ]}
-            onChange={(e) =>
-              checkInputsIsNull(e, 'name', 'borderColorName')
-            }></TextInput>
+    <View>
+      <View style={styles.containerForm}>
+        {!isLoginFormActive && (
+          <View>
+            <Text style={styles.inputHeader}>First Name</Text>
+            <TextInput
+              style={[
+                styles.inputStyle,
+                {borderColor: borderColor.borderColorName},
+              ]}
+              value={objValues.name}
+              onChange={(e) =>
+                checkInputsIsNull(e, 'name', 'borderColorName')
+              }></TextInput>
+          </View>
+        )}
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.inputHeader}>Email</Text>
+          <Text style={validEmail ? {color: 'gray'} : styles.errorText}>*</Text>
+          {!validEmail && (
+            <Text style={styles.errorText}>
+              Email in use. Use a different email
+            </Text>
+          )}
         </View>
-      )}
-      <View style={{flexDirection: 'row'}}>
-        <Text style={styles.inputHeader}>Email</Text>
-        <Text style={validEmail ? {color: 'gray'} : styles.errorText}>*</Text>
-        {!validEmail && (
-          <Text style={styles.errorText}>
-            Email in use. Use a different email
-          </Text>
-        )}
-      </View>
-      <TextInput
-        style={[styles.inputStyle, {borderColor: borderColor.borderColorEmail}]}
-        onChange={(e) =>
-          checkInputsIsNull(e, 'email', 'borderColorEmail')
-        }></TextInput>
-      <View style={{flexDirection: 'row'}}>
-        <Text style={styles.inputHeader}>Password</Text>
-        <Text style={validPassword ? {color: 'gray'} : styles.errorText}>
-          *
-        </Text>
-        {!validPassword && (
-          <Text style={styles.errorText}>Incorrect email and/or password</Text>
-        )}
-      </View>
-      <View style={styles.containerPassword}>
         <TextInput
           style={[
-            styles.inputPassword,
-            {
-              borderTopColor: borderColor.borderColorPassword,
-              borderBottomColor: borderColor.borderColorPassword,
-              borderLeftColor: borderColor.borderColorPassword,
-            },
+            styles.inputStyle,
+            {borderColor: borderColor.borderColorEmail},
           ]}
-          secureTextEntry={isSeePassword}
+          value={objValues.email}
           onChange={(e) =>
-            checkInputsIsNull(e, 'password', 'borderColorPassword')
-          }
-        />
-
-        <View
-          style={[
-            styles.containerIconPassword,
-            {
-              borderRightColor: borderColor.borderColorPassword,
-              borderTopColor: borderColor.borderColorPassword,
-              borderBottomColor: borderColor.borderColorPassword,
-            },
-          ]}>
-          <Pressable onPress={changeSeePassword}>
-            <Image
-              style={[
-                styles.iconSeePassword,
-                {tintColor: borderColor.borderColorPassword},
-              ]}
-              source={require('../img/ojo-grey.png')}
-            />
-          </Pressable>
+            checkInputsIsNull(e, 'email', 'borderColorEmail')
+          }></TextInput>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.inputHeader}>Password</Text>
+          <Text style={validPassword ? {color: 'gray'} : styles.errorText}>
+            *
+          </Text>
+          {!validPassword && (
+            <Text style={styles.errorText}>
+              Incorrect email and/or password
+            </Text>
+          )}
         </View>
+        <View style={styles.containerPassword}>
+          <TextInput
+            style={[
+              styles.inputPassword,
+              {
+                borderTopColor: borderColor.borderColorPassword,
+                borderBottomColor: borderColor.borderColorPassword,
+                borderLeftColor: borderColor.borderColorPassword,
+              },
+            ]}
+            secureTextEntry={isSeePassword}
+            value={objValues.password}
+            onChange={(e) =>
+              checkInputsIsNull(e, 'password', 'borderColorPassword')
+            }
+          />
+
+          <View
+            style={[
+              styles.containerIconPassword,
+              {
+                borderRightColor: borderColor.borderColorPassword,
+                borderTopColor: borderColor.borderColorPassword,
+                borderBottomColor: borderColor.borderColorPassword,
+              },
+            ]}>
+            <Pressable onPress={changeSeePassword}>
+              <Image
+                style={[
+                  styles.iconSeePassword,
+                  {tintColor: borderColor.borderColorPassword},
+                ]}
+                source={require('../img/ojo-grey.png')}
+              />
+            </Pressable>
+          </View>
+        </View>
+        <Text style={styles.instruccionsPassword}>
+          Use 8 or more characters with a mix of letters, numbers, and symbols
+        </Text>
       </View>
-      <Text style={styles.instruccionsPassword}>
-        Use 8 or more characters with a mix of letters, numbers, and symbols
-      </Text>
     </View>
   );
 }

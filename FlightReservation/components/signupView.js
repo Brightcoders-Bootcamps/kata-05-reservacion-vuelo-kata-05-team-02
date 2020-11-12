@@ -7,6 +7,11 @@ import Terms from './termsComponents';
 
 function SignupForm(props) {
   const {
+    signUpGoogle,
+    validEmail,
+    setValidEmail,
+    validPassword,
+    setValidPassword,
     setIsLoginFormActive,
     isLoginFormActive,
     showModal,
@@ -17,10 +22,20 @@ function SignupForm(props) {
     isIconCheck,
   } = props;
 
+  // function seepass(){
+  //   alert(validEmail);
+  //   //console.log(props)
+  // }
   return (
+    
     <View>
       <Text style={styles.header}>Sign Up</Text>
+      
       <Form
+        validEmail={validEmail}
+        setValidEmail={setValidEmail}
+        validPassword={validPassword}
+        setValidPassword={setValidPassword}
         changeForm={addFill}
         objValues={formObjectState}
         isLoginFormActive={isLoginFormActive}
@@ -29,6 +44,7 @@ function SignupForm(props) {
       <SignUpButton
         objValues={formObjectState}
         showModal={showModal}
+        signUpGoogle={signUpGoogle}
         setIsLoginFormActive={setIsLoginFormActive}
         isLoginFormActive={isLoginFormActive}
       />
