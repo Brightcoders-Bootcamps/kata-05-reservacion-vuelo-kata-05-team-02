@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import eyeImage from '../img/ojo-grey.png';
 import colors from '../src/colors';
+import strings from '../src/strings';
 
 function Form(props) {
   const {
@@ -43,7 +44,7 @@ function Form(props) {
       <View style={styles.containerForm}>
         {!isLoginFormActive && (
           <View>
-            <Text style={styles.inputHeader}>First Name</Text>
+            <Text style={styles.inputHeader}>{strings.titleFirstName}</Text>
             <TextInput
               style={[
                 styles.inputStyle,
@@ -56,11 +57,11 @@ function Form(props) {
           </View>
         )}
         <View style={{flexDirection: 'row'}}>
-          <Text style={styles.inputHeader}>Email</Text>
+          <Text style={styles.inputHeader}>{strings.titleEmail}</Text>
           <Text style={validEmail ? {color: 'gray'} : styles.errorText}>*</Text>
           {!validEmail && (
             <Text style={styles.errorText}>
-              Email in use. Use a different email
+              {strings.errorEmail}
             </Text>
           )}
         </View>
@@ -74,13 +75,13 @@ function Form(props) {
             checkInputsIsNull(e, 'email', 'borderColorEmail')
           }></TextInput>
         <View style={{flexDirection: 'row'}}>
-          <Text style={styles.inputHeader}>Password</Text>
+        <Text style={styles.inputHeader}>{strings.titlePassword}</Text>
           <Text style={validPassword ? {color: 'gray'} : styles.errorText}>
             *
           </Text>
           {!validPassword && (
             <Text style={styles.errorText}>
-              Incorrect email and/or password
+              {strings.errorPassword}
             </Text>
           )}
         </View>
@@ -122,7 +123,7 @@ function Form(props) {
           </View>
         </View>
         <Text style={styles.instruccionsPassword}>
-          Use 8 or more characters with a mix of letters, numbers, and symbols
+          {strings.instruccionsPassword}
         </Text>
       </View>
     </View>

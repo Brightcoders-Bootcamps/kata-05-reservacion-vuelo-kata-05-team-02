@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import colors from '../src/colors';
+import strings from '../src/strings';
 
 function Terms(props) {
   const {changeForm, objValues} = props;
@@ -29,7 +30,7 @@ function Terms(props) {
           tintColors={{true: colors.bluePrimary, false: 'black'}}
         />
         <Text style={styles.labelCheckBox}>
-          Subscribe for select products and updates
+          {strings.subscribe}
         </Text>
       </View>
     </View>

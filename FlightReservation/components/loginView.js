@@ -4,6 +4,7 @@ import SignUpButton from './signUpButtons';
 import Form from './formComponent';
 import ModalCustom from './modalComponent';
 import colors from '../src/colors';
+import strings from '../src/strings';
 
 function LoginView(props) {
   const {
@@ -25,7 +26,7 @@ function LoginView(props) {
 
   return (
     <View>
-      <Text style={styles.header}>Log In</Text>
+      <Text style={styles.header}>{strings.titleLogIn}</Text>
       <Form
         validEmail={validEmail}
         setValidEmail={setValidEmail}

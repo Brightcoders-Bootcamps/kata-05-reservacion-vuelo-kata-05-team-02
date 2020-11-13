@@ -5,6 +5,7 @@ import SignUpButton from './signUpButtons';
 import Form from './formComponent';
 import Terms from './termsComponents';
 import colors from '../src/colors';
+import strings from '../src/strings';
 
 function SignupForm(props) {
   const {
@@ -26,7 +27,7 @@ function SignupForm(props) {
   return (
     
     <View>
-      <Text style={styles.header}>Sign Up</Text>
+      <Text style={styles.header}>{strings.titleSignUp}</Text>
       
       <Form
         validEmail={validEmail}

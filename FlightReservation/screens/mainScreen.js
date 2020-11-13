@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {LogBox} from 'react-native';
-
 import SignupForm from '../components/signupView';
 import LoginView from '../components/loginView';
 import {GoogleSignin} from '@react-native-community/google-signin';
+import { WEB_CLIENT } from '@env';
+
 GoogleSignin.configure({
-  webClientId:
-    '461524927651-kr6p5l2toffdi6sqgs8tktcj8v01nvjj.apps.googleusercontent.com',
+  webClientId: WEB_CLIENT,
 });
 import {firebase} from '../bdd/configFirebase';
 firebase.firestore().settings({experimentalForceLongPolling: true});
