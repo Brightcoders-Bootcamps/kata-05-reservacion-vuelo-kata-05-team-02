@@ -3,7 +3,7 @@ import {LogBox} from 'react-native';
 import SignupForm from '../components/signupView';
 import LoginView from '../components/loginView';
 import {GoogleSignin} from '@react-native-community/google-signin';
-import { WEB_CLIENT } from '@env';
+import {WEB_CLIENT} from '@env';
 
 GoogleSignin.configure({
   webClientId: WEB_CLIENT,
@@ -41,12 +41,12 @@ const MainScreen = () => {
     if (isLoginFormActive) {
       formObject.agreed = true;
       formObject.subscribed = true;
-      formObject.name = '-';
+      formObject.name = '';
       setFormObjectState(formObject);
     } else {
       formObject.agreed = false;
       formObject.subscribed = false;
-      formObject.name = '-';
+      formObject.name = '';
       setFormObjectState(formObject);
     }
   }, [isLoginFormActive]);

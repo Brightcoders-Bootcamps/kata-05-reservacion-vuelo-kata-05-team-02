@@ -51,18 +51,15 @@ function Form(props) {
                 {borderColor: borderColor.borderColorName},
               ]}
               value={objValues.name}
-              onChange={(e) =>
-                checkInputsIsNull(e, 'name', 'borderColorName')
-              }></TextInput>
+              onChange={(e) => checkInputsIsNull(e, 'name', 'borderColorName')}
+            />
           </View>
         )}
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.inputHeader}>{strings.titleEmail}</Text>
           <Text style={validEmail ? {color: 'gray'} : styles.errorText}>*</Text>
           {!validEmail && (
-            <Text style={styles.errorText}>
-              {strings.errorEmail}
-            </Text>
+            <Text style={styles.errorText}>{strings.errorEmail}</Text>
           )}
         </View>
         <TextInput
@@ -71,18 +68,15 @@ function Form(props) {
             {borderColor: borderColor.borderColorEmail},
           ]}
           value={objValues.email}
-          onChange={(e) =>
-            checkInputsIsNull(e, 'email', 'borderColorEmail')
-          }></TextInput>
+          onChange={(e) => checkInputsIsNull(e, 'email', 'borderColorEmail')}
+        />
         <View style={{flexDirection: 'row'}}>
-        <Text style={styles.inputHeader}>{strings.titlePassword}</Text>
+          <Text style={styles.inputHeader}>{strings.titlePassword}</Text>
           <Text style={validPassword ? {color: 'gray'} : styles.errorText}>
             *
           </Text>
           {!validPassword && (
-            <Text style={styles.errorText}>
-              {strings.errorPassword}
-            </Text>
+            <Text style={styles.errorText}>{strings.errorPassword}</Text>
           )}
         </View>
         <View style={styles.containerPassword}>
@@ -101,7 +95,6 @@ function Form(props) {
               checkInputsIsNull(e, 'password', 'borderColorPassword')
             }
           />
-
           <View
             style={[
               styles.containerIconPassword,

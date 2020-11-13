@@ -6,6 +6,8 @@ import Form from './formComponent';
 import Terms from './termsComponents';
 import colors from '../src/colors';
 import strings from '../src/strings';
+import PropTypes from 'prop-types';
+
 
 function SignupForm(props) {
   const {
@@ -23,9 +25,9 @@ function SignupForm(props) {
     singedText,
     isIconCheck,
   } = props;
+  console.log(singedText)
 
-  return (
-    
+  return ( 
     <View>
       <Text style={styles.header}>{strings.titleSignUp}</Text>
       
@@ -69,4 +71,26 @@ const styles = StyleSheet.create({
   },
 });
 
+SignupForm.propTypes = {
+  signUpGoogle: PropTypes.func,
+  validEmail: PropTypes.bool,
+  setValidEmail: PropTypes.func, 
+  validPassword: PropTypes.bool,
+  setValidPassword: PropTypes.func,
+  setIsLoginFormActive: PropTypes.func,
+  isLoginFormActive: PropTypes.bool,
+  showModal: PropTypes.func,
+  addFill: PropTypes.func,
+  formObjectState: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
+    password: PropTypes.string,
+    subscribed: PropTypes.bool,
+    agreed: PropTypes.bool,
+  }),
+  modalVisible: PropTypes.bool,
+  singedText: PropTypes.string,
+  isIconCheck: PropTypes.bool,
+
+}
 export default SignupForm;

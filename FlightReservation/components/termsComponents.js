@@ -3,6 +3,7 @@ import {StyleSheet, View, Text} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import colors from '../src/colors';
 import strings from '../src/strings';
+import PropTypes from 'prop-types';
 
 function Terms(props) {
   const {changeForm, objValues} = props;
@@ -29,9 +30,7 @@ function Terms(props) {
           style={styles.checkbox}
           tintColors={{true: colors.bluePrimary, false: 'black'}}
         />
-        <Text style={styles.labelCheckBox}>
-          {strings.subscribe}
-        </Text>
+        <Text style={styles.labelCheckBox}>{strings.subscribe}</Text>
       </View>
     </View>
   );
@@ -56,5 +55,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 });
+
+Terms.propTypes = {
+  changeForm: PropTypes.func,
+  objValues: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
+    password: PropTypes.string,
+    subscribed: PropTypes.bool,
+    agreed: PropTypes.bool,
+  }),
+};
 
 export default Terms;

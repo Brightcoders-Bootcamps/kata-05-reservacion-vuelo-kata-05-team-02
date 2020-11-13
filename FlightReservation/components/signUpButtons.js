@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import colors from '../src/colors';
+import PropTypes from 'prop-types';
 
 function SignUpButton(props) {
   const {
@@ -146,5 +147,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+SignUpButton.propTypes = {
+  objValues: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
+    password: PropTypes.string,
+    subscribed: PropTypes.bool,
+    agreed: PropTypes.bool,
+  }),
+  showModal: PropTypes.func,
+  setIsLoginFormActive: PropTypes.func,
+  isLoginFormActive: PropTypes.bool,
+  signUpGoogle: PropTypes.func,
+};
 
 export default SignUpButton;
