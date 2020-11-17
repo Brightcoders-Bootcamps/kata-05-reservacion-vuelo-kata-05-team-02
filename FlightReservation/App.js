@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 import MainScreen from './screens/mainScreen';
+import MyFlights from './screens/myFlights';
 
 const App: () => React$Node = () => {
   
@@ -20,7 +21,8 @@ const App: () => React$Node = () => {
     <>
       <StatusBar barStyle="dark-content" backgroundColor="white"/>
       <SafeAreaView>
-        <MainScreen/>
+        {/* <MainScreen/> */}
+        <MyFlights/>
       </SafeAreaView>
     </>
   );

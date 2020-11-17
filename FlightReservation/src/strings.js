@@ -7,6 +7,7 @@ const strings = {
     titlePassword: 'Password',
     titleLogIn: 'Log In',
     titleSignUp: 'Sign Up',
+    titleMyFlights: 'My Flights',
     subscribe : 'Subscribe for select products and updates'
 };
   
