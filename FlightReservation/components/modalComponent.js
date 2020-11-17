@@ -16,11 +16,8 @@ function IconCheck(props) {
         duration={2500}
       />
     );
-  } else {
-    return (
-      <Image style={styles.iconCheck} source={checkImg} />
-    );
   }
+  return <Image style={styles.iconCheck} source={checkImg} />;
 }
 
 function ModalCustom(props) {
@@ -33,10 +30,7 @@ function ModalCustom(props) {
         visible={modalVisible}
         presentationStyle="overFullScreen">
         <View
-          style={[
-            styles.centeredView,
-            {backgroundColor: colors.blackLight},
-          ]}>
+          style={[styles.centeredView, {backgroundColor: colors.blackLight}]}>
           <View style={[styles.modalView, {backgroundColor: 'black'}]}>
             <IconCheck isIconCheck={isIconCheck} />
             <Text style={styles.modalText}>{text}</Text>
