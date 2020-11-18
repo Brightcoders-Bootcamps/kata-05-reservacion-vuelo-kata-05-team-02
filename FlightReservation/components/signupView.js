@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import ModalCustom from './modalComponent';
 import SignUpButton from './signUpButtons';
@@ -25,7 +25,6 @@ function SignupForm(props) {
     singedText,
     isIconCheck,
   } = props;
-  console.log(singedText)
 
   return ( 
     <View>

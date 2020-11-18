@@ -13,7 +13,8 @@ firebase.firestore().settings({experimentalForceLongPolling: true});
 const db = firebase.firestore(firebase);
 LogBox.ignoreLogs(['Setting a timer']);
 
-const MainScreen = () => {
+const MainScreen = (props) => {
+  const {navigation} = props;
   const formObject = {
     name: '',
     email: '',
@@ -29,7 +30,7 @@ const MainScreen = () => {
   const [singedText, setSignetText] = useState('');
   const [isIconCheck, setIsIconCheck] = useState(true);
   const [loggedIn, setloggedIn] = useState(false);
-  const [userInfo, setuserInfo] = useState([]);
+  const [userInfo, setuserInfo] = useState({});
 
   const addFill = (propierty, value) => {
     setFormObjectState({
@@ -118,6 +119,14 @@ const MainScreen = () => {
           .add(data)
           .then(() => {})
           .catch(() => {});
+
+        firebase.auth().onAuthStateChanged((user) => {
+          if (user) {          
+            console.log(user.email);
+            navigation.navigate('Flights');
+          }
+        })
+
         setTimeout(function () {
           setModalVisible(false);
           setIsIconCheck(true);
