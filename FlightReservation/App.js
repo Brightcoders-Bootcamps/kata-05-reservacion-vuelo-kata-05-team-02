@@ -21,8 +21,8 @@ const App: () => React$Node = () => {
     <>
       <StatusBar barStyle="dark-content" backgroundColor="white"/>
       <SafeAreaView>
-        <MainScreen/>
-        {/* <MyFlights/> */}
+        {/* <MainScreen/> */}
+        <MyFlights/>
       </SafeAreaView>
     </>
   );

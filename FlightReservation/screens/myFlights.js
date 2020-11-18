@@ -19,6 +19,7 @@ const MyFlights = () => {
       <Text style={styles.header}>{strings.titleMyFlights}</Text>
       <ScrollView>
         <MyFlightInfo />
+        
       </ScrollView>
       <TouchableOpacity style={styles.plusbutton}>
         <Text style={styles.plusbuttonContent}>+</Text>
