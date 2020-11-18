@@ -40,15 +40,23 @@ const MainScreen = (props) => {
   };
   React.useEffect(() => {
     if (isLoginFormActive) {
-      formObject.agreed = true;
-      formObject.subscribed = true;
-      formObject.name = '';
-      setFormObjectState(formObject);
+      const dataLoginDefault = {
+        name: '-',
+        email: '',
+        password: '',
+        agreed: true,
+        subscribed: true,
+      };
+      setFormObjectState(dataLoginDefault);
     } else {
-      formObject.agreed = false;
-      formObject.subscribed = false;
-      formObject.name = '';
-      setFormObjectState(formObject);
+      const dataLoginDefault = {
+        name: '',
+        email: '',
+        password: '',
+        agreed: false,
+        subscribed: false,
+      };
+      setFormObjectState(dataLoginDefault);
     }
   }, [isLoginFormActive]);
 
@@ -56,8 +64,8 @@ const MainScreen = (props) => {
     setModalVisible(true);
     let textModal = isLoginFormActive ? 'Logging In...' : 'Signing Up...';
     setSignetText(textModal);
-    setTimeout(function () {
-      setIsIconCheck(false);
+    setTimeout(function () {        
+      setIsIconCheck(false);    
       SignUpOrLoginAction();
       textModal = isLoginFormActive ? 'Logged In' : 'Signed Up';
       setSignetText(textModal);
@@ -68,7 +76,26 @@ const MainScreen = (props) => {
     setValidEmail(true);
     setValidPassword(true);
     if (isLoginFormActive) {
-      // login action
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(
+          formObjectState.email,
+          formObjectState.password,
+        )
+        .then(() => {
+          navigation.navigate('Flights');
+          setTimeout(function () {
+            setModalVisible(false);
+            setIsIconCheck(true);
+          }, 1000);
+        })
+        .catch(() => {
+          setValidPassword(false);
+          setTimeout(function () {
+            setModalVisible(false);            
+            setIsIconCheck(true);
+          }, 1000);
+        });      
     } else {
       const data = {
         firstName: formObjectState.name,
@@ -121,11 +148,10 @@ const MainScreen = (props) => {
           .catch(() => {});
 
         firebase.auth().onAuthStateChanged((user) => {
-          if (user) {          
-            console.log(user.email);
+          if (user) {
             navigation.navigate('Flights');
           }
-        })
+        });
 
         setTimeout(function () {
           setModalVisible(false);
