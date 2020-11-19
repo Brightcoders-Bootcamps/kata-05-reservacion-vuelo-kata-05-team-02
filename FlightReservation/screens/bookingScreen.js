@@ -12,12 +12,11 @@ const  BookingScreen = () => {
 
     return(
         <View>
-            <Text>Prueba de booking screen</Text>
             <OriginScreen/>
-            <DestinationScreen/>
+            {/* <DestinationScreen/>
             <DateScreen/>
             <PassengerScreen/>
-            <ConfirmationScreen/>
+            <ConfirmationScreen/> */}
         </View>
     );
 }
