@@ -13,10 +13,10 @@ const  BookingScreen = () => {
     return(
         <View>
             {/* <OriginScreen/> */}
-            <DestinationScreen/>
-            {/* <DateScreen/>
+            {/* <DestinationScreen/> */}
+            {/* <DateScreen/> */}
             <PassengerScreen/>
-            <ConfirmationScreen/> */}
+            {/* <ConfirmationScreen/> */}
         </View>
     );
 }

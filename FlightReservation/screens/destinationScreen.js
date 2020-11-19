@@ -67,7 +67,7 @@ const style = {
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 300,
+    marginTop: '60%',
   },
   nextBtnContent: {
     color: colors.white,
