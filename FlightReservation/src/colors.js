@@ -5,7 +5,8 @@ const colors = {
   grayLight: '#B6B7BA',
   red: '#FF80A0',
   blackLight: 'rgba(0, 0, 0, 0.4)',
-  myflightsDivision:"#D8D8D8"
+  myflightsDivision: '#D8D8D8',
+  white: '#ffffff',
 };
 
 export default colors;
