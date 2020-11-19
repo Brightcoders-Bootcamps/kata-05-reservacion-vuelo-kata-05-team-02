@@ -1,21 +1,12 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Text, Image, Pressable} from 'react-native';
+import {StyleSheet, View, Text, Image} from 'react-native';
 import airplane from '../img/flight.png';
 import colors from '../src/colors';
 
 function MyFlightInfo(props) {
   return (
     <View style={{paddingLeft: 25, paddingRight: 25}}>
-      {/* informacion de  origen/destino*/}
-      <View
-        style={[
-          styles.rowDirection,
-          {
-            paddingBottom: 10,
-            borderColor: colors.myflightsDivision,
-            borderBottomWidth: 2,
-          },
-        ]}>
+      <View style={[styles.rowDirection, styles.travelBottom]}>
         <View>
           <Text style={styles.origin}>BEG</Text>
           <Text style={[styles.originComplete, styles.font16]}>Serbia</Text>
@@ -33,17 +24,7 @@ function MyFlightInfo(props) {
           </Text>
         </View>
       </View>
-
-      {/* informacion de fecha y pasajeros */}
-      <View
-        style={[
-          styles.rowDirection,
-          {
-            marginTop: 15,
-            borderBottomWidth: 1,
-            paddingBottom: 25,
-          },
-        ]}>
+      <View style={[styles.rowDirection, styles.dateBottom]}>
         <Text style={styles.font16}>September 3, 2020</Text>
         <Text style={styles.font16}>2 passengers</Text>
       </View>
@@ -60,10 +41,31 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     marginTop: 35,
   },
-  rowDirection: {flexDirection: 'row', justifyContent: 'space-between'},
-  origin: {fontSize: 30, fontWeight: 'bold', marginBottom: 10},
-  originComplete: {fontWeight: '200'},
-  font16: {fontSize: 16},
+  travelBottom: {
+    paddingBottom: 10,
+    borderColor: colors.myflightsDivision,
+    borderBottomWidth: 2,
+  },
+  dateBottom: {
+    marginTop: 15,
+    borderBottomWidth: 1,
+    paddingBottom: 25,
+  },
+  rowDirection: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  origin: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  originComplete: {
+    fontWeight: '200',
+  },
+  font16: {
+    fontSize: 16,
+  },
   iconCheck: {
     tintColor: colors.bluePrimary,
     height: 20,

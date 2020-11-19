@@ -2,27 +2,25 @@ import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
-  View,
-  Pressable,
   ScrollView,
   TouchableOpacity,
   Dimensions,
+  Image,
 } from 'react-native';
 import MyFlightInfo from '../components/myFlightInfo';
 import colors from '../src/colors';
 import strings from '../src/strings';
+import plus from '../img/plus.png';
 
 const MyFlights = () => {
   return (
-    //Contenedor
     <>
       <Text style={styles.header}>{strings.titleMyFlights}</Text>
       <ScrollView>
         <MyFlightInfo />
-        
       </ScrollView>
       <TouchableOpacity style={styles.plusbutton}>
-        <Text style={styles.plusbuttonContent}>+</Text>
+        <Image style={styles.plusbuttonContent} source={plus} />
       </TouchableOpacity>
     </>
   );
@@ -45,13 +43,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     position: 'absolute',
     marginTop: Dimensions.get('window').height / 1.15,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   plusbuttonContent: {
-    fontSize: 60,
-    textAlign: 'center',
+    tintColor: colors.white,
+    height: 35,
+    width: 35,
     marginTop: -5,
-    color: 'white',
-    fontWeight: 'bold',
   },
 });
 
