@@ -58,17 +58,16 @@ const MainScreen = (props) => {
       };
       setFormObjectState(dataLoginDefault);
     }
+    setValidEmail(true);
+    setValidPassword(true);
   }, [isLoginFormActive]);
 
   const showModal = () => {
     setModalVisible(true);
     let textModal = isLoginFormActive ? 'Logging In...' : 'Signing Up...';
     setSignetText(textModal);
-    setTimeout(function () {        
-      setIsIconCheck(false);    
+    setTimeout(function () {
       SignUpOrLoginAction();
-      textModal = isLoginFormActive ? 'Logged In' : 'Signed Up';
-      setSignetText(textModal);
     }, 3000);
   };
 
@@ -76,26 +75,11 @@ const MainScreen = (props) => {
     setValidEmail(true);
     setValidPassword(true);
     if (isLoginFormActive) {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(
-          formObjectState.email,
-          formObjectState.password,
-        )
-        .then(() => {
-          navigation.navigate('Flights');
-          setTimeout(function () {
-            setModalVisible(false);
-            setIsIconCheck(true);
-          }, 1000);
-        })
-        .catch(() => {
-          setValidPassword(false);
-          setTimeout(function () {
-            setModalVisible(false);            
-            setIsIconCheck(true);
-          }, 1000);
-        });      
+      const userData = {
+        email: formObjectState.email,
+        password: formObjectState.password,
+      };
+      firebaseAuthLogIn(userData);
     } else {
       const data = {
         firstName: formObjectState.name,
@@ -113,7 +97,12 @@ const MainScreen = (props) => {
     let textModal = isLoginFormActive ? 'Logging In...' : 'Signing Up...';
     setSignetText(textModal);
     if (isLoginFormActive) {
-      // login action
+      const dataGoogle = await GoogleSignin.signIn();
+      const userData = {
+        email: dataGoogle.user.email,
+        password: dataGoogle.user.id,
+      };
+      firebaseAuthLogIn(userData);
     } else {
       const data = {
         firstName: '',
@@ -136,27 +125,26 @@ const MainScreen = (props) => {
       .auth()
       .createUserWithEmailAndPassword(data.email, data.password)
       .then(() => {
-        setIsIconCheck(false);
-        let textModal = isLoginFormActive ? 'Logged In...' : 'Signed Up...';
-        setSignetText(textModal);
-        setValidEmail(true);
-        setValidPassword(true);
-
         db.collection('usuario')
           .add(data)
           .then(() => {})
           .catch(() => {});
+
+        setIsIconCheck(false);
+        let textModal = isLoginFormActive ? 'Logged In' : 'Signed Up';
+        setSignetText(textModal);
+        setValidEmail(true);
+        setValidPassword(true);
+        setTimeout(function () {
+          setModalVisible(false);
+          setIsIconCheck(true);
+        }, 1000);
 
         firebase.auth().onAuthStateChanged((user) => {
           if (user) {
             navigation.navigate('Flights');
           }
         });
-
-        setTimeout(function () {
-          setModalVisible(false);
-          setIsIconCheck(true);
-        }, 1000);
         setFormObjectState(formObject);
       })
       .catch((e) => {
@@ -179,6 +167,32 @@ const MainScreen = (props) => {
             setValidPassword(false);
             break;
         }
+      });
+  }
+
+  function firebaseAuthLogIn(UserData) {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(UserData.email, UserData.password)
+      .then((response) => {
+        setIsIconCheck(false);
+        let textModal = isLoginFormActive ? 'Logged In' : 'Signed Up';
+        setSignetText(textModal);
+        setValidEmail(true);
+        setValidPassword(true);
+        setTimeout(function () {
+          setModalVisible(false);
+          setIsIconCheck(true);
+        }, 1000);
+
+        navigation.navigate('Flights');
+      })
+      .catch(() => {
+        setValidPassword(false);
+        setTimeout(function () {
+          setModalVisible(false);
+          setIsIconCheck(true);
+        }, 1000);
       });
   }
 
