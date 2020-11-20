@@ -2,27 +2,16 @@ import React, {useState} from 'react';
 import {StyleSheet, View, Text, Image} from 'react-native';
 import airplane from '../img/flight.png';
 import colors from '../src/colors';
+import LocationComponent from '../components/flightsComponents/locationComponent'
+import AirplaneIcon from '../components/flightsComponents/airplaneIcon'
 
 function MyFlightInfo(props) {
   return (
     <View style={{paddingLeft: 25, paddingRight: 25}}>
       <View style={[styles.rowDirection, styles.travelBottom]}>
-        <View>
-          <Text style={styles.origin}>BEG</Text>
-          <Text style={[styles.originComplete, styles.font16]}>Serbia</Text>
-        </View>
-        <View>
-          <Image
-            style={[styles.iconCheck, {marginTop: 20}]}
-            source={airplane}
-          />
-        </View>
-        <View>
-          <Text style={[{textAlign: 'right'}, styles.origin]}>AMS</Text>
-          <Text style={[styles.originComplete, styles.font16]}>
-            Netherlands
-          </Text>
-        </View>
+        <LocationComponent city="BEG" country="Serbia" side='left'/>
+        <AirplaneIcon/>
+        <LocationComponent city="AMS" country="Netherlands" side='right'/>
       </View>
       <View style={[styles.rowDirection, styles.dateBottom]}>
         <Text style={styles.font16}>September 3, 2020</Text>
