@@ -9,18 +9,13 @@ import {
 } from 'react-native';
 import colors from '../src/colors';
 import airplane from '../img/flight.png';
-import NumberPlease from 'react-native-number-please';
-
+import NumberPicker from '../components/flightsComponents/numberPicker';
 const PassengerScreen = () => {
-  const initialValues = [{id: 'pizza', value: 3}];
-  const [pizzas, setPizzas] = useState(initialValues);
-  const pizzaNumbers = [{id: 'pizza', label: '', min: 0, max: 99}];
 
   return (
     <View
       style={{
         padding: 30,
-        backgroundColor: 'yellow',
       }}>
       <View style={[style.rowDirection, style.travelBottom]}>
         <View>
@@ -42,16 +37,8 @@ const PassengerScreen = () => {
         }}>
         <Text style={style.titleFont}>How many passengers? </Text>
       </View>
-
-      <View>
-        <Text>I would like</Text>
-        <NumberPlease
-          digits={pizzaNumbers}
-          values={pizzas}
-          onChange={(values) => setPizzas(values)}
-        />
-      </View>
-
+      <NumberPicker />
+      
       <View>
           <TouchableOpacity style={style.nextBtnStyle}>
             <Text style={style.nextBtnContent}>Next</Text>

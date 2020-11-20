@@ -14,7 +14,7 @@ function LocationComponent(props) {
 
 const styles = StyleSheet.create({
   origin: {
-    fontSize: 30,
+    fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 10,
   },
