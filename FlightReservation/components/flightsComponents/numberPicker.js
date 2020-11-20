@@ -90,8 +90,8 @@ const ItemToRender = ({item, index}, indexSelected, vertical) => {
 };
 
 export default function numberPicker(props) {
-  const [selected, setSelected] = useState(4);
-  const refPicker = useRef(null);
+    const [selected, setSelected] = useState(4);
+    const refPicker = useRef(null);
 
   const handleChange = (index) => {
     setSelected(index);
@@ -104,6 +104,18 @@ export default function numberPicker(props) {
 
   return (
     <View style={styles.container}>
+      <View style={styles.wrapperHorizontal}>
+        <SmoothPicker
+          initialScrollToIndex={selected}
+          refFlatList={refPicker}
+          keyExtractor={(_, index) => index.toString()}
+          horizontal={true}
+          scrollAnimation
+          showsHorizontalScrollIndicator={false}
+          data={dataCity}
+          renderItem={(option) => ItemToRender(option, selected, false)}
+        />
+      </View>
       <View style={styles.wrapperVertical}>
         <SmoothPicker
           initialScrollToIndex={selected}

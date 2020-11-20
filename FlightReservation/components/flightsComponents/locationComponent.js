@@ -6,7 +6,7 @@ function LocationComponent(props) {
   const {city, country, side} = props;
   return (
     <View>
-      <Text style={[styles.origin,{textAlign:side}]}>{city}</Text>
+      <Text style={[styles.origin, {textAlign: side}]}>{city}</Text>
       <Text style={[styles.originComplete, styles.font16]}>{country}</Text>
     </View>
   );

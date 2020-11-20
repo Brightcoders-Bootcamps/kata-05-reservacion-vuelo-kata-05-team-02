@@ -1,49 +1,26 @@
 import React, {useState} from 'react';
-import {
-  LogBox,
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import colors from '../src/colors';
-import airplane from '../img/flight.png';
 import NumberPicker from '../components/flightsComponents/numberPicker';
-const PassengerScreen = () => {
+import LocationComponent from '../components/flightsComponents/locationComponent';
+import AirplaneIcon from '../components/flightsComponents/airplaneIcon';
+import TitleFlight from '../components/flightsComponents/titleFlight';
+import BtnNext from '../components/flightsComponents/btnNext';
 
+const PassengerScreen = () => {
   return (
     <View
       style={{
         padding: 30,
       }}>
       <View style={[style.rowDirection, style.travelBottom]}>
-        <View>
-          <Text style={style.origin}>BEG</Text>
-          <Text style={[style.originComplete, style.font16]}>Serbia</Text>
-        </View>
-        <View>
-          <Image style={[style.iconCheck, {marginTop: 20}]} source={airplane} />
-        </View>
-        <View>
-          <Text style={[{textAlign: 'right'}, style.origin]}>AMS</Text>
-          <Text style={[style.originComplete, style.font16]}>Netherlands</Text>
-        </View>
+        <LocationComponent city="Beg" country="Serbia" side="left" />
+        <AirplaneIcon />
+        <LocationComponent city="Beg" country="Serbia" side="right" />
       </View>
-      <View
-        style={{
-          paddingHorizontal: 20,
-          marginTop: 50,
-        }}>
-        <Text style={style.titleFont}>How many passengers? </Text>
-      </View>
+      <TitleFlight title={'How many passengers?'} marginTop={20} />
       <NumberPicker />
-      
-      <View>
-          <TouchableOpacity style={style.nextBtnStyle}>
-            <Text style={style.nextBtnContent}>Next</Text>
-          </TouchableOpacity>
-        </View>
+      <BtnNext marginTop={200} />
     </View>
   );
 };

@@ -1,7 +1,12 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
-import MyFlightInfo from '../components/myFlightInfo';
+import {View} from 'react-native';
 import colors from '../src/colors';
+import TitleFlight from '../components/flightsComponents/titleFlight';
+import BtnNext from '../components/flightsComponents/btnNext';
+import AirplaneIcon from '../components/flightsComponents/airplaneIcon';
+import LocationComponent from '../components/flightsComponents/locationComponent';
+import DateFlight from '../components/flightsComponents/dateFlight';
+import NumPassengers from '../components/flightsComponents/numPassengers';
 
 const ConfirmationScreen = () => {
   return (
@@ -9,22 +14,19 @@ const ConfirmationScreen = () => {
       style={{
         padding: 30,
       }}>
-      <View style={{marginTop: 250}}>
-        <MyFlightInfo />
+      <View style={[style.rowDirection, style.travelBottom]}>
+        <LocationComponent city="BEG" country="Serbia" side="left" />
+        <AirplaneIcon />
+        <LocationComponent city="AMS" country="Netherlands" side="right" />
+      </View> 
+      <View style={[style.rowDirection, style.dateBottom]}>
+        <DateFlight date={'September 3, 2020'} />
+        <NumPassengers num={3} />
       </View>
-      <View
-        style={{
-          paddingHorizontal: 20,
-          marginTop: 50,
-        }}>
-        <Text style={style.titleFont}>Your requested was received</Text>
-      </View>
-      <View>
-        <TouchableOpacity style={style.nextBtnStyle}>
-          <Text style={style.nextBtnContent}>Next</Text>
-        </TouchableOpacity>
-      </View>
+      <TitleFlight title={'Your requested was received.'} marginTop={20}/>
+      <BtnNext marginTop={180}/>
     </View>
+
   );
 };
 const style = {
@@ -32,19 +34,20 @@ const style = {
     fontSize: 35,
     fontWeight: 'bold',
   },
-  nextBtnStyle: {
-    width: '100%',
-    height: 50,
-    backgroundColor: colors.grayLight,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '60%',
+  travelBottom: {
+    paddingBottom: 10,
+    borderColor: colors.myflightsDivision,
+    borderBottomWidth: 2,
+    marginTop: 200,
   },
-  nextBtnContent: {
-    color: colors.white,
-    fontSize: 25,
-    fontWeight: 'bold',
+  rowDirection: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
+  dateBottom: {
+    marginTop: 15,
+    paddingBottom: 25,
+  },
+
 };
 export default ConfirmationScreen;
