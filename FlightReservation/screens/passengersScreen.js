@@ -19,7 +19,10 @@ const PassengerScreen = () => {
         <LocationComponent city="Beg" country="Serbia" side="right" />
       </View>
       <TitleFlight title={'How many passengers?'} marginTop={20} />
-      <NumberPicker />
+      <View style={{marginTop:100}}>
+        <NumberPicker />
+      </View>
+      
       <BtnNext marginTop={200} />
     </View>
   );

@@ -95,27 +95,10 @@ export default function numberPicker(props) {
 
   const handleChange = (index) => {
     setSelected(index);
-    refPicker.current.scrollToIndex({
-      animated: false,
-      index: index,
-      viewOffset: -30,
-    });
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.wrapperHorizontal}>
-        <SmoothPicker
-          initialScrollToIndex={selected}
-          refFlatList={refPicker}
-          keyExtractor={(_, index) => index.toString()}
-          horizontal={true}
-          scrollAnimation
-          showsHorizontalScrollIndicator={false}
-          data={dataCity}
-          renderItem={(option) => ItemToRender(option, selected, false)}
-        />
-      </View>
       <View style={styles.wrapperVertical}>
         <SmoothPicker
           initialScrollToIndex={selected}
@@ -144,18 +127,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  wrapperHorizontal: {
-    height: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 'auto',
-    color: 'black',
   },
   wrapperVertical: {
     width: 250,
-    height: 350,
+    height: 250,
     justifyContent: 'center',
     alignItems: 'center',
     margin: 'auto',
@@ -170,7 +145,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 20,
     paddingRight: 20,
-    height: 50,
+    height: 60,
     borderWidth: 1,
     flexDirection: 'row',
   },

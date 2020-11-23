@@ -12,8 +12,8 @@ const BookingScreen = () => {
       {/* <OriginScreen/> */}
       {/* <DestinationScreen/> */}
       {/* <DateScreen/> */}
-      {/* <PassengerScreen/> */}
-      <ConfirmationScreen />
+      <PassengerScreen/>
+      {/* <ConfirmationScreen /> */}
     </View>
   );
 };

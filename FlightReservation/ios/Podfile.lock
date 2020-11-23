@@ -355,12 +355,12 @@ PODS:
     - React-Core (= 0.63.3)
     - React-cxxreact (= 0.63.3)
     - React-jsi (= 0.63.3)
-  - RNCCheckbox (0.5.5):
-    - React
+  - RNCCheckbox (0.5.6):
+    - React-Core
   - RNFBApp (8.4.7):
     - Firebase/CoreOnly (= 6.34.0)
     - React-Core
-  - RNFBAuth (9.3.2):
+  - RNFBAuth (9.3.5):
     - Firebase/Auth (= 6.34.0)
     - React-Core
     - RNFBApp
@@ -567,9 +567,9 @@ SPEC CHECKSUMS:
   React-RCTText: 65a6de06a7389098ce24340d1d3556015c38f746
   React-RCTVibration: 8e9fb25724a0805107fc1acc9075e26f814df454
   ReactCommon: 4167844018c9ed375cc01a843e9ee564399e53c3
-  RNCCheckbox: 0d96d7725fecba464d0af856e93ce66dde780d75
+  RNCCheckbox: 0fa612ce146445b80efde233dab96602faf67d31
   RNFBApp: 636d5ea95f4f8fb237d7efb76e05d5cec67b918a
-  RNFBAuth: 9651e2921426a47f5269e4a4b97fdefc40851d48
+  RNFBAuth: fc898000f30aed5866054ac299c18f7d1c8bd71b
   RNGoogleSignin: ad866d4c4af2651e36801dd3b7771d7715353499
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   Yoga: 7d13633d129fd179e01b8953d38d47be90db185a
