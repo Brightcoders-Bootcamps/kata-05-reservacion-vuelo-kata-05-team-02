@@ -1,16 +1,14 @@
 import React, {useState, useRef} from 'react';
-import {View, Text, Button, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import SmoothPicker from 'react-native-smooth-picker';
 
-function dataCity2() {
+function dataCity() {
   let arr = [];
   for (let index = 1; index < 15; index++) {
     arr.push(index);
   }
   return arr;
 }
-
-const dataCity = dataCity2();
 
 const opacities = {
   0: 1,
@@ -90,8 +88,8 @@ const ItemToRender = ({item, index}, indexSelected, vertical) => {
 };
 
 export default function numberPicker(props) {
-    const [selected, setSelected] = useState(4);
-    const refPicker = useRef(null);
+  const [selected, setSelected] = useState(4);
+  const refPicker = useRef(null);
 
   const handleChange = (index) => {
     setSelected(index);
@@ -105,15 +103,12 @@ export default function numberPicker(props) {
           onScrollToIndexFailed={() => {}}
           keyExtractor={(_, index) => index.toString()}
           showsVerticalScrollIndicator={false}
-          data={dataCity}
+          data={dataCity()}
           scrollAnimation
           onSelected={({item, index}) => handleChange(index)}
           renderItem={(option) => ItemToRender(option, selected, true)}
           magnet
         />
-      </View>
-      <View>
-        <Text>{`Your selection is ${dataCity[selected]}`}</Text>
       </View>
     </View>
   );
