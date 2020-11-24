@@ -5,7 +5,7 @@ import colors from '../src/colors';
 
 function MyFlightInfo(props) {
   return (
-    <View style={{paddingLeft: 25, paddingRight: 25}}>
+    <View style={styles.padding25}>
       <View style={[styles.rowDirection, styles.travelBottom]}>
         <View>
           <Text style={styles.origin}>BEG</Text>
@@ -33,6 +33,10 @@ function MyFlightInfo(props) {
 }
 
 const styles = StyleSheet.create({
+  padding25: {
+    paddingLeft: 25,
+    paddingRight: 25,
+  },
   header: {
     fontSize: 30,
     color: colors.bluePrimary,
