@@ -6,6 +6,7 @@ import colors from '../src/colors';
 function MyFlightInfo(props) {
   return (
     <View style={styles.padding25}>
+      
       <View style={[styles.rowDirection, styles.travelBottom]}>
         <View>
           <Text style={styles.origin}>BEG</Text>

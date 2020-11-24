@@ -1,21 +1,32 @@
 import React, {useState} from 'react';
 import {
+  View,
   StyleSheet,
   Text,
   ScrollView,
   TouchableOpacity,
   Dimensions,
   Image,
+  Button,
 } from 'react-native';
 import MyFlightInfo from '../components/myFlightInfo';
 import colors from '../src/colors';
 import strings from '../src/strings';
 import plus from '../img/plus.png';
+import Navigation from '../components/navigation';
 
-const MyFlights = () => {
+
+const MyFlights = (props) => {
+  const {navigation} = props;
+  function goBack(){    
+    navigation.goBack();
+  }
   return (
     <>
       <Text style={styles.header}>{strings.titleMyFlights}</Text>
+      <Button title="Go back button" onPress={goBack}>
+        <Text>Go Back</Text>
+      </Button>
       <ScrollView>
         <MyFlightInfo />
       </ScrollView>
@@ -42,7 +53,7 @@ const styles = StyleSheet.create({
     height: 70,
     alignSelf: 'center',
     position: 'absolute',
-    marginTop: Dimensions.get('window').height / 1.15,
+    marginTop: Dimensions.get('window').height / 1.3,
     justifyContent: 'center',
     alignItems: 'center',
   },
