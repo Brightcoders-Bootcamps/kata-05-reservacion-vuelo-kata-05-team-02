@@ -17,7 +17,8 @@ const App: () => React$Node = () => {
     <>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
       <SafeAreaView>
-        <MyFlights />
+        {/* <MyFlights /> */}
+        <BookingScreen />
       </SafeAreaView>
     </>
   );

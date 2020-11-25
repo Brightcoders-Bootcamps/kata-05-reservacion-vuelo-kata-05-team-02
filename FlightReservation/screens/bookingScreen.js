@@ -7,9 +7,27 @@ import PassengerScreen from '../screens/passengersScreen';
 import ConfirmationScreen from '../screens/confirmationScreen';
 
 const BookingScreen = () => {
+  const [screenName, setScreenName] = useState('originScreen');
+  const [originLocation, setOriginLocation] = useState('');
+  const [destinationLocation, setDestinationLocation] = useState('');
+
   return (
     <View>
-      <OriginScreen />
+      {screenName == 'originScreen' && (
+        <OriginScreen
+          originLocation={originLocation}
+          setOriginLocation={setOriginLocation}
+          setScreenName={setScreenName}
+        />
+      )}
+      {screenName == 'destinationScreen' && (
+        <DestinationScreen
+          originLocation={originLocation}
+          destinationLocation={destinationLocation}
+          setDestinationLocation={setDestinationLocation}
+          setScreenName={setScreenName}
+        />
+      )}
     </View>
   );
 };

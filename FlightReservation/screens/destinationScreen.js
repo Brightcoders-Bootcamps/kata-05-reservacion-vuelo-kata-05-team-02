@@ -6,7 +6,21 @@ import TitleFlight from '../components/flightsComponents/titleFlight';
 import InputFlight from '../components/flightsComponents/inputFlight';
 import LocationComponent from '../components/flightsComponents/locationComponent';
 import AirplaneIcon from '../components/flightsComponents/airplaneIcon';
-const OriginScreen = () => {
+
+const OriginScreen = (props) => {
+  const {
+    originLocation,
+    destinationLocation,
+    setDestinationLocation,
+    setScreenName,
+  } = props;
+
+  onChangeLocation = (location) => {
+    setDestinationLocation(location);
+    console.log('orgin', originLocation);
+    console.log('desti', destinationLocation);
+  };
+
   return (
     <View style={style.container}>
       <View style={[style.rowDirection, style.travelBottom]}>
@@ -14,8 +28,16 @@ const OriginScreen = () => {
         <AirplaneIcon />
       </View>
       <TitleFlight title={'Where will you be flying to? '} marginTop={20} />
-      <InputFlight />
-      <BtnNext marginTop={250}/>
+      <InputFlight
+        location={destinationLocation}
+        onChangeLocation={onChangeLocation}
+      />
+      <BtnNext
+        location={originLocation}
+        setScreenName={setScreenName}
+        nextScreen={'otherScreen'}
+        marginTop={250}
+      />
     </View>
   );
 };
