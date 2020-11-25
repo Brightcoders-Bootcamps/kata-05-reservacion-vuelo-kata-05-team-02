@@ -5,19 +5,12 @@ import LocationComponent from './flightsComponents/locationComponent';
 import AirplaneIcon from './flightsComponents/airplaneIcon';
 import DateFlight from './flightsComponents/dateFlight';
 import NumPassengers from './flightsComponents/numPassengers';
+import TripInfo from '../components/tripInfo';
 
 function MyFlightInfo(props) {
   return (
     <View style={{paddingLeft: 25, paddingRight: 25}}>
-      <View style={[styles.rowDirection, styles.travelBottom]}>
-        <LocationComponent city="BEG" country="Serbia" side="left" />
-        <AirplaneIcon />
-        <LocationComponent city="AMS" country="Netherlands" side="right" />
-      </View>
-      <View style={[styles.rowDirection, styles.dateBottom]}>
-        <DateFlight date={'September 3, 2020'} />
-        <NumPassengers num={3} />
-      </View>
+      <TripInfo borderBtm={1} marginTop={0} />
     </View>
   );
 }

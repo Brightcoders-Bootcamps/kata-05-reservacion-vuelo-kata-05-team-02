@@ -1,12 +1,13 @@
 import React from 'react';
 import {StyleSheet, View, TextInput} from 'react-native';
 import colors from '../../src/colors';
+import strings from '../../src/strings';
 
 function InputFlight(props) {
   return (
     <View style={style.container}>
       <TextInput
-        placeholder="Select a location"
+        placeholder={strings.selectPLace}
         style={style.textInput}></TextInput>
     </View>
   );

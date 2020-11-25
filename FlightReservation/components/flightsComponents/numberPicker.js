@@ -1,6 +1,7 @@
 import React, {useState, useRef} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import SmoothPicker from 'react-native-smooth-picker';
+import arrow from '../../img/tocar.png';
 
 function dataCity() {
   let arr = [];
@@ -40,7 +41,7 @@ const Item = React.memo(({opacity, selected, vertical, fontSize, name}) => {
       {selected && (
         <Image
           style={{tintColor: 'blue', width: 16, height: 18, marginRight: 5}}
-          source={require('../../img/tocar.png')}
+          source={arrow}
         />
       )}
 
@@ -56,7 +57,7 @@ const Item = React.memo(({opacity, selected, vertical, fontSize, name}) => {
             marginRight: 5,
             transform: [{rotate: '180deg'}],
           }}
-          source={require('../../img/tocar.png')}
+          source={arrow}
         />
       )}
     </View>

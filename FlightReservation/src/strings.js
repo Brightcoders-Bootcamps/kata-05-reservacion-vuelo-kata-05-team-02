@@ -8,7 +8,8 @@ const strings = {
     titleLogIn: 'Log In',
     titleSignUp: 'Sign Up',
     titleMyFlights: 'My Flights',
-    subscribe : 'Subscribe for select products and updates'
+    subscribe : 'Subscribe for select products and updates',
+    selectPLace:'Select a location',
 };
   
   export default strings;

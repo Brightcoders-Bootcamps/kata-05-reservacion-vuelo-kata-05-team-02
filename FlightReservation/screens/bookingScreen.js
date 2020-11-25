@@ -9,11 +9,7 @@ import ConfirmationScreen from '../screens/confirmationScreen';
 const BookingScreen = () => {
   return (
     <View>
-      {/* <OriginScreen/> */}
-      {/* <DestinationScreen/> */}
-      {/* <DateScreen/> */}
-      <PassengerScreen/>
-      {/* <ConfirmationScreen /> */}
+      <OriginScreen />
     </View>
   );
 };
