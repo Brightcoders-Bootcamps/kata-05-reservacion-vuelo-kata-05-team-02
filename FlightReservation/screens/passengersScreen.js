@@ -16,18 +16,34 @@ const PassengerScreen = (props) => {
     passengers,
     setPassengers,
     setScreenName,
-    fillInfo
+    fillInfo,
   } = props;
-  //fillInfo("date",day.dateString);
+
+  const originLocationArray = originLocation.split(',');
+  const originCity = originLocationArray[0];
+  const originCountry = originLocationArray[1];
+
+  const destinationLocationArray = destinationLocation.split(',');
+  const destinationCity = destinationLocationArray[0];
+  const destinationCountry = destinationLocationArray[1];
+
   return (
     <View
       style={{
         padding: 30,
       }}>
-      <TripInfo borderBtm={0} marginTop={0} />
+      <TripInfo
+        borderBtm={0}
+        marginTop={0}
+        originCity={originCity}
+        originCountry={originCountry}
+        destinationCity={destinationCity}
+        destinationCountry={destinationCountry}
+        tripDate={tripDate}
+      />
       <TitleFlight title={'How many passengers?'} marginTop={20} />
-      <View style={{marginTop:100}}>
-        <NumberPicker setPassengers={setPassengers} fillInfo={fillInfo}/>
+      <View style={{marginTop: 100}}>
+        <NumberPicker setPassengers={setPassengers} fillInfo={fillInfo} />
       </View>
       <BtnNext
         enable={passengers}

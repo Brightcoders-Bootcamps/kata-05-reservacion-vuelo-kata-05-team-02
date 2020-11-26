@@ -7,7 +7,16 @@ import DateFlight from '../components/flightsComponents/dateFlight';
 import NumPassengers from '../components/flightsComponents/numPassengers';
 
 const TripInfo = (props) => {
-  const {borderBtm, marginTop} = props;
+  const {
+    borderBtm,
+    marginTop,
+    originCity,
+    originCountry,
+    destinationCity,
+    destinationCountry,
+    tripDate,
+    passengers,
+  } = props;
   return (
     <View>
       <View
@@ -16,9 +25,17 @@ const TripInfo = (props) => {
           style.travelBottom,
           {marginTop: marginTop},
         ]}>
-        <LocationComponent city="BEG" country="Serbia" side="left" />
+        <LocationComponent
+          city={originCity}
+          country={originCountry}
+          side="left"
+        />
         <AirplaneIcon />
-        <LocationComponent city="AMS" country="Netherlands" side="right" />
+        <LocationComponent
+          city={destinationCity}
+          country={destinationCountry}
+          side="right"
+        />
       </View>
       <View
         style={[
@@ -26,8 +43,8 @@ const TripInfo = (props) => {
           style.dateBottom,
           {borderBottomWidth: borderBtm},
         ]}>
-        <DateFlight date={'September 3, 2020'} />
-        <NumPassengers num={3} />
+        <DateFlight date={tripDate} />
+        {passengers && <NumPassengers num={passengers} />}
       </View>
     </View>
   );

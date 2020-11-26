@@ -1,45 +1,52 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import colors from '../src/colors';
-import airplane from '../img/flight.png';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import BtnNext from '../components/flightsComponents/btnNext';
 import TitleFlight from '../components/flightsComponents/titleFlight';
 import AirplaneIcon from '../components/flightsComponents/airplaneIcon';
 import LocationComponent from '../components/flightsComponents/locationComponent';
 const DateScreen = (props) => {
-
   const {
     originLocation,
     destinationLocation,
     tripDate,
     setTripDate,
     setScreenName,
-    fillInfo
+    fillInfo,
   } = props;
-  
+
+  const originLocationArray = originLocation.split(',');
+  const originCity = originLocationArray[0];
+  const originCountry = originLocationArray[1];
+
+  const destinationLocationArray = destinationLocation.split(',');
+  const destinationCity = destinationLocationArray[0];
+  const destinationCountry = destinationLocationArray[1];
+
   return (
     <View
       style={{
         padding: 30,
       }}>
       <View style={[style.rowDirection, style.travelBottom]}>
-        <LocationComponent city="BEG" country="Serbia" side="left" />
+        <LocationComponent
+          city={originCity}
+          country={originCountry}
+          side="left"
+        />
         <AirplaneIcon />
-        <LocationComponent city="AMS" country="Netherlands" side="right" />
-      </View>      
+        <LocationComponent
+          city={destinationCity}
+          country={destinationCountry}
+          side="right"
+        />
+      </View>
       <TitleFlight title={'Select Date '} marginTop={20} />
-      <View style={{marginTop:15}}>
+      <View style={{marginTop: 15}}>
         <Calendar
           onDayPress={(day) => {
-            //console.log('selected day', day.dateString);
-            fillInfo("date",day.dateString);
+            fillInfo('date', day.dateString);
             setTripDate(day.dateString);
           }}
           markedDates={{
@@ -57,7 +64,7 @@ const DateScreen = (props) => {
   );
 };
 
-const style = StyleSheet.create({  
+const style = StyleSheet.create({
   travelBottom: {
     paddingBottom: 10,
     borderColor: colors.myflightsDivision,

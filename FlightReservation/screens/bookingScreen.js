@@ -19,15 +19,11 @@ const BookingScreen = () => {
   const [tripDate, setTripDate] = useState('');
   const [passengers, setPassengers] = useState('');
 
-  React.useEffect(() => {
-    //fillInfo();
-  });
   const fillInfo = (propierty, value) => {
     settripData({
       ...tripData,
       [propierty]: value,
     });
-    console.log(tripData);
   };
 
   return (
@@ -69,7 +65,7 @@ const BookingScreen = () => {
           passengers={passengers}
           setPassengers={setPassengers}
           setScreenName={setScreenName}
-          tripData={tripData}
+          tripDate={tripDate}
           fillInfo={fillInfo}
         />
       )}
@@ -77,10 +73,9 @@ const BookingScreen = () => {
         <ConfirmationScreen
           originLocation={originLocation}
           destinationLocation={destinationLocation}
-          setDestinationLocation={setDestinationLocation}
-          setScreenName={setScreenName}
-          tripData={tripData}
-          fillInfo={fillInfo}
+          passengers={passengers}
+          tripDate={tripDate}
+          setScreenName={setScreenName}          
         />
       )}
     </View>

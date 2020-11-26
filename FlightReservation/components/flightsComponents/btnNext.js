@@ -3,7 +3,7 @@ import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import colors from '../../src/colors';
 
 function BtnNext(props) {
-  const {enable, marginTop, setScreenName, nextScreen} = props;
+  const {enable, marginTop, setScreenName, nextScreen, finish} = props;
   return (
     <View>
       <TouchableOpacity
@@ -16,7 +16,7 @@ function BtnNext(props) {
         ]}
         disabled={enable ? false : true}
         onPress={() => setScreenName(nextScreen)}>
-        <Text style={style.nextBtnContent}>Next</Text>
+        <Text style={style.nextBtnContent}>{finish ? 'Finish' : 'Next'}</Text>
       </TouchableOpacity>
     </View>
   );

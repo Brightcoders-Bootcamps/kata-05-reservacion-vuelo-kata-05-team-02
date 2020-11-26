@@ -21,10 +21,14 @@ const OriginScreen = (props) => {
     setDestinationLocation(location);
   };
 
+  const originLocationArray = originLocation.split(',');
+  const city = originLocationArray[0];
+  const country = originLocationArray[1];
+
   return (
     <View style={style.container}>
       <View style={[style.rowDirection, style.travelBottom]}>
-        <LocationComponent city="BEG" country="Serbia" side="left" />
+        <LocationComponent city={city} country={country} side="left" />
         <AirplaneIcon />
       </View>
       <TitleFlight title={'Where will you be flying to? '} marginTop={20} />
