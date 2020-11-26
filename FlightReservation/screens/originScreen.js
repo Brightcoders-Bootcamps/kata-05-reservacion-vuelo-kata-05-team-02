@@ -5,10 +5,9 @@ import TitleFlight from '../components/flightsComponents/titleFlight';
 import InputFlight from '../components/flightsComponents/inputFlight';
 
 const OriginScreen = (props) => {
-  const {originLocation, setOriginLocation, setScreenName} = props;
-
+  const {originLocation, setOriginLocation, setScreenName,fillInfo} = props;
   onChangeLocation = (location) => {
-    console.log("location: "+location);
+    fillInfo("origin",location);
     setOriginLocation(location);
   };
 

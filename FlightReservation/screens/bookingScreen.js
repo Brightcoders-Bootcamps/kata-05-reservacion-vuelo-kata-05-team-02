@@ -7,12 +7,12 @@ import PassengerScreen from '../screens/passengersScreen';
 import ConfirmationScreen from '../screens/confirmationScreen';
 
 const BookingScreen = () => {
-  const tripData={
-    origin:"",
-    destination:"",
-    date:"",
-    passengers:"",
-  };
+  const [tripData, settripData] = useState({
+    origin: '',
+    destination: '',
+    date: '',
+    passengers: '',
+  });
   const [screenName, setScreenName] = useState('originScreen');
   const [originLocation, setOriginLocation] = useState('');
   const [destinationLocation, setDestinationLocation] = useState('');
@@ -20,8 +20,15 @@ const BookingScreen = () => {
   const [passengers, setPassengers] = useState('');
 
   React.useEffect(() => {
-  console.log(passengers);
+    //fillInfo();
   });
+  const fillInfo = (propierty, value) => {
+    settripData({
+      ...tripData,
+      [propierty]: value,
+    });
+    console.log(tripData);
+  };
 
   return (
     <View>
@@ -30,6 +37,8 @@ const BookingScreen = () => {
           originLocation={originLocation}
           setOriginLocation={setOriginLocation}
           setScreenName={setScreenName}
+          tripData={tripData}
+          fillInfo={fillInfo}
         />
       )}
       {screenName == 'destinationScreen' && (
@@ -38,6 +47,8 @@ const BookingScreen = () => {
           destinationLocation={destinationLocation}
           setDestinationLocation={setDestinationLocation}
           setScreenName={setScreenName}
+          tripData={tripData}
+          fillInfo={fillInfo}
         />
       )}
       {screenName == 'datescreen' && (
@@ -45,7 +56,10 @@ const BookingScreen = () => {
           originLocation={originLocation}
           destinationLocation={destinationLocation}
           setTripDate={setTripDate}
+          tripDate={tripDate}
           setScreenName={setScreenName}
+          tripData={tripData}
+          fillInfo={fillInfo}
         />
       )}
       {screenName == 'passengerscreen' && (
@@ -55,6 +69,8 @@ const BookingScreen = () => {
           passengers={passengers}
           setPassengers={setPassengers}
           setScreenName={setScreenName}
+          tripData={tripData}
+          fillInfo={fillInfo}
         />
       )}
       {screenName == 'confirmationscreen' && (
@@ -63,6 +79,8 @@ const BookingScreen = () => {
           destinationLocation={destinationLocation}
           setDestinationLocation={setDestinationLocation}
           setScreenName={setScreenName}
+          tripData={tripData}
+          fillInfo={fillInfo}
         />
       )}
     </View>

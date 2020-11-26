@@ -18,11 +18,12 @@ const DateScreen = (props) => {
   const {
     originLocation,
     destinationLocation,
+    tripDate,
     setTripDate,
     setScreenName,
+    fillInfo
   } = props;
-
-  const [date, setDate] = useState('');
+  
   return (
     <View
       style={{
@@ -37,8 +38,9 @@ const DateScreen = (props) => {
       <View style={{marginTop:15}}>
         <Calendar
           onDayPress={(day) => {
-            console.log('selected day', day.dateString);
-            setDate(day.dateString);
+            //console.log('selected day', day.dateString);
+            fillInfo("date",day.dateString);
+            setTripDate(day.dateString);
           }}
           markedDates={{
             '2020-11-21': {selected: true, marked: true, selectedColor: 'blue'},
@@ -46,7 +48,7 @@ const DateScreen = (props) => {
         />
       </View>
       <BtnNext
-        enable={date}
+        enable={tripDate}
         setScreenName={setScreenName}
         nextScreen={'passengerscreen'}
         marginTop={200}

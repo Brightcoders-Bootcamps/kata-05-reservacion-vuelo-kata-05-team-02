@@ -13,12 +13,12 @@ const OriginScreen = (props) => {
     destinationLocation,
     setDestinationLocation,
     setScreenName,
+    fillInfo
   } = props;
 
   onChangeLocation = (location) => {
+    fillInfo("destination",location);
     setDestinationLocation(location);
-    console.log('orgin', originLocation);
-    console.log('desti', destinationLocation);
   };
 
   return (
@@ -33,7 +33,7 @@ const OriginScreen = (props) => {
         onChangeLocation={onChangeLocation}
       />
       <BtnNext
-        enable={originLocation}
+        enable={destinationLocation}
         setScreenName={setScreenName}
         nextScreen={'datescreen'}
         marginTop={250}

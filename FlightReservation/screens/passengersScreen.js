@@ -16,7 +16,9 @@ const PassengerScreen = (props) => {
     passengers,
     setPassengers,
     setScreenName,
+    fillInfo
   } = props;
+  //fillInfo("date",day.dateString);
   return (
     <View
       style={{
@@ -25,7 +27,7 @@ const PassengerScreen = (props) => {
       <TripInfo borderBtm={0} marginTop={0} />
       <TitleFlight title={'How many passengers?'} marginTop={20} />
       <View style={{marginTop:100}}>
-        <NumberPicker setPassengers={setPassengers}/>
+        <NumberPicker setPassengers={setPassengers} fillInfo={fillInfo}/>
       </View>
       <BtnNext
         enable={passengers}
