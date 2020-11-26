@@ -13,7 +13,16 @@ import BtnNext from '../components/flightsComponents/btnNext';
 import TitleFlight from '../components/flightsComponents/titleFlight';
 import AirplaneIcon from '../components/flightsComponents/airplaneIcon';
 import LocationComponent from '../components/flightsComponents/locationComponent';
-const DateScreen = () => {
+const DateScreen = (props) => {
+
+  const {
+    originLocation,
+    destinationLocation,
+    setTripDate,
+    setScreenName,
+  } = props;
+
+  const [date, setDate] = useState('');
   return (
     <View
       style={{
@@ -28,17 +37,20 @@ const DateScreen = () => {
       <View style={{marginTop:15}}>
         <Calendar
           onDayPress={(day) => {
-            console.log('selected day', day);
+            console.log('selected day', day.dateString);
+            setDate(day.dateString);
           }}
           markedDates={{
             '2020-11-21': {selected: true, marked: true, selectedColor: 'blue'},
-            '2020-11-22': {marked: true},
-            '2020-11-23': {marked: true, dotColor: 'red', activeOpacity: 0},
-            '2020-11-24': {disabled: true, disableTouchEvent: true},
           }}
         />
       </View>
-      <BtnNext marginTop={200} />
+      <BtnNext
+        enable={date}
+        setScreenName={setScreenName}
+        nextScreen={'passengerscreen'}
+        marginTop={200}
+      />
     </View>
   );
 };

@@ -33,9 +33,9 @@ const OriginScreen = (props) => {
         onChangeLocation={onChangeLocation}
       />
       <BtnNext
-        location={originLocation}
+        enable={originLocation}
         setScreenName={setScreenName}
-        nextScreen={'otherScreen'}
+        nextScreen={'datescreen'}
         marginTop={250}
       />
     </View>

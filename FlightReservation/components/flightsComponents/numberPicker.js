@@ -89,11 +89,13 @@ const ItemToRender = ({item, index}, indexSelected, vertical) => {
 };
 
 export default function numberPicker(props) {
-  const [selected, setSelected] = useState(4);
+  const {setPassengers} = props;
+  const [selected, setSelected] = useState(1);
   const refPicker = useRef(null);
 
   const handleChange = (index) => {
     setSelected(index);
+    setPassengers(index+1);
   };
 
   return (

@@ -8,6 +8,7 @@ const OriginScreen = (props) => {
   const {originLocation, setOriginLocation, setScreenName} = props;
 
   onChangeLocation = (location) => {
+    console.log("location: "+location);
     setOriginLocation(location);
   };
 
@@ -19,7 +20,7 @@ const OriginScreen = (props) => {
         onChangeLocation={onChangeLocation}
       />
       <BtnNext
-        location={originLocation}
+        enable={originLocation}
         setScreenName={setScreenName}
         nextScreen={'destinationScreen'}
         marginTop={250}
