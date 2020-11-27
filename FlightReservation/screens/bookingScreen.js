@@ -5,26 +5,11 @@ import DestinationScreen from '../screens/destinationScreen';
 import DateScreen from '../screens/dateScreen';
 import PassengerScreen from '../screens/passengersScreen';
 import ConfirmationScreen from '../screens/confirmationScreen';
-import {WEB_CLIENT} from '@env';
-// GoogleSignin.configure({
-//   webClientId: WEB_CLIENT,
-// });
 import {firebase} from '../bdd/configFirebase';
 firebase.firestore().settings({experimentalForceLongPolling: true});
 const db = firebase.firestore(firebase);
-LogBox.ignoreLogs(['Setting a timer']);
-
-
 
 const BookingScreen = () => {
-
-  const user = firebase.auth().currentUser;
-  console.log(user);
-// user.providerData.forEach((userInfo) => {
-//   console.log('User info for provider: ', userInfo);
-// });
-
-
   const [tripData, settripData] = useState({
     userID: '',
     origin: '',
@@ -32,7 +17,7 @@ const BookingScreen = () => {
     date: '',
     passengers: '',
   });
-  const [userID, setUSerID] = useState('1');
+  const [userID, setUSerID] = useState('');
   const [screenName, setScreenName] = useState('originScreen');
   const [originLocation, setOriginLocation] = useState('');
   const [destinationLocation, setDestinationLocation] = useState('');
@@ -47,10 +32,14 @@ const BookingScreen = () => {
 
   function registerTrip(screen) {
     setScreenName(screen);
-    db.collection('trips-' + userID)
-      .add(tripData)
-      .then(() => {})
-      .catch(() => {});
+    const user = firebase.auth().currentUser;
+    if (user) {
+      // setUSerID(user.uid);
+      db.collection('trips-' + user.uid)
+        .add(tripData)
+        .then(() => {})
+        .catch(() => {});
+    }
   }
   return (
     <View>
