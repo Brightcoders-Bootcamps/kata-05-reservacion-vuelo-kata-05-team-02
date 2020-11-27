@@ -17,12 +17,12 @@ const PassengerScreen = (props) => {
     setPassengers,
     setScreenName,
     fillInfo,
+    registerTrip
   } = props;
 
   const originLocationArray = originLocation.split(',');
   const originCity = originLocationArray[0];
   const originCountry = originLocationArray[1];
-
   const destinationLocationArray = destinationLocation.split(',');
   const destinationCity = destinationLocationArray[0];
   const destinationCountry = destinationLocationArray[1];
@@ -47,7 +47,7 @@ const PassengerScreen = (props) => {
       </View>
       <BtnNext
         enable={passengers}
-        setScreenName={setScreenName}
+        setScreenName={registerTrip}
         nextScreen={'confirmationscreen'}
         marginTop={200}
       />

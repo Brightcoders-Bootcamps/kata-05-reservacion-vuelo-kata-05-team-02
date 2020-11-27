@@ -13,12 +13,14 @@ import MyFlights from './screens/myFlights';
 import BookingScreen from './screens/bookingScreen';
 
 const App: () => React$Node = () => {
+
+
   return (
     <>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
       <SafeAreaView>
         {/* <MyFlights /> */}
-        <BookingScreen />
+        <MainScreen />
       </SafeAreaView>
     </>
   );
