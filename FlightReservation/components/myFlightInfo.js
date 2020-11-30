@@ -1,10 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Text, Image} from 'react-native';
 import colors from '../src/colors';
-import LocationComponent from './flightsComponents/locationComponent';
-import AirplaneIcon from './flightsComponents/airplaneIcon';
-import DateFlight from './flightsComponents/dateFlight';
-import NumPassengers from './flightsComponents/numPassengers';
 import TripInfo from '../components/tripInfo';
 
 function MyFlightInfo(props) {

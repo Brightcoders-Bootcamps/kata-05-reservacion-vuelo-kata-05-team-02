@@ -9,26 +9,25 @@ import BtnNext from '../components/flightsComponents/btnNext';
 
 const PassengerScreen = () => {
   return (
-    <View
-      style={{
-        padding: 30,
-      }}>
+    <View style={style.container}>
       <View style={[style.rowDirection, style.travelBottom]}>
         <LocationComponent city="Beg" country="Serbia" side="left" />
         <AirplaneIcon />
         <LocationComponent city="Beg" country="Serbia" side="right" />
       </View>
       <TitleFlight title={'How many passengers?'} marginTop={20} />
-      <View style={{marginTop:100}}>
+      <View style={{marginTop: 100}}>
         <NumberPicker />
       </View>
-      
       <BtnNext marginTop={200} />
     </View>
   );
 };
 
 const style = StyleSheet.create({
+  container: {
+    padding: 30,
+  },
   titleFont: {
     fontSize: 35,
     fontWeight: 'bold',
