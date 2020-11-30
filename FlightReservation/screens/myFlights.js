@@ -20,35 +20,35 @@ const MyFlights = () => {
   const [reloadData, setReloadData] = useState(false);
 
   useEffect(() => {
-    setListFlights([]);
-    const user = firebase.auth().currentUser;
-    if (user) {
-      db.collection('trips-' + user.uid)
-        .orderBy('date', 'asc')
-        .get()
-        .then((response) => {
-          const itemsArray = [];
-          response.forEach((doc) => {
-            const data = doc.data();
-            data.id = doc.id;
-            itemsArray.push(data);
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log('logeado');
+        console.log(user.uid);
+        setListFlights([]);
+        db.collection('trips-' + user.uid)
+          .orderBy('date', 'asc')
+          .get()
+          .then((response) => {
+            const itemsArray = [];
+            response.forEach((doc) => {
+              const data = doc.data();
+              data.id = doc.id;
+              itemsArray.push(data);
+            });
+            setListFlights(itemsArray);
           });
-          setListFlights(itemsArray);
-        });
-    }
-    setReloadData(false);
+        setReloadData(false);
+      }
+    });
   }, [reloadData]);
 
   return (
     <>
       <Text style={styles.header}>{strings.titleMyFlights}</Text>
       <ScrollView>
-        {listFlights.length != 0 ?
-          (listFlights.map((item, index) => {
-            return <MyFlightInfo key={index} item={item} />;
-          }))
-          : <Text>sddd</Text>
-        }
+        {listFlights.map((item, index) => {
+          return <MyFlightInfo key={index} item={item} />;
+        })}
       </ScrollView>
       <TouchableOpacity
         style={styles.plusbutton}
