@@ -10,6 +10,8 @@ const strings = {
     titleMyFlights: 'My Flights',
     subscribe : 'Subscribe for select products and updates',
     selectPLace:'Select a location',
+    destinationQuestion: 'Where will you be flying to? ',
+    originQuestion: 'Where are you now?',
 };
   
   export default strings;

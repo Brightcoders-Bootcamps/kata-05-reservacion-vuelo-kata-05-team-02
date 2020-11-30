@@ -119,7 +119,6 @@ const MainScreen = () => {
           .then(() => {})
           .catch(() => {});
           const user = firebase.auth().currentUser;
-          console.log(user);
         setTimeout(function () {
           setModalVisible(false);
           setIsIconCheck(true);

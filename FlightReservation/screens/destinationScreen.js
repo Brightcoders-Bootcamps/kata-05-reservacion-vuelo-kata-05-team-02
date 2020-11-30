@@ -6,6 +6,7 @@ import TitleFlight from '../components/flightsComponents/titleFlight';
 import InputFlight from '../components/flightsComponents/inputFlight';
 import LocationComponent from '../components/flightsComponents/locationComponent';
 import AirplaneIcon from '../components/flightsComponents/airplaneIcon';
+import strings from '../src/strings';
 
 const OriginScreen = (props) => {
   const {
@@ -13,7 +14,7 @@ const OriginScreen = (props) => {
     destinationLocation,
     setDestinationLocation,
     setScreenName,
-    fillInfo
+    fillInfo,
   } = props;
 
   onChangeLocation = (location) => {
@@ -31,7 +32,7 @@ const OriginScreen = (props) => {
         <LocationComponent city={city} country={country} side="left" />
         <AirplaneIcon />
       </View>
-      <TitleFlight title={'Where will you be flying to? '} marginTop={20} />
+      <TitleFlight title={strings.destinationQuestion} marginTop={20} />
       <InputFlight
         location={destinationLocation}
         onChangeLocation={onChangeLocation}

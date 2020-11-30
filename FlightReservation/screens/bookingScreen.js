@@ -34,7 +34,6 @@ const BookingScreen = () => {
     setScreenName(screen);
     const user = firebase.auth().currentUser;
     if (user) {
-      // setUSerID(user.uid);
       db.collection('trips-' + user.uid)
         .add(tripData)
         .then(() => {})
@@ -79,7 +78,6 @@ const BookingScreen = () => {
           destinationLocation={destinationLocation}
           passengers={passengers}
           setPassengers={setPassengers}
-          //setScreenName={setScreenName}
           tripDate={tripDate}
           fillInfo={fillInfo}
           registerTrip={registerTrip}
