@@ -11,15 +11,18 @@ import {SafeAreaView, StatusBar} from 'react-native';
 import MainScreen from './screens/mainScreen';
 import MyFlights from './screens/myFlights';
 import BookingScreen from './screens/bookingScreen';
+import 'react-native-gesture-handler';
+import {NavigationContainer} from '@react-navigation/native';
+import Navigation from './components/navigation';
+
 
 const App: () => React$Node = () => {
-
   return (
     <>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
-      <SafeAreaView>
-        <BookingScreen />
-      </SafeAreaView>
+      <NavigationContainer>
+        <Navigation />
+      </NavigationContainer>
     </>
   );
 };

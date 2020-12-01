@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Text, Image} from 'react-native';
+import airplane from '../img/flight.png';
 import colors from '../src/colors';
 import LocationComponent from './flightsComponents/locationComponent';
 import AirplaneIcon from './flightsComponents/airplaneIcon';
@@ -36,6 +37,10 @@ function MyFlightInfo(props) {
 }
 
 const styles = StyleSheet.create({
+  padding25: {
+    paddingLeft: 25,
+    paddingRight: 25,
+  },
   header: {
     fontSize: 30,
     color: colors.bluePrimary,
@@ -57,6 +62,22 @@ const styles = StyleSheet.create({
   rowDirection: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  origin: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  originComplete: {
+    fontWeight: '200',
+  },
+  font16: {
+    fontSize: 16,
+  },
+  iconCheck: {
+    tintColor: colors.bluePrimary,
+    height: 20,
+    width: 25,
   },
 });
 

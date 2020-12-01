@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {
+  View,
   StyleSheet,
   Text,
   ScrollView,
   TouchableOpacity,
   Dimensions,
   Image,
+  Button,
 } from 'react-native';
 import MyFlightInfo from '../components/myFlightInfo';
 import colors from '../src/colors';
@@ -18,6 +20,9 @@ const db = firebase.firestore(firebase);
 const MyFlights = () => {
   const [listFlights, setListFlights] = useState([]);
   const [reloadData, setReloadData] = useState(false);
+  function goBack(){    
+    navigation.goBack();
+  }
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -41,10 +46,12 @@ const MyFlights = () => {
       }
     });
   }, [reloadData]);
-
   return (
     <>
       <Text style={styles.header}>{strings.titleMyFlights}</Text>
+      <Button title="Go back button" onPress={goBack}>
+        <Text>Go Back</Text>
+      </Button>
       <ScrollView>
         {listFlights.map((item, index) => {
           return <MyFlightInfo key={index} item={item} />;

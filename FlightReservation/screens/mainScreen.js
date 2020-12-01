@@ -13,7 +13,8 @@ firebase.firestore().settings({experimentalForceLongPolling: true});
 const db = firebase.firestore(firebase);
 LogBox.ignoreLogs(['Setting a timer']);
 
-const MainScreen = () => {
+const MainScreen = (props) => {
+  const {navigation} = props;
   const formObject = {
     name: '',
     email: '',
@@ -29,7 +30,7 @@ const MainScreen = () => {
   const [singedText, setSignetText] = useState('');
   const [isIconCheck, setIsIconCheck] = useState(true);
   const [loggedIn, setloggedIn] = useState(false);
-  const [userInfo, setuserInfo] = useState([]);
+  const [userInfo, setuserInfo] = useState({});
 
   const addFill = (propierty, value) => {
     setFormObjectState({
@@ -39,16 +40,26 @@ const MainScreen = () => {
   };
   React.useEffect(() => {
     if (isLoginFormActive) {
-      formObject.agreed = true;
-      formObject.subscribed = true;
-      formObject.name = '';
-      setFormObjectState(formObject);
+      const dataLoginDefault = {
+        name: '-',
+        email: '',
+        password: '',
+        agreed: true,
+        subscribed: true,
+      };
+      setFormObjectState(dataLoginDefault);
     } else {
-      formObject.agreed = false;
-      formObject.subscribed = false;
-      formObject.name = '';
-      setFormObjectState(formObject);
+      const dataLoginDefault = {
+        name: '',
+        email: '',
+        password: '',
+        agreed: false,
+        subscribed: false,
+      };
+      setFormObjectState(dataLoginDefault);
     }
+    setValidEmail(true);
+    setValidPassword(true);
   }, [isLoginFormActive]);
 
   const showModal = () => {
@@ -56,10 +67,7 @@ const MainScreen = () => {
     let textModal = isLoginFormActive ? 'Logging In...' : 'Signing Up...';
     setSignetText(textModal);
     setTimeout(function () {
-      setIsIconCheck(false);
       SignUpOrLoginAction();
-      textModal = isLoginFormActive ? 'Logged In' : 'Signed Up';
-      setSignetText(textModal);
     }, 3000);
   };
 
@@ -67,7 +75,11 @@ const MainScreen = () => {
     setValidEmail(true);
     setValidPassword(true);
     if (isLoginFormActive) {
-      // login action
+      const userData = {
+        email: formObjectState.email,
+        password: formObjectState.password,
+      };
+      firebaseAuthLogIn(userData);
     } else {
       const data = {
         firstName: formObjectState.name,
@@ -85,7 +97,12 @@ const MainScreen = () => {
     let textModal = isLoginFormActive ? 'Logging In...' : 'Signing Up...';
     setSignetText(textModal);
     if (isLoginFormActive) {
-      // login action
+      const dataGoogle = await GoogleSignin.signIn();
+      const userData = {
+        email: dataGoogle.user.email,
+        password: dataGoogle.user.id,
+      };
+      firebaseAuthLogIn(userData);
     } else {
       const data = {
         firstName: '',
@@ -108,21 +125,27 @@ const MainScreen = () => {
       .auth()
       .createUserWithEmailAndPassword(data.email, data.password)
       .then(() => {
-        setIsIconCheck(false);
-        let textModal = isLoginFormActive ? 'Logged In...' : 'Signed Up...';
-        setSignetText(textModal);
-        setValidEmail(true);
-        setValidPassword(true);
-
         db.collection('usuario')
           .add(data)
           .then(() => {})
           .catch(() => {});
+
           const user = firebase.auth().currentUser;
+        setIsIconCheck(false);
+        let textModal = isLoginFormActive ? 'Logged In' : 'Signed Up';
+        setSignetText(textModal);
+        setValidEmail(true);
+        setValidPassword(true);
         setTimeout(function () {
           setModalVisible(false);
           setIsIconCheck(true);
         }, 1000);
+
+        firebase.auth().onAuthStateChanged((user) => {
+          if (user) {
+            navigation.navigate('Flights');
+          }
+        });
         setFormObjectState(formObject);
       })
       .catch((e) => {
@@ -145,6 +168,32 @@ const MainScreen = () => {
             setValidPassword(false);
             break;
         }
+      });
+  }
+
+  function firebaseAuthLogIn(UserData) {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(UserData.email, UserData.password)
+      .then((response) => {
+        setIsIconCheck(false);
+        let textModal = isLoginFormActive ? 'Logged In' : 'Signed Up';
+        setSignetText(textModal);
+        setValidEmail(true);
+        setValidPassword(true);
+        setTimeout(function () {
+          setModalVisible(false);
+          setIsIconCheck(true);
+        }, 1000);
+
+        navigation.navigate('Flights');
+      })
+      .catch(() => {
+        setValidPassword(false);
+        setTimeout(function () {
+          setModalVisible(false);
+          setIsIconCheck(true);
+        }, 1000);
       });
   }
 
