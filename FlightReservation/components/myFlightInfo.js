@@ -5,9 +5,29 @@ import colors from '../src/colors';
 import TripInfo from '../components/tripInfo';
 
 function MyFlightInfo(props) {
+  const {item} = props;
+
+  const originLocationArray = item.origin.split(',');
+  const originCity = originLocationArray[0];
+  const originCountry = originLocationArray[1];
+  const destinationLocationArray = item.destination.split(',');
+  const destinationCity = destinationLocationArray[0];
+  const destinationCountry = destinationLocationArray[1];
+  const tripDate = item.date;
+  const passengers = item.passengers;
+
   return (
     <View style={{paddingLeft: 25, paddingRight: 25}}>
-      <TripInfo borderBtm={1} marginTop={0} />
+      <TripInfo
+        borderBtm={1}
+        marginTop={0}
+        originCity={originCity}
+        originCountry={originCountry}
+        destinationCity={destinationCity}
+        destinationCountry={destinationCountry}
+        tripDate={tripDate}
+        passengers={passengers}
+      />
     </View>
   );
 }

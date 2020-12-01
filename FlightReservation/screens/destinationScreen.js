@@ -6,16 +6,43 @@ import TitleFlight from '../components/flightsComponents/titleFlight';
 import InputFlight from '../components/flightsComponents/inputFlight';
 import LocationComponent from '../components/flightsComponents/locationComponent';
 import AirplaneIcon from '../components/flightsComponents/airplaneIcon';
-const OriginScreen = () => {
+import strings from '../src/strings';
+
+const OriginScreen = (props) => {
+  const {
+    originLocation,
+    destinationLocation,
+    setDestinationLocation,
+    setScreenName,
+    fillInfo,
+  } = props;
+
+  onChangeLocation = (location) => {
+    fillInfo("destination",location);
+    setDestinationLocation(location);
+  };
+
+  const originLocationArray = originLocation.split(',');
+  const city = originLocationArray[0];
+  const country = originLocationArray[1];
+
   return (
     <View style={style.container}>
       <View style={[style.rowDirection, style.travelBottom]}>
-        <LocationComponent city="BEG" country="Serbia" side="left" />
+        <LocationComponent city={city} country={country} side="left" />
         <AirplaneIcon />
       </View>
-      <TitleFlight title={'Where will you be flying to? '} marginTop={20} />
-      <InputFlight />
-      <BtnNext marginTop={250}/>
+      <TitleFlight title={strings.destinationQuestion} marginTop={20} />
+      <InputFlight
+        location={destinationLocation}
+        onChangeLocation={onChangeLocation}
+      />
+      <BtnNext
+        enable={destinationLocation}
+        setScreenName={setScreenName}
+        nextScreen={'datescreen'}
+        marginTop={250}
+      />
     </View>
   );
 };

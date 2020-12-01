@@ -6,20 +6,51 @@ import LocationComponent from '../components/flightsComponents/locationComponent
 import AirplaneIcon from '../components/flightsComponents/airplaneIcon';
 import TitleFlight from '../components/flightsComponents/titleFlight';
 import BtnNext from '../components/flightsComponents/btnNext';
+import TripInfo from '../components/tripInfo';
 
-const PassengerScreen = () => {
+const PassengerScreen = (props) => {
+  const {
+    originLocation,
+    destinationLocation,
+    tripDate,
+    passengers,
+    setPassengers,
+    setScreenName,
+    fillInfo,
+    registerTrip
+  } = props;
+
+  const originLocationArray = originLocation.split(',');
+  const originCity = originLocationArray[0];
+  const originCountry = originLocationArray[1];
+  const destinationLocationArray = destinationLocation.split(',');
+  const destinationCity = destinationLocationArray[0];
+  const destinationCountry = destinationLocationArray[1];
+
   return (
-    <View style={style.container}>
-      <View style={[style.rowDirection, style.travelBottom]}>
-        <LocationComponent city="Beg" country="Serbia" side="left" />
-        <AirplaneIcon />
-        <LocationComponent city="Beg" country="Serbia" side="right" />
-      </View>
+    <View
+      style={{
+        padding: 30,
+      }}>
+      <TripInfo
+        borderBtm={0}
+        marginTop={0}
+        originCity={originCity}
+        originCountry={originCountry}
+        destinationCity={destinationCity}
+        destinationCountry={destinationCountry}
+        tripDate={tripDate}
+      />
       <TitleFlight title={'How many passengers?'} marginTop={20} />
       <View style={{marginTop: 100}}>
-        <NumberPicker />
+        <NumberPicker setPassengers={setPassengers} fillInfo={fillInfo} />
       </View>
-      <BtnNext marginTop={200} />
+      <BtnNext
+        enable={passengers}
+        setScreenName={registerTrip}
+        nextScreen={'confirmationscreen'}
+        marginTop={200}
+      />
     </View>
   );
 };

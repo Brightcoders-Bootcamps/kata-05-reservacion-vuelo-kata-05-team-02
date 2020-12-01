@@ -357,6 +357,7 @@ PODS:
     - React-Core (= 0.63.3)
     - React-cxxreact (= 0.63.3)
     - React-jsi (= 0.63.3)
+    - React-Core
   - RNCCheckbox (0.5.5):
     - React
   - RNCMaskedView (0.1.10):

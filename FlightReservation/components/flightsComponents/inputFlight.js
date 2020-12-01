@@ -4,11 +4,20 @@ import colors from '../../src/colors';
 import strings from '../../src/strings';
 
 function InputFlight(props) {
+  const {location, onChangeLocation} = props;
+
   return (
     <View style={style.container}>
       <TextInput
         placeholder={strings.selectPLace}
-        style={style.textInput}></TextInput>
+        style={[
+          style.textInput,
+          {
+            borderBottomColor: location ? colors.bluePrimary : colors.grayLight,
+          },
+        ]}
+        onChange={(e) => onChangeLocation(e.nativeEvent.text)}
+      />
     </View>
   );
 }
@@ -17,7 +26,6 @@ const style = StyleSheet.create({
     margin: 20,
   },
   textInput: {
-    borderBottomColor: colors.grayLight,
     borderBottomWidth: 1,
     marginTop: 100,
     fontSize: 20,
