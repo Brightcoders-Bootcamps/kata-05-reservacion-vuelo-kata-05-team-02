@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -13,14 +13,39 @@ import MyFlightInfo from '../components/myFlightInfo';
 import colors from '../src/colors';
 import strings from '../src/strings';
 import plus from '../img/plus.png';
-import Navigation from '../components/navigation';
+import {firebase} from '../bdd/configFirebase';
+firebase.firestore().settings({experimentalForceLongPolling: true});
+const db = firebase.firestore(firebase);
 
-
-const MyFlights = (props) => {
-  const {navigation} = props;
+const MyFlights = () => {
+  const [listFlights, setListFlights] = useState([]);
+  const [reloadData, setReloadData] = useState(false);
   function goBack(){    
     navigation.goBack();
   }
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log('logeado');
+        console.log(user.uid);
+        setListFlights([]);
+        db.collection('trips-' + user.uid)
+          .orderBy('date', 'asc')
+          .get()
+          .then((response) => {
+            const itemsArray = [];
+            response.forEach((doc) => {
+              const data = doc.data();
+              data.id = doc.id;
+              itemsArray.push(data);
+            });
+            setListFlights(itemsArray);
+          });
+        setReloadData(false);
+      }
+    });
+  }, [reloadData]);
   return (
     <>
       <Text style={styles.header}>{strings.titleMyFlights}</Text>
@@ -28,9 +53,16 @@ const MyFlights = (props) => {
         <Text>Go Back</Text>
       </Button>
       <ScrollView>
-        <MyFlightInfo />
+        {listFlights.map((item, index) => {
+          return <MyFlightInfo key={index} item={item} />;
+        })}
       </ScrollView>
-      <TouchableOpacity style={styles.plusbutton}>
+      <TouchableOpacity
+        style={styles.plusbutton}
+        onPress={() => {
+          setReloadData(true);
+          console.log(listFlights);
+        }}>
         <Image style={styles.plusbuttonContent} source={plus} />
       </TouchableOpacity>
     </>
@@ -53,7 +85,7 @@ const styles = StyleSheet.create({
     height: 70,
     alignSelf: 'center',
     position: 'absolute',
-    marginTop: Dimensions.get('window').height / 1.3,
+    marginTop: Dimensions.get('window').height / 1.15,
     justifyContent: 'center',
     alignItems: 'center',
   },

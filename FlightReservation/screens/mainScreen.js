@@ -130,6 +130,7 @@ const MainScreen = (props) => {
           .then(() => {})
           .catch(() => {});
 
+          const user = firebase.auth().currentUser;
         setIsIconCheck(false);
         let textModal = isLoginFormActive ? 'Logged In' : 'Signed Up';
         setSignetText(textModal);
