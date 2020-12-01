@@ -13,7 +13,7 @@ import MyFlights from './screens/myFlights';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import Navigation from './components/navigation';
-
+import BookingScreen from './screens/bookingScreen';
 
 const App: () => React$Node = () => {
   return (

@@ -364,7 +364,7 @@ PODS:
   - RNFBApp (8.4.7):
     - Firebase/CoreOnly (= 6.34.0)
     - React-Core
-  - RNFBAuth (9.3.2):
+  - RNFBAuth (9.3.5):
     - Firebase/Auth (= 6.34.0)
     - React-Core
     - RNFBApp

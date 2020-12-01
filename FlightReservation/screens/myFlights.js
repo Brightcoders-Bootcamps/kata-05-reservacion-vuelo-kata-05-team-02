@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     height: 70,
     alignSelf: 'center',
     position: 'absolute',
-    marginTop: Dimensions.get('window').height / 1.3,
+    marginTop: Dimensions.get('window').height / 1.15,
     justifyContent: 'center',
     alignItems: 'center',
   },
